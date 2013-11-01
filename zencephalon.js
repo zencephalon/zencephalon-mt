@@ -1,5 +1,24 @@
 Proses = new Meteor.Collection("proses");
 
+Router.configure({
+  layoutTemplate: 'layout'
+});
+
+Router.map(function() {
+  this.route('home', {
+    path: '/',
+    template: 'home'
+  });
+
+  this.route('prose', {
+    path: '/p/:_id',
+    template: 'prose_new',
+    data: function() {
+      return {prose: Proses.findOne({_id: this.params._id})};
+    }
+  })
+});
+
 if (Meteor.isClient) {
   Template.hello.greeting = function () {
     return Session.get("selected_prose");

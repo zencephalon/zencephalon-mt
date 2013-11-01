@@ -1,29 +1,53 @@
+<template name="layout">
+  <head>
+    <link rel="Stylesheet" type="text/css" href="/style.css" />
+    <title>zencephalon: my brain on zen</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href='http://fonts.googleapis.com/css?family=Vollkorn:400italic,400' rel='stylesheet' type='text/css'>
+  </head>
 
-<head>
-  <link rel="Stylesheet" type="text/css" href="style.css" />
-  <title>zencephalon: my brain on zen</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <link href='http://fonts.googleapis.com/css?family=Vollkorn:400italic,400' rel='stylesheet' type='text/css'>
-</head>
+  <body>
+    <div id="content">
+    {{yield}}
+    </div>
+  </body>
+</template>
 
-<body>
-  <div id="content">
+<template name="home">
   {{> hello}}
   {{#if currentUser}}
-    {{> prose_edit}}
+  {{> prose_edit}}
   {{else}}
-    {{> prose_view}}
+  {{> prose_view}}
   {{/if}}
   {{> list_proses}}
-  </div>
-</body>
+</template>
+
+<template name="prose">
+  {{> hello}}
+  {{#if currentUser}}
+  {{> prose_edit}}
+  {{else}}
+  {{> prose_view}}
+  {{/if}}
+  {{> list_proses}}
+</template>
+
+<template name="prose_new">
+  {{> hello}}
+  {{#if currentUser}}
+  {{> prose_edit_new}}
+  {{else}}
+  {{> prose_view_new}}
+  {{/if}}
+</template>
 
 <template name="hello">
   {{loginButtons}}
 
   <a href="https://github.com/zencephalon"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
     <header>
-      <a href="http://zencephalon.com"><img src="zenchinese.png" /></a>
+      <a href="http://zencephalon.com"><img src="/zenchinese.png" /></a>
     </header>
 
     <h1>my brain on zen</h1>
@@ -41,7 +65,18 @@
   {{/if}}
 </template>
 
+<template name="prose_edit_new">
+  <input type="text" id="prose_title" value="{{prose.title}}" />
+  <textarea id="prose_text">{{prose.text}}</textarea>
+  <input type="button" class="save_existing" value="Save!" />
+</template>
+
 <template name="prose_view">
+  <h2>{{prose.title}}</h2>
+  <p>{{prose.text}}</p>
+</template>
+
+<template name="prose_view_new">
   <h2>{{prose.title}}</h2>
   <p>{{prose.text}}</p>
 </template>
