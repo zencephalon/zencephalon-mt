@@ -64,7 +64,7 @@ code {
   font-family: Georgia; line-height:100%; margin-top: 0.5em; margin-bottom: 0.5em; color: #36AECC; font-style: italic; font-weight: 400;
 }
 
-#prose_text {
+textarea {
   font-family: Vollkorn; font-size: 130%; line-height: 130%; 
   width: 100%;
 }

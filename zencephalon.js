@@ -66,6 +66,20 @@ if (Meteor.isClient) {
     }
   });
 
+  Template.prose_edit.settings = function() {
+    return {
+      position: "bottom",
+      limit: 5,
+      rules: [
+      {
+        token: '](',
+        collection: Proses,
+        field: "url",
+        template: Template.prose_url
+      }]
+    }
+  }
+
   Template.prose_view.prose = Template.prose_edit.prose;
 
   Template.list_proses.proses = function() {
@@ -75,7 +89,7 @@ if (Meteor.isClient) {
 
 if (Meteor.isServer) {
   Meteor.startup(function () {
-    Proses.remove({});
+    //Proses.remove({});
     if (Proses.find().count() === 0) {
       Proses.insert({title: "My Brain on Zen", text: "I'm Matthew Bunday and I love you.", url: "index"});
       Proses.insert({title: "I love Daria!", text: "Daria is seriously the best.", url: "i_love_daria"});
