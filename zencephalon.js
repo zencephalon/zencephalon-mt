@@ -10,42 +10,33 @@ Router.map(function() {
     template: 'home',
     data: function() {
       return {prose: Proses.findOne({home: true})};
+    },
+    before: function() {
+      Session.set("selected_prose", this.getData().prose);
     }
   });
 
   this.route('prose', {
     path: '/p/:_id',
-    template: 'prose_new',
+    template: 'prose',
     data: function() {
       return {prose: Proses.findOne({_id: this.params._id})};
     }
-  })
+  });
 });
 
 if (Meteor.isClient) {
-  Template.prose_edit.prose_selected = function() {
-    return !(Session.get("selected_prose") === undefined);
-  }
-
-  Template.prose_edit.prose = function() {
-    if (Template.prose_edit.prose_selected()) {
-      return Session.get("selected_prose");
-    }
-    return {title: "New Prose", text: "Start your new piece of prose here..."}
-  }
-
   Template.prose_edit.live_prose = function() {
     var title = $("#prose_title").val();
     var text = $("#prose_text").val();
     return {title: title, text: text};
   }
 
+  Template.prose_edit.prose = function() {
+    return Session.get("selected_prose");
+  }
+
   Template.prose_edit.events({
-    'click input.save_new': function() {
-      var prose = Template.prose_edit.live_prose();
-      prose['live'] = true;
-      Proses.insert(prose);
-    },
     'click input.save_existing': function() {
       var prose = Template.prose_edit.prose();
       var live_prose = Template.prose_edit.live_prose();

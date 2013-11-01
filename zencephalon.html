@@ -16,15 +16,20 @@
       </header>
 
       {{yield}}
+        <footer>
+          <hr>
+          By Matthew Bunday. Please plagiarize me. My goal is maximum distribution by any means. I could not be more delighted than if you were to take my words as your own.
+        </footer>
+      </div>
     </div>
   </body>
 </template>
 
 <template name="home">
   {{#if currentUser}}
-  {{> prose_edit_new}}
+  {{> prose_edit}}
   {{else}}
-  {{> prose_view_new}}
+  {{> prose_view}}
   {{/if}}
   {{> list_proses}}
 </template>
@@ -35,41 +40,15 @@
   {{else}}
   {{> prose_view}}
   {{/if}}
-  {{> list_proses}}
-</template>
-
-<template name="prose_new">
-  {{#if currentUser}}
-  {{> prose_edit_new}}
-  {{else}}
-  {{> prose_view_new}}
-  {{/if}}
 </template>
 
 <template name="prose_edit">
-  <input type="text" id="prose_title" value="{{prose.title}}" />
-  <br/>
-  <textarea id="prose_text">{{prose.text}}</textarea>
-  <br/>
-  {{#if prose_selected}}
-    <input type="button" class="save_existing" value="Save!" />
-  {{else}}
-    <input type="button" class="save_new" value="Save new!" />
-  {{/if}}
-</template>
-
-<template name="prose_edit_new">
   <input type="text" id="prose_title" value="{{prose.title}}" />
   <textarea id="prose_text">{{prose.text}}</textarea>
   <input type="button" class="save_existing" value="Save!" />
 </template>
 
 <template name="prose_view">
-  <h2>{{prose.title}}</h2>
-  <p>{{prose.text}}</p>
-</template>
-
-<template name="prose_view_new">
   <h2>{{prose.title}}</h2>
   <p>{{prose.text}}</p>
 </template>
