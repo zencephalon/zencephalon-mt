@@ -16,6 +16,14 @@ if (Meteor.isClient) {
     return {title: "New Prose", text: "Start your new piece of prose here..."}
   }
 
+  Template.prose.events({
+    'click input.save_new': function() {
+      var title = document.getElementById("prose_title").value;
+      var text = document.getElementById("prose_text").value;
+      Proses.insert({title: title, text: text, live: true});
+    }
+  })
+
   Template.list_proses.proses = function() {
     return Proses.find({live: true});
   }

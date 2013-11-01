@@ -9,15 +9,21 @@
 </body>
 
 <template name="hello">
-  <h1>Hello World!</h1>
-  {{greeting}}
-  <input type="button" value="Click" />
+  <h1>Welcome to Prosedy!</h1>
   {{loginButtons}}
 </template>
 
 <template name="prose">
-<h1>{{prose.title}}</h1>
-<textarea>{{prose.text}}</textarea>
+  <br/>
+  <input type="text" id="prose_title" value="{{prose.title}}" />
+  <br/>
+  <textarea id="prose_text">{{prose.text}}</textarea>
+  <br/>
+  {{#if prose_selected}}
+    <input type="button" class="save_existing" value="Save!" />
+  {{else}}
+    <input type="button" class="save_new" value="Save new!" />
+  {{/if}}
 </template>
 
 <template name="list_proses">
@@ -28,6 +34,5 @@
 </template>
 
 <template name="list_prose">
-<span class="title">{{title}}</span><br/>
-<br/>
+<a href="#">{{title}}</a>
 </template>
