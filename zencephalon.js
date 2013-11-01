@@ -21,8 +21,22 @@ Router.map(function() {
     template: 'prose',
     data: function() {
       return {prose: Proses.findOne({_id: this.params._id})};
+    },
+    before: function() {
+      Session.set("selected_prose", this.getData().prose);
     }
   });
+
+  this.route('prose_new', {
+    path: '/p/new',
+    template: 'prose',
+    data: function() {
+      return {prose: {title: "New Prose", text: ""}};
+    },
+    before: function() {
+      Session.set("selected_prose", null);
+    }
+  })
 });
 
 if (Meteor.isClient) {
@@ -37,27 +51,31 @@ if (Meteor.isClient) {
   }
 
   Template.prose_edit.events({
-    'click input.save_existing': function() {
-      var prose = Template.prose_edit.prose();
+    'click input.save': function() {
       var live_prose = Template.prose_edit.live_prose();
-      prose['title'] = live_prose['title'];
-      prose['text'] = live_prose['text'];
-      Proses.update(prose['_id'], prose);
+      var prose = Template.prose_edit.prose();
+      if (prose !== null && prose !== undefined) {
+        prose['title'] = live_prose['title'];
+        prose['text'] = live_prose['text'];
+        Proses.update(prose['_id'], prose);
+      } else {
+        Proses.insert(live_prose);
+      }
     }
   });
 
   Template.prose_view.prose = Template.prose_edit.prose;
 
   Template.list_proses.proses = function() {
-    return Proses.find({live: true});
+    return Proses.find({});
   }
 }
 
 if (Meteor.isServer) {
   Meteor.startup(function () {
-    Proses.remove({});
+    //Proses.remove({});
     if (Proses.find().count() === 0) {
-      Proses.insert({title: "Welcome to Prosedy!", text: "Prosedy is quick way to write.", live: true, home: true});
+      Proses.insert({title: "Welcome to Prosedy!", text: "Prosedy is quick way to write.", home: true});
     }
   });
 }
