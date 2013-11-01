@@ -17,8 +17,8 @@ if (Meteor.isClient) {
   }
 
   Template.prose_edit.live_prose = function() {
-    var title = document.getElementById("prose_title").value;
-    var text = document.getElementById("prose_text").value;
+    var title = $("#prose_title").val();
+    var text = $("#prose_text").val();
     return {title: title, text: text};
   }
 
