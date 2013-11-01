@@ -4,7 +4,11 @@
 
 <body>
   {{> hello}}
-  {{> prose}}
+  {{#if currentUser}}
+    {{> prose_edit}}
+  {{else}}
+    {{> prose_view}}
+  {{/if}}
   {{> list_proses}}
 </body>
 
@@ -13,8 +17,7 @@
   {{loginButtons}}
 </template>
 
-<template name="prose">
-  <br/>
+<template name="prose_edit">
   <input type="text" id="prose_title" value="{{prose.title}}" />
   <br/>
   <textarea id="prose_text">{{prose.text}}</textarea>
@@ -26,11 +29,18 @@
   {{/if}}
 </template>
 
+<template name="prose_view">
+  <h2>{{prose.title}}</h2>
+  <p>{{prose.text}}</p>
+</template>
+
 <template name="list_proses">
   <h1>Proses:</h1>
+  <ul>
   {{#each proses}}
-    {{> list_prose}}
+    <li>{{> list_prose}}</li>
   {{/each}}
+  </ul>
 </template>
 
 <template name="list_prose">

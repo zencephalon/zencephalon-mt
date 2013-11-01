@@ -5,37 +5,39 @@ if (Meteor.isClient) {
     return Session.get("selected_prose");
   };
 
-  Template.prose.prose_selected = function() {
+  Template.prose_edit.prose_selected = function() {
     return !(Session.get("selected_prose") === undefined);
   }
 
-  Template.prose.prose = function() {
-    if (Template.prose.prose_selected()) {
+  Template.prose_edit.prose = function() {
+    if (Template.prose_edit.prose_selected()) {
       return Session.get("selected_prose");
     }
     return {title: "New Prose", text: "Start your new piece of prose here..."}
   }
 
-  Template.prose.live_prose = function() {
+  Template.prose_edit.live_prose = function() {
     var title = document.getElementById("prose_title").value;
     var text = document.getElementById("prose_text").value;
     return {title: title, text: text};
   }
 
-  Template.prose.events({
+  Template.prose_edit.events({
     'click input.save_new': function() {
-      var prose = Template.prose.live_prose();
+      var prose = Template.prose_edit.live_prose();
       prose['live'] = true;
       Proses.insert(prose);
     },
     'click input.save_existing': function() {
-      var prose = Template.prose.prose();
-      var live_prose = Template.prose.live_prose();
+      var prose = Template.prose_edit.prose();
+      var live_prose = Template.prose_edit.live_prose();
       prose['title'] = live_prose['title'];
       prose['text'] = live_prose['text'];
       Proses.update(prose['_id'], prose);
     }
-  })
+  });
+
+  Template.prose_view.prose = Template.prose_edit.prose;
 
   Template.list_proses.proses = function() {
     return Proses.find({live: true});
