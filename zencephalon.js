@@ -9,7 +9,7 @@ Router.map(function() {
     path: '/',
     template: 'home',
     data: function() {
-      return {prose: Proses.findOne({home: true})};
+      return {prose: Proses.findOne({url: "index"})};
     },
     before: function() {
       Session.set("selected_prose", this.getData().prose);
@@ -17,10 +17,10 @@ Router.map(function() {
   });
 
   this.route('prose', {
-    path: '/p/:_id',
+    path: '/p/:url',
     template: 'prose',
     data: function() {
-      return {prose: Proses.findOne({_id: this.params._id})};
+      return {prose: Proses.findOne({url: this.params.url})};
     },
     before: function() {
       Session.set("selected_prose", this.getData().prose);
@@ -43,7 +43,8 @@ if (Meteor.isClient) {
   Template.prose_edit.live_prose = function() {
     var title = $("#prose_title").val();
     var text = $("#prose_text").val();
-    return {title: title, text: text};
+    var url = $("#prose_url").val();
+    return {title: title, text: text, url: url};
   }
 
   Template.prose_edit.prose = function() {
@@ -57,6 +58,7 @@ if (Meteor.isClient) {
       if (prose !== null && prose !== undefined) {
         prose['title'] = live_prose['title'];
         prose['text'] = live_prose['text'];
+        prose['url'] = live_prose['url'];
         Proses.update(prose['_id'], prose);
       } else {
         Proses.insert(live_prose);
@@ -73,9 +75,10 @@ if (Meteor.isClient) {
 
 if (Meteor.isServer) {
   Meteor.startup(function () {
-    //Proses.remove({});
+    Proses.remove({});
     if (Proses.find().count() === 0) {
-      Proses.insert({title: "Welcome to Prosedy!", text: "Prosedy is quick way to write.", home: true});
+      Proses.insert({title: "My Brain on Zen", text: "I'm Matthew Bunday and I love you.", url: "index"});
+      Proses.insert({title: "I love Daria!", text: "Daria is seriously the best.", url: "i_love_daria"});
     }
   });
 }

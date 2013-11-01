@@ -44,7 +44,10 @@
 
 <template name="prose_edit">
   <input type="text" id="prose_title" value="{{prose.title}}" />
+  <br>
   <textarea id="prose_text">{{prose.text}}</textarea>
+  <br>
+  <input type="text" id="prose_url" value="{{prose.url}}" />
   <input type="button" class="save" value="Save!" />
 </template>
 
@@ -63,5 +66,5 @@
 </template>
 
 <template name="list_prose">
-<a href="/p/{{_id}}">{{title}}</a>
+<a href="/p/{{url}}">{{title}}</a>
 </template>
