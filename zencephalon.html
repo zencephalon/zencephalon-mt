@@ -53,7 +53,7 @@
 
 <template name="prose_view">
   <h2>{{prose.title}}</h2>
-  <p>{{prose.text}}</p>
+  {{#markdown}}{{prose.text}}{{/markdown}}
 </template>
 
 <template name="list_proses">
