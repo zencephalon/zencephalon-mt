@@ -8,23 +8,28 @@
 
   <body>
     <div id="content">
-    {{yield}}
+      {{loginButtons}}
+
+      <a href="https://github.com/zencephalon"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+      <header>
+        <a href="/"><img src="/zenchinese.png" /></a>
+      </header>
+
+      {{yield}}
     </div>
   </body>
 </template>
 
 <template name="home">
-  {{> hello}}
   {{#if currentUser}}
-  {{> prose_edit}}
+  {{> prose_edit_new}}
   {{else}}
-  {{> prose_view}}
+  {{> prose_view_new}}
   {{/if}}
   {{> list_proses}}
 </template>
 
 <template name="prose">
-  {{> hello}}
   {{#if currentUser}}
   {{> prose_edit}}
   {{else}}
@@ -34,23 +39,11 @@
 </template>
 
 <template name="prose_new">
-  {{> hello}}
   {{#if currentUser}}
   {{> prose_edit_new}}
   {{else}}
   {{> prose_view_new}}
   {{/if}}
-</template>
-
-<template name="hello">
-  {{loginButtons}}
-
-  <a href="https://github.com/zencephalon"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
-    <header>
-      <a href="http://zencephalon.com"><img src="/zenchinese.png" /></a>
-    </header>
-
-    <h1>my brain on zen</h1>
 </template>
 
 <template name="prose_edit">
@@ -91,5 +84,5 @@
 </template>
 
 <template name="list_prose">
-<a href="#">{{title}}</a>
+<a href="/p/{{_id}}">{{title}}</a>
 </template>

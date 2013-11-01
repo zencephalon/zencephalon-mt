@@ -7,7 +7,10 @@ Router.configure({
 Router.map(function() {
   this.route('home', {
     path: '/',
-    template: 'home'
+    template: 'home',
+    data: function() {
+      return {prose: Proses.findOne({home: true})};
+    }
   });
 
   this.route('prose', {
@@ -20,10 +23,6 @@ Router.map(function() {
 });
 
 if (Meteor.isClient) {
-  Template.hello.greeting = function () {
-    return Session.get("selected_prose");
-  };
-
   Template.prose_edit.prose_selected = function() {
     return !(Session.get("selected_prose") === undefined);
   }
@@ -61,26 +60,13 @@ if (Meteor.isClient) {
   Template.list_proses.proses = function() {
     return Proses.find({live: true});
   }
-
-  Template.hello.events({
-    'click input' : function() {
-      // template data, if any, is available in 'this'
-      if (typeof console !== 'undefined')
-        console.log("You pressed the button");
-    }
-  });
-
-  Template.list_prose.events({
-    'click': function() {
-      Session.set("selected_prose", this);
-    }
-  })
 }
 
 if (Meteor.isServer) {
   Meteor.startup(function () {
+    Proses.remove({});
     if (Proses.find().count() === 0) {
-      Proses.insert({title: "Welcome to Prosedy!", text: "Prosedy is quick way to write.", live: true});
+      Proses.insert({title: "Welcome to Prosedy!", text: "Prosedy is quick way to write.", live: true, home: true});
     }
   });
 }
