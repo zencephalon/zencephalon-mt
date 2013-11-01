@@ -1,0 +1,33 @@
+<head>
+  <title>prosedy-md</title>
+</head>
+
+<body>
+  {{> hello}}
+  {{> prose}}
+  {{> list_proses}}
+</body>
+
+<template name="hello">
+  <h1>Hello World!</h1>
+  {{greeting}}
+  <input type="button" value="Click" />
+  {{loginButtons}}
+</template>
+
+<template name="prose">
+<h1>{{prose.title}}</h1>
+<textarea>{{prose.text}}</textarea>
+</template>
+
+<template name="list_proses">
+  <h1>Proses:</h1>
+  {{#each proses}}
+    {{> list_prose}}
+  {{/each}}
+</template>
+
+<template name="list_prose">
+<span class="title">{{title}}</span><br/>
+<br/>
+</template>
