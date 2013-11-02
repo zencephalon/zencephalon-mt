@@ -1,45 +1,38 @@
 <template name="layout">
   <head>
-    <link rel="Stylesheet" type="text/css" href="/style.css" />
     <title>zencephalon: my brain on zen</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link href='http://fonts.googleapis.com/css?family=Vollkorn:400italic,400' rel='stylesheet' type='text/css'>
+    <!--<link href='http://fonts.googleapis.com/css?family=Vollkorn:400italic,400' rel='stylesheet' type='text/css'>-->
   </head>
 
   <body>
     <div id="content">
       {{loginButtons}}
 
-      <a href="https://github.com/zencephalon"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+      <!--<a href="https://github.com/zencephalon"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>-->
       <header>
         <a href="/"><img src="/zenchinese.png" /></a>
       </header>
-
       {{yield}}
-        <footer>
-          <hr>
-          By Matthew Bunday. Please plagiarize me. My goal is maximum distribution by any means. I could not be more delighted than if you were to take my words as your own.
-        </footer>
-      </div>
+      <footer>
+        <hr>
+        By Matthew Bunday. Please plagiarize me. My goal is maximum distribution by any means. I could not be more delighted than if you were to take my words as your own.
+      </footer>
     </div>
   </body>
 </template>
 
-<template name="home">
-  {{#if currentUser}}
-  {{> prose_edit}}
-  {{else}}
-  {{> prose_view}}
-  {{/if}}
-  {{> list_proses}}
-</template>
-
 <template name="prose">
-  {{#if currentUser}}
-  {{> prose_edit}}
+  {{#unless currentUser}}
+    {{> prose_view}}
   {{else}}
-  {{> prose_view}}
-  {{/if}}
+    {{#if view_mode}}
+      {{> prose_view}}
+    {{else}}
+      {{> prose_edit}}
+    {{/if}}
+  {{/unless}}
+  {{> list_proses}}
 </template>
 
 <template name="prose_edit">
@@ -47,12 +40,12 @@
   <br>
 {{#textareaAutocomplete settings id="prose_text"}}{{prose.text}}{{/textareaAutocomplete}}
   <br>
-  <input type="text" id="prose_url" value="{{prose.url}}" />
+  <input type="text" id="prose_url" value="{{url}}" />
   <input type="button" class="save" value="Save!" />
 </template>
 
 <template name="prose_view">
-  <h2>{{prose.title}}</h2>
+  <h2 {{#if currentUser}}class="edit_toggle"{{/if}}>{{prose.title}}</h2>
   {{#markdown}}{{prose.text}}{{/markdown}}
 </template>
 
@@ -66,9 +59,9 @@
 </template>
 
 <template name="list_prose">
-<a href="/p/{{url}}">{{title}}</a>
+<a href="/{{url}}">{{title}}</a>
 </template>
 
 <template name="prose_url">
-Hello! {{url}}
+{{url}}
 </template>

@@ -7,64 +7,35 @@ Router.configure({
 Router.map(function() {
   this.route('home', {
     path: '/',
-    template: 'home',
-    data: function() {
-      return {prose: Proses.findOne({url: "index"})};
-    },
-    before: function() {
-      Session.set("selected_prose", this.getData().prose);
+    action: function() {
+      this.redirect("/index");
     }
   });
 
   this.route('prose', {
-    path: '/p/:url',
+    path: '/:url',
     template: 'prose',
     data: function() {
-      return {prose: Proses.findOne({url: this.params.url})};
+      return {prose: Proses.findOne({url: this.params.url}), url: this.params.url};
     },
     before: function() {
       Session.set("selected_prose", this.getData().prose);
     }
   });
-
-  this.route('prose_new', {
-    path: '/p/new',
-    template: 'prose',
-    data: function() {
-      return {prose: {title: "New Prose", text: ""}};
-    },
-    before: function() {
-      Session.set("selected_prose", null);
-    }
-  })
 });
 
 if (Meteor.isClient) {
   Template.prose_edit.live_prose = function() {
-    var title = $("#prose_title").val();
-    var text = $("#prose_text").val();
-    var url = $("#prose_url").val();
-    return {title: title, text: text, url: url};
+    var o = {};
+    ["title", "text", "url"].forEach(function(ele) {
+      o[ele] = $("#prose_" + ele).val();
+    });
+    return o;
   }
 
   Template.prose_edit.prose = function() {
     return Session.get("selected_prose");
   }
-
-  Template.prose_edit.events({
-    'click input.save': function() {
-      var live_prose = Template.prose_edit.live_prose();
-      var prose = Template.prose_edit.prose();
-      if (prose !== null && prose !== undefined) {
-        prose['title'] = live_prose['title'];
-        prose['text'] = live_prose['text'];
-        prose['url'] = live_prose['url'];
-        Proses.update(prose['_id'], prose);
-      } else {
-        Proses.insert(live_prose);
-      }
-    }
-  });
 
   Template.prose_edit.settings = function() {
     return {
@@ -79,6 +50,34 @@ if (Meteor.isClient) {
       }]
     }
   }
+
+  Template.prose_edit.events({
+    'click input.save': function() {
+      var live_prose = Template.prose_edit.live_prose();
+      var prose = Template.prose_edit.prose();
+      if (prose !== null && prose !== undefined) {
+        ["title", "text", "url"].forEach(function(ele) {
+          prose[ele] = live_prose[ele];
+        });
+        Proses.update(prose['_id'], prose);
+      } else {
+        Proses.insert(live_prose);
+      }
+      Session.set("view_mode", true);
+      Router.go(live_prose["url"]);
+    }
+  });
+
+  Template.prose.view_mode = function() {
+    return Session.get("view_mode");
+  }
+
+  Template.prose_view.events({
+    'click h2.edit_toggle': function() {
+      Session.set("view_mode", false);
+      Router.go(prose.url);
+    }
+  })
 
   Template.prose_view.prose = Template.prose_edit.prose;
 
