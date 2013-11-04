@@ -66,6 +66,7 @@ code {
 
 textarea {
   font-family: Vollkorn; font-size: 130%; line-height: 130%; 
+  height: 13em;
   width: 100%;
 }
 
