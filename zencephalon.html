@@ -1,6 +1,6 @@
 <template name="layout">
   <head>
-    <title>zencephalon: my brain on zen</title>
+    <title>zencephalon: {{prose.title}}</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <!--<link href='http://fonts.googleapis.com/css?family=Vollkorn:400italic,400' rel='stylesheet' type='text/css'>-->
   </head>
@@ -14,12 +14,16 @@
         <a href="/"><img src="/zenchinese.png" /></a>
       </header>
       {{yield}}
-      <footer>
-        <hr>
-        By Matthew Bunday. Please plagiarize me. My goal is maximum distribution by any means. I could not be more delighted than if you were to take my words as your own.
-      </footer>
+      {{footer}}
     </div>
   </body>
+</template>
+
+<template name="footer">
+  <footer>
+    <hr>
+    By Matthew Bunday. Please plagiarize me. My goal is maximum distribution by any means. I could not be more delighted than if you were to take my words as your own.
+  </footer>
 </template>
 
 <template name="prose">

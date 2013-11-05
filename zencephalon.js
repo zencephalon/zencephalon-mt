@@ -4,6 +4,15 @@ Router.configure({
   layoutTemplate: 'layout'
 });
 
+function getProse(url) {
+  var prose = Proses.findOne({url: url});
+  if (prose === undefined) {
+    return {title: url, url: url}
+  } else {
+    return prose;
+  }
+}
+
 Router.map(function() {
   this.route('home', {
     path: '/',
@@ -16,7 +25,7 @@ Router.map(function() {
     path: '/:url',
     template: 'prose',
     data: function() {
-      return {prose: Proses.findOne({url: this.params.url}), url: this.params.url};
+      return {prose: getProse(this.params.url)};
     },
     before: function() {
       Session.set("selected_prose", this.getData().prose);
