@@ -17,7 +17,7 @@ Router.map(function() {
   this.route('home', {
     path: '/',
     action: function() {
-      this.redirect("/index");
+      Router.go('prose', {url: 'index'})
     }
   });
 
@@ -64,7 +64,7 @@ if (Meteor.isClient) {
     'click input.save': function() {
       var live_prose = Template.prose_edit.live_prose();
       var prose = Template.prose_edit.prose();
-      if (prose !== null && prose !== undefined) {
+      if (prose._id !== undefined) {
         ["title", "text", "url"].forEach(function(ele) {
           prose[ele] = live_prose[ele];
         });
@@ -73,7 +73,7 @@ if (Meteor.isClient) {
         Proses.insert(live_prose);
       }
       Session.set("view_mode", true);
-      Router.go(live_prose["url"]);
+      Router.go('prose', {url: live_prose["url"]});
     }
   });
 
@@ -81,14 +81,14 @@ if (Meteor.isClient) {
     return Session.get("view_mode");
   }
 
+  Template.prose_view.prose = Template.prose_edit.prose;
+
   Template.prose_view.events({
     'click h2.edit_toggle': function() {
       Session.set("view_mode", false);
       Router.go(prose.url);
     }
   })
-
-  Template.prose_view.prose = Template.prose_edit.prose;
 
   Template.list_proses.proses = function() {
     return Proses.find({});
