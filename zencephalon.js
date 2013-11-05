@@ -60,11 +60,8 @@ if (Meteor.isClient) {
     }
   }
 
-  Template.prose_edit.events({
-    'click input.save': function() {
-      var live_prose = Template.prose_edit.live_prose();
-      var prose = Template.prose_edit.prose();
-      if (prose._id !== undefined) {
+  function saveProse(prose, live_prose) {
+    if (prose._id !== undefined) {
         ["title", "text", "url"].forEach(function(ele) {
           prose[ele] = live_prose[ele];
         });
@@ -72,6 +69,15 @@ if (Meteor.isClient) {
       } else {
         Proses.insert(live_prose);
       }
+  }
+
+  Template.prose_edit.events({
+    'click input.save': function() {
+      var live_prose = Template.prose_edit.live_prose();
+      var prose = Template.prose_edit.prose();
+
+      saveProse(prose, live_prose);
+
       Session.set("view_mode", true);
       Router.go('prose', {url: live_prose["url"]});
     }
@@ -86,7 +92,7 @@ if (Meteor.isClient) {
   Template.prose_view.events({
     'click h2.edit_toggle': function() {
       Session.set("view_mode", false);
-      Router.go(prose.url);
+      Router.go('prose', {url: Template.prose_view.prose().url});
     }
   })
 
