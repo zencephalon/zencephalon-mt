@@ -1,39 +1,3 @@
-Proses = new Meteor.Collection("proses");
-
-Router.configure({
-  layoutTemplate: 'layout'
-});
-
-function getProse(url) {
-  var prose = Proses.findOne({url: url});
-  if (prose === undefined) {
-    return {title: url, url: url}
-  } else {
-    return prose;
-  }
-}
-
-Router.map(function() {
-  this.route('home', {
-    path: '/',
-    action: function() {
-      Router.go('prose', {url: 'index'});
-    }
-  });
-
-  this.route('prose', {
-    path: '/:url',
-    template: 'prose',
-    data: function() {
-      return {prose: getProse(this.params.url)};
-    },
-    before: function() {
-      Meteor.subscribe("proses");
-      Session.set("selected_prose", this.getData().prose);
-    }
-  });
-});
-
 if (Meteor.isClient) {
 
   Template.prose_edit.live_prose = function() {
@@ -101,15 +65,4 @@ if (Meteor.isClient) {
   Template.list_proses.proses = function() {
     return Proses.find({});
   }
-}
-
-if (Meteor.isServer) {
-  Meteor.startup(function () {
-    //Proses.remove({});
-    if (Proses.find().count() === 0) {
-      Proses.insert({title: "My Brain on Zen", text: "I'm Matthew Bunday and I love you.", url: "index"});
-      Proses.insert({title: "I love Daria!", text: "Daria is seriously the best.", url: "i_love_daria"});
-    }
-  });
-  Meteor.publish("proses", function() {return Proses.find();});
 }
