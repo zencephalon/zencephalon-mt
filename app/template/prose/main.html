@@ -1,0 +1,12 @@
+<template name="prose">
+  {{#unless currentUser}}
+    {{> prose_view}}
+  {{else}}
+    {{#if view_mode}}
+      {{> prose_view}}
+    {{else}}
+      {{> prose_edit}}
+    {{/if}}
+  {{/unless}}
+  {{> list_proses}}
+</template>

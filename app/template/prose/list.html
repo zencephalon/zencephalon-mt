@@ -1,0 +1,12 @@
+<template name="list_proses">
+  <h1>Proses:</h1>
+  <ul>
+  {{#each proses}}
+    <li>{{> list_prose}}</li>
+  {{/each}}
+  </ul>
+</template>
+
+<template name="list_prose">
+<a href="/{{url}}">{{title}}</a>
+</template>
