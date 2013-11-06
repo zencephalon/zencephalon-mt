@@ -2,7 +2,7 @@
   <head>
     <title>zencephalon: {{prose.title}}</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <!--<link href='http://fonts.googleapis.com/css?family=Vollkorn:400italic,400' rel='stylesheet' type='text/css'>-->
+    <link href='http://fonts.googleapis.com/css?family=Vollkorn:400italic,400' rel='stylesheet' type='text/css'>
   </head>
 
   <body>
@@ -39,14 +39,6 @@
   {{> list_proses}}
 </template>
 
-<template name="prose_edit">
-  <input type="text" id="prose_title" value="{{prose.title}}" />
-  <br>
-{{#textareaAutocomplete settings id="prose_text"}}{{prose.text}}{{/textareaAutocomplete}}
-  <br>
-  <input type="text" id="prose_url" value="{{prose.url}}" />
-  <input type="button" class="save" value="Save!" />
-</template>
 
 <template name="prose_view">
   <h2 {{#if currentUser}}class="edit_toggle"{{/if}}>{{prose.title}}</h2>

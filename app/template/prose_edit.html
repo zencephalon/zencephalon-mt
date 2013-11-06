@@ -1,0 +1,8 @@
+<template name="prose_edit">
+  <input type="text" id="prose_title" value="{{prose.title}}" />
+  <br>
+{{#textareaAutocomplete settings id="prose_text"}}{{prose.text}}{{/textareaAutocomplete}}
+  <br>
+  <input type="text" id="prose_url" value="{{prose.url}}" />
+  <input type="button" class="save" value="Save!" />
+</template>
