@@ -28,13 +28,13 @@ Router.map(function() {
       return {prose: getProse(this.params.url)};
     },
     before: function() {
+      Meteor.subscribe("proses");
       Session.set("selected_prose", this.getData().prose);
     }
   });
 });
 
 if (Meteor.isClient) {
-  Meteor.subscribe("proses");
 
   Template.prose_edit.live_prose = function() {
     var o = {};
