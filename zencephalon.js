@@ -17,7 +17,7 @@ Router.map(function() {
   this.route('home', {
     path: '/',
     action: function() {
-      Router.go('prose', {url: 'index'})
+      Router.go('prose', {url: 'index'});
     }
   });
 
@@ -34,6 +34,8 @@ Router.map(function() {
 });
 
 if (Meteor.isClient) {
+  Meteor.subscribe("proses");
+
   Template.prose_edit.live_prose = function() {
     var o = {};
     ["title", "text", "url"].forEach(function(ele) {
@@ -109,4 +111,5 @@ if (Meteor.isServer) {
       Proses.insert({title: "I love Daria!", text: "Daria is seriously the best.", url: "i_love_daria"});
     }
   });
+  Meteor.publish("proses", function() {return Proses.find();});
 }
