@@ -14,10 +14,13 @@ Router.map(function() {
     path: '/:url',
     template: 'prose',
     data: function() {
-      return {prose: getProse(this.params.url)};
+      prose = getProse(this.params.url);
+      branch = getBranch(prose.branch);
+      return {prose: prose, branch: branch};
     },
     before: function() {
       Meteor.subscribe("proses");
+      Meteor.subscribe("branches");
       Session.set("selected_prose", this.getData().prose);
     }
   });

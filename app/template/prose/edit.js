@@ -25,17 +25,6 @@ if (Meteor.isClient) {
     }
   }
 
-  saveProse = function(prose, live_prose) {
-    if (prose._id !== undefined) {
-        ["title", "text", "url"].forEach(function(ele) {
-          prose[ele] = live_prose[ele];
-        });
-        Proses.update(prose['_id'], prose);
-      } else {
-        Proses.insert(live_prose);
-      }
-  }
-
   Template.prose_edit.events({
     'click input.save': function() {
       var live_prose = Template.prose_edit.live_prose();
