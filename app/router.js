@@ -15,7 +15,7 @@ Router.map(function() {
     template: 'prose',
     data: function() {
       prose = getProse(this.params.url);
-      branch = getBranch(prose.branch);
+      branch = getBranch(prose._id, prose.branch);
       return {prose: prose, branch: branch};
     },
     before: function() {
