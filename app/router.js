@@ -20,8 +20,11 @@ Router.map(function() {
     },
     before: function() {
       Meteor.subscribe("proses");
-      Meteor.subscribe("branches");
-      Session.set("selected_prose", this.getData().prose);
+      prose = this.getData().prose;
+      if (prose !== undefined) {
+        Meteor.subscribe("branches", prose._id);
+      }
+      Session.set("selected_prose", prose);
     }
   });
 });

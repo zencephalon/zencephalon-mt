@@ -8,6 +8,6 @@ if (Meteor.isServer) {
     }
 
     Meteor.publish("proses", function() {return Proses.find();});
-    Meteor.publish("branches", function() {return Branches.find();});
+    Meteor.publish("branches", function(prose) {return Branches.find({prose: prose});});
   });
 }
