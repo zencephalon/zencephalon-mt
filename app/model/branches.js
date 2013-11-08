@@ -10,7 +10,13 @@ saveBranch = function(prose, text, name) {
 }
 
 createBranch = function(current_branch, prose, tree, text) {
-  digits = function(branch) {
+  new_branch_name = get_new_branch_name(current_branch, prose, tree, text);
+  saveBranch(prose, text, new_branch_name);
+  return new_branch_name;
+}
+
+get_new_branch_name = function(current_branch, tree) {
+   digits = function(branch) {
     return /\d+$/.exec(branch)[0];
   }
 
@@ -47,17 +53,10 @@ createBranch = function(current_branch, prose, tree, text) {
     return '0';
   } else {
     next_seq_branch = next_sequential_branch(current_branch);
-    if (tree.indexOf(next_seq_branch) !== -1) {
-      next_lat_code = 'a';
-      while (tree.indexOf(current_branch + next_lat_code + '0') !== -1) {
-        next_lat_code = next_lateral_code(next_lat_code);
-      }
-      new_branch_name = current_branch + next_lat_code + '0';
-      saveBranch(prose, text, new_branch_name);
-      return new_branch_name;
-    } else {
-      saveBranch(prose, text, next_seq_branch);
+
+    if (tree.indexOf(next_seq_branch) === -1) {
       return next_seq_branch;
+    } else {
     }
-  }
+  } 
 }
