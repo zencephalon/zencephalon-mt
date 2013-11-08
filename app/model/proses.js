@@ -17,17 +17,14 @@ createProse = function(title, url, text) {
 }
 
 updateProse = function(prose, title, url, text) {
-  branch = Branches.insert({text: text});
-  parent_branch = prose.branch;
-  prose.branch = branch;
+  new_branch_name = createBranch(prose.branch, prose._id, prose.tree, text);
+  prose.tree.push(new_branch_name);
+  Proses.update(prose._id, {"$set": {branch: new_branch_name, tree: prose.tree}});
 }
 
 saveProse = function(prose, live_prose) {
   if (prose._id !== undefined) {
-    ["title", "text", "url"].forEach(function(ele) {
-      prose[ele] = live_prose[ele];
-    });
-    Proses.update(prose['_id'], prose);
+    updateProse(prose, live_prose["title"], live_prose["url"], live_prose["text"]);
   } else {
     createProse(live_prose.title, live_prose.url, live_prose.text)
   }

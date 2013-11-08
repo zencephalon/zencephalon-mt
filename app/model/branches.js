@@ -43,7 +43,8 @@ createBranch = function(current_branch, prose, tree, text) {
   }
 
   if (current_branch === null) {
-    return "0";
+    saveBranch(prose, text, '0');
+    return '0';
   } else {
     next_seq_branch = next_sequential_branch(current_branch);
     if (tree.indexOf(next_seq_branch) !== -1) {
@@ -51,9 +52,12 @@ createBranch = function(current_branch, prose, tree, text) {
       while (tree.indexOf(current_branch + next_lat_code + '0') !== -1) {
         next_lat_code = next_lateral_code(next_lat_code);
       }
-      saveBranch(prose, text, current_branch + next_lat_code + '0');
+      new_branch_name = current_branch + next_lat_code + '0';
+      saveBranch(prose, text, new_branch_name);
+      return new_branch_name;
     } else {
       saveBranch(prose, text, next_seq_branch);
+      return next_seq_branch;
     }
   }
 }
