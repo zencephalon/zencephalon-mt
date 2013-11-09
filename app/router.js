@@ -25,7 +25,7 @@ Router.map(function() {
   });
 
   this.route('list', {
-    path: '/all',
+    path: '/list',
     template: 'list_proses',
     before: function() {
       Meteor.subscribe("proses");
@@ -33,7 +33,7 @@ Router.map(function() {
   })
 
   this.route('prose', {
-    path: '/p/:url',
+    path: '/:url',
     template: 'prose',
     data: getRouteData,
     before: function() {
@@ -46,7 +46,7 @@ Router.map(function() {
   });
 
   this.route('branch', {
-    path: '/p/:url/b/:branch_name',
+    path: '/:url/b/:branch_name',
     template: 'prose',
     data: getRouteData,
     before: function() {

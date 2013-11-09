@@ -128,7 +128,7 @@ class @AutoComplete
     startpos = @$element.getCursorPosition()
     fullStuff = @getText()
     val = fullStuff.substring(0, startpos)
-    val = val.replace(@expressions[@matched], "$1" + @rules[@matched].token + '/p/' + replacement)
+    val = val.replace(@expressions[@matched], "$1" + @rules[@matched].token + replacement)
     posfix = fullStuff.substring(startpos, fullStuff.length)
     separator = (if posfix.match(/^\s/) then "" else ")")
     finalFight = val + separator + posfix
