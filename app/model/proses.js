@@ -17,16 +17,16 @@ createProse = function(title, url, text) {
   saveBranch(prose, text, '0');
 }
 
-updateProse = function(prose, title, url, text) {
-  new_branch_name = createBranch(prose.branch, prose._id, prose.tree, text);
+updateProse = function(prose, title, url, text, branch) {
+  new_branch_name = createBranch(branch, prose._id, prose.tree, text);
   prose.tree.push(new_branch_name);
   url = cleanURL(url);
   Proses.update(prose._id, {"$set": {branch: new_branch_name, tree: prose.tree, title: title, url: url}});
 }
 
-saveProse = function(prose, live_prose) {
+saveProse = function(prose, live_prose, branch) {
   if (prose._id !== undefined) {
-    updateProse(prose, live_prose["title"], live_prose["url"], live_prose["text"]);
+    updateProse(prose, live_prose["title"], live_prose["url"], live_prose["text"], branch);
   } else {
     createProse(live_prose.title, live_prose.url, live_prose.text)
   }

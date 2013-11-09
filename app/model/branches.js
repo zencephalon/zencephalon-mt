@@ -10,7 +10,7 @@ saveBranch = function(prose, text, name) {
 }
 
 createBranch = function(current_branch, prose, tree, text) {
-  new_branch_name = get_new_branch_name(current_branch, prose, tree, text);
+  new_branch_name = get_new_branch_name(current_branch, tree);
   saveBranch(prose, text, new_branch_name);
   return new_branch_name;
 }
@@ -57,6 +57,12 @@ get_new_branch_name = function(current_branch, tree) {
     if (tree.indexOf(next_seq_branch) === -1) {
       return next_seq_branch;
     } else {
+      next_lat_code = 'a';
+      while (tree.indexOf(current_branch + next_lat_code + '0') !== -1) {
+        next_lat_code = next_lateral_code(next_lat_code);
+      }
+      new_branch_name = current_branch + next_lat_code + '0';
+      return new_branch_name;
     }
   } 
 }

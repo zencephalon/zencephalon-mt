@@ -27,10 +27,11 @@ if (Meteor.isClient) {
 
   Template.prose_edit.events({
     'click input.save': function() {
-      var live_prose = Template.prose_edit.live_prose();
-      var prose = Template.prose_edit.prose();
+      live_prose = Template.prose_edit.live_prose();
+      prose = Template.prose_edit.prose();
+      branch = Session.get("selected_branch");
 
-      saveProse(prose, live_prose);
+      saveProse(prose, live_prose, branch.name);
 
       Session.set("view_mode", true);
       Router.go('prose', {url: live_prose["url"]});
