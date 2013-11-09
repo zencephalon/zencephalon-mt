@@ -12,6 +12,7 @@ getProse = function(url) {
 createProse = function(title, url, text) {
   branch = '0';
   tree = ['0'];
+  url = cleanURL(url);
   prose = Proses.insert({title: title, url: url, branch: branch, tree: tree})
   saveBranch(prose, text, '0');
 }
@@ -19,7 +20,8 @@ createProse = function(title, url, text) {
 updateProse = function(prose, title, url, text) {
   new_branch_name = createBranch(prose.branch, prose._id, prose.tree, text);
   prose.tree.push(new_branch_name);
-  Proses.update(prose._id, {"$set": {branch: new_branch_name, tree: prose.tree}});
+  url = cleanURL(url);
+  Proses.update(prose._id, {"$set": {branch: new_branch_name, tree: prose.tree, title: title, url: url}});
 }
 
 saveProse = function(prose, live_prose) {

@@ -4,7 +4,7 @@ if (Meteor.isClient) {
     if (prose !== undefined) {
       return prose.url;
     }
-  }
+  };
 
   Template.branch_list.branches = function() {
     if (Session.get("selected_prose") !== undefined) {
