@@ -2,6 +2,20 @@ Router.configure({
   layoutTemplate: 'layout'
 });
 
+getRouteData = function() {
+  prose = Session.get("selected_prose");
+  branch = Session.get("selected_branch");
+  return {prose: prose, branch: branch};
+}
+
+setRouteSubscriptions = function(route) {
+  Meteor.subscribe("proses");
+  prose = getProse(route.params.url);
+  if (prose !== undefined) {
+    Meteor.subscribe("branches", prose._id);
+  }
+}
+
 Router.map(function() {
   this.route('home', {
     path: '/',
@@ -10,41 +24,35 @@ Router.map(function() {
     }
   });
 
-  this.route('prose', {
-    path: '/:url',
-    template: 'prose',
-    data: function() {
-      prose = Session.get("selected_prose");
-      branch = Session.get("selected_branch");
-      return {prose: prose, branch: branch};
-    },
+  this.route('list', {
+    path: '/all',
+    template: 'list_proses',
     before: function() {
       Meteor.subscribe("proses");
-      prose = getProse(this.params.url);
-      if (prose !== undefined) {
-        Meteor.subscribe("branches", prose._id);
-      }
+    }
+  })
+
+  this.route('prose', {
+    path: '/p/:url',
+    template: 'prose',
+    data: getRouteData,
+    before: function() {
+      setRouteSubscriptions(this);
       branch = getBranch(prose._id, prose.branch);
+
       Session.set("selected_prose", prose);
       Session.set("selected_branch", branch);
     }
   });
 
   this.route('branch', {
-    path: '/:url/b/:branch_name',
+    path: '/p/:url/b/:branch_name',
     template: 'prose',
-    data: function() {
-      prose = Session.get("selected_prose");
-      branch = Session.get("selected_branch");
-      return {prose: prose, branch: branch};
-    },
+    data: getRouteData,
     before: function() {
-      Meteor.subscribe("proses");
-      prose = getProse(this.params.url);
-      if (prose !== undefined) {
-        Meteor.subscribe("branches", prose._id);
-      }
+      setRouteSubscriptions(this);
       branch = getBranch(prose._id, this.params.branch_name);
+
       Session.set("selected_prose", prose);
       Session.set("selected_branch", branch);
     }
