@@ -35,6 +35,9 @@ if (Meteor.isClient) {
 
       Session.set("view_mode", true);
       Router.go('prose', {url: live_prose["url"]});
+    },
+    'click a.edit_toggle': function() {
+      Session.set("view_mode", true);
     }
   });
 }
