@@ -31,7 +31,7 @@ if (Meteor.isClient) {
       prose = Template.prose_edit.prose();
       branch = Session.get("selected_branch");
 
-      saveProse(prose, live_prose, branch.name);
+      saveProse(prose, live_prose, branch);
 
       Session.set("view_mode", true);
       Router.go('prose', {url: live_prose["url"]});

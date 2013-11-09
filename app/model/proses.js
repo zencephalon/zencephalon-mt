@@ -26,7 +26,7 @@ updateProse = function(prose, title, url, text, branch) {
 
 saveProse = function(prose, live_prose, branch) {
   if (prose._id !== undefined) {
-    updateProse(prose, live_prose["title"], live_prose["url"], live_prose["text"], branch);
+    updateProse(prose, live_prose["title"], live_prose["url"], live_prose["text"], branch.name);
   } else {
     createProse(live_prose.title, live_prose.url, live_prose.text)
   }
