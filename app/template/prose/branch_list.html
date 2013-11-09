@@ -1,0 +1,11 @@
+<template name="branch_list">
+  <ul>
+  {{#each branches}}
+    <li>{{> list_branch}}</li>
+  {{/each}}
+  </ul>
+</template>
+
+<template name="list_branch">
+<a href="/{{prose_url}}/r/{{name}}">{{name}}</a>
+</template>
