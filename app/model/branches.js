@@ -6,9 +6,10 @@ getBranch = function(prose, name) {
 }
 
 saveBranch = function(prose, text, name) {
-  return Branches.insert({prose: prose, text: text, name: name});
+  return Branches.insert({prose: prose, text: text, name: name, updated: new Date()});
 }
 
+// TODO, make save vs create naming consistent with Proses, this is confusing.
 createBranch = function(current_branch, prose, tree, text) {
   new_branch_name = get_new_branch_name(current_branch, tree);
   saveBranch(prose, text, new_branch_name);
