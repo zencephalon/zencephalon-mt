@@ -1,6 +1,5 @@
 {
   "packages": {
-    "iron-router": {},
-    "zen-markdown-autocomplete": {}
+    "iron-router": {}
   }
 }
