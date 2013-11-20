@@ -14,10 +14,10 @@ Prose = {
     tree = ['0'];
     url = cleanURL(url);
     prose = Proses.insert({title: title, url: url, branch: branch, tree: tree, updated: new Date()})
-    saveBranch(prose, text, '0');
+    Branch.create(prose, text, '0');
   },
   update : function(prose, title, url, text, branch) {
-    new_branch_name = createBranch(branch, prose._id, prose.tree, text);
+    new_branch_name = Branch.save(branch, prose._id, prose.tree, text);
     prose.tree.push(new_branch_name);
     url = cleanURL(url);
     Proses.update(prose._id, {"$set": {branch: new_branch_name, tree: prose.tree, title: title, url: url, updated: new Date()}});
