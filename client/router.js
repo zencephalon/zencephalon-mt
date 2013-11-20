@@ -10,7 +10,7 @@ getRouteData = function() {
 
 setRouteSubscriptions = function(route) {
   Meteor.subscribe("proses");
-  prose = getProse(route.params.url);
+  prose = Prose.get(route.params.url);
   if (prose !== undefined) {
     Meteor.subscribe("branches", prose._id);
   }
