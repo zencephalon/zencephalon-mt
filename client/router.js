@@ -44,6 +44,7 @@ Router.map(function() {
   this.route('prose', {
     path: '/:url',
     template: 'prose',
+    loadingTemplate: 'loading',
     data: getRouteData,
     before: function() {
       setRouteSubscriptions(this, false);
