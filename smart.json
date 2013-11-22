@@ -1,5 +1,6 @@
 {
   "packages": {
-    "iron-router": {}
+    "iron-router": {},
+    "iron-router-progress": {}
   }
 }

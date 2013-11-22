@@ -12,3 +12,4 @@ iron-router
 jquery
 showdown
 zen-markdown-autocomplete
+iron-router-progress
