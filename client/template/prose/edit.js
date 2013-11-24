@@ -28,6 +28,8 @@ Template.prose_edit.save_prose = function(new_revision) {
   prose = Template.prose_edit.prose();
   branch = Session.get("selected_branch");
 
+  Session.set("caret_pos", Caret.get(document.getElementById("prose_text")));
+
   Prose.save(prose, live_prose, branch, new_revision);
 
   Session.set("view_mode", true);
@@ -43,6 +45,9 @@ Template.prose_edit.events({
 Template.prose_edit.rendered = function() {
   Mousetrap.bind('ctrl+s', function(e) { Template.prose_edit.save_prose(true);});
   Mousetrap.bind('ctrl+space', function(e) { Template.prose_edit.save_prose(false);});
-  $("#prose_text").focus();
+  $(document).ready(function() {
+    $("#prose_text").focus();
+    Caret.set(document.getElementById("prose_text"), Session.get("caret_pos"));
+  });
 }
 

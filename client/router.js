@@ -12,13 +12,14 @@ setRouteSubscriptions = function(route, branch_name) {
   Meteor.subscribe("proses");
   prose = Prose.get(route.params.url);
   if (prose !== undefined) {
+    if (branch_name) {
+      Meteor.subscribe("current_branch", prose._id, branch_name);
+      branch = Branch.get(prose._id, branch_name);
+    } else {
+      Meteor.subscribe("current_branch", prose._id, branch_name);
+      branch = Branch.get(prose._id, prose.branch);
+    }
     Meteor.subscribe("branches", prose._id);
-  }
-
-  if (branch_name) {
-    branch = Branch.get(prose._id, branch_name);
-  } else {
-    branch = Branch.get(prose._id, prose.branch);
   }
 
   Session.set("selected_prose", prose);
