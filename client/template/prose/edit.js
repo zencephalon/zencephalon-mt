@@ -31,7 +31,10 @@ Template.prose_edit.save_prose = function() {
   Prose.save(prose, live_prose, branch);
 
   Session.set("view_mode", true);
-  Router.go('prose', {url: live_prose["url"]});
+}
+
+Template.prose_edit.update_prose = function() {
+
 }
 
 Template.prose_edit.events({
@@ -41,4 +44,7 @@ Template.prose_edit.events({
   }
 });
 
-Mousetrap.bind('ctrl+s', function(e) { Template.prose_edit.save_prose();});
+Template.prose_edit.rendered = function() {
+  Mousetrap.bind('ctrl+s', function(e) { Template.prose_edit.save_prose();});
+}
+
