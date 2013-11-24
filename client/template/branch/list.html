@@ -1,9 +1,10 @@
 <template name="branch_list">
-  <ul>
+  <p>
+  Revisions:
   {{#each branches}}
-    <li>{{> list_branch}}</li>
+  {{> list_branch}} &nbsp
   {{/each}}
-  </ul>
+  </p>
 </template>
 
 <template name="list_branch">
