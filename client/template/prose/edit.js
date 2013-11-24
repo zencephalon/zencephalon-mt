@@ -49,8 +49,11 @@ Template.prose_edit.rendered = function() {
   Mousetrap.bind('ctrl+s', function(e) { Template.prose_edit.save_prose(true);});
   Mousetrap.bind('ctrl+space', function(e) { Template.prose_edit.save_prose(false);});
   $(document).ready(function() {
-    $("#prose_text").focus();
-    Caret.set(document.getElementById("prose_text"), Session.get("caret_pos"));
+    if (Session.get("just_loaded")) {
+      $("#prose_text").focus();
+      Caret.set(document.getElementById("prose_text"), Session.get("caret_pos"));
+      Session.set("just_loaded", false);
+    }
   });
 }
 

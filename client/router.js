@@ -24,6 +24,7 @@ setRouteSubscriptions = function(route, branch_name) {
 
   Session.set("selected_prose", prose);
   Session.set("selected_branch", branch);
+  Session.set("just_loaded", true);
 }
 
 Router.map(function() {
