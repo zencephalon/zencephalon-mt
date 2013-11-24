@@ -1,12 +1,15 @@
 Branches = new Meteor.Collection("branches");
 
 Branch = {
-  get : function(prose, name) {
-    var branch = Branches.findOne({prose: prose, name: name});
+  get : function(prose_id, name) {
+    var branch = Branches.findOne({prose: prose_id, name: name});
     return branch;
   },
-  create : function(prose, text, name) {
-    return Branches.insert({prose: prose, text: text, name: name, updated: new Date()});
+  create : function(prose_id, text, name) {
+    return Branches.insert({prose: prose_id, text: text, name: name, updated: new Date()});
+  },
+  update : function(branch_id, prose_id, text) {
+    Branches.update(branch_id, {'$set': {text: text, updated: new Date()}});
   },
   save : function(current_branch, prose, tree, text) {
     new_branch_name = this.get_new_branch_name(current_branch, tree);

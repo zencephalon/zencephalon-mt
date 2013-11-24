@@ -22,9 +22,13 @@ Prose = {
     url = cleanURL(url);
     Proses.update(prose._id, {"$set": {branch: new_branch_name, tree: prose.tree, title: title, url: url, updated: new Date()}});
   },
-  save : function(prose, live_prose, branch) {
+  save : function(prose, live_prose, branch, new_revision) {
     if (prose._id !== undefined) {
-      this.update(prose, live_prose["title"], live_prose["url"], live_prose["text"], branch.name);
+      if (new_revision) {
+        this.update(prose, live_prose["title"], live_prose["url"], live_prose["text"], branch.name);
+      } else {
+        Branch.update(branch._id, prose, live_prose["text"]);
+      }
     } else {
       this.create(live_prose.title, live_prose.url, live_prose.text)
     }   

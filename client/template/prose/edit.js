@@ -23,28 +23,26 @@ Template.prose_edit.settings = function() {
   }
 }
 
-Template.prose_edit.save_prose = function() {
+Template.prose_edit.save_prose = function(new_revision) {
   live_prose = Template.prose_edit.live_prose();
   prose = Template.prose_edit.prose();
   branch = Session.get("selected_branch");
 
-  Prose.save(prose, live_prose, branch);
+  Prose.save(prose, live_prose, branch, new_revision);
 
   Session.set("view_mode", true);
 }
 
-Template.prose_edit.update_prose = function() {
-
-}
-
 Template.prose_edit.events({
-  'click input.save': Template.prose_edit.save_prose,
+  'click input.save': function() {Template.prose_edit.save_prose(true)},
   'click a.edit_toggle': function() {
     Session.set("view_mode", true);
   }
 });
 
 Template.prose_edit.rendered = function() {
-  Mousetrap.bind('ctrl+s', function(e) { Template.prose_edit.save_prose();});
+  Mousetrap.bind('ctrl+s', function(e) { Template.prose_edit.save_prose(true);});
+  Mousetrap.bind('ctrl+space', function(e) { Template.prose_edit.save_prose(false);});
+  $("#prose_text").focus();
 }
 
