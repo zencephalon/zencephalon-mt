@@ -33,6 +33,9 @@ Template.prose_edit.save_prose = function(new_revision) {
   Prose.save(prose, live_prose, branch, new_revision);
 
   Session.set("view_mode", true);
+  if (new_revision) {
+    Router.go('prose', {url: live_prose["url"]});
+  }
 }
 
 Template.prose_edit.events({
