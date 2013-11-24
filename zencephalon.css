@@ -82,3 +82,22 @@ textarea {
 #iron-router-progress.spinner:before {
   border-color: #36AECC;
 }
+
+#revision_display table {
+  margin: 0 0 0 0;
+  border-spacing: 1;
+}
+
+#revision_display td a {
+  text-align: center;
+  display: block;
+}
+
+#revision_display td {
+  padding: 0;
+  vertical-align: top;
+  border-top: 1px solid #aaa;
+  border-right: none;
+  border-bottom: none;
+  border-left: none;
+}

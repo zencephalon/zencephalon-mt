@@ -1,10 +1,5 @@
 <template name="branch_list">
-  <p>
-  Revisions:
-  {{#each branches}}
-  {{> list_branch}} &nbsp
-  {{/each}}
-  </p>
+<div id="revision_display">{{{branch_display '0' 0}}}</div>
 </template>
 
 <template name="list_branch">
