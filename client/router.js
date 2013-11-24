@@ -37,7 +37,7 @@ Router.map(function() {
   this.route('list', {
     path: '/list',
     template: 'list_proses',
-    before: function() {
+    waitOn: function() {
       Meteor.subscribe("proses");
     }
   })
