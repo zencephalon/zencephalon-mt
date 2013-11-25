@@ -16,19 +16,20 @@ Prose = {
     prose = Proses.insert({title: title, url: url, branch: branch, tree: tree, updated: new Date()})
     Branch.create(prose, text, '0');
   },
-  update : function(prose, title, url, text, branch) {
-    new_branch_name = Branch.save(branch, prose._id, prose.tree, text);
-    prose.tree.push(new_branch_name);
+  update : function(prose, title, url, text, branch, new_branch) {
     url = cleanURL(url);
-    Proses.update(prose._id, {"$set": {branch: new_branch_name, tree: prose.tree, title: title, url: url, updated: new Date()}});
+    if (new_branch) {
+      new_branch_name = Branch.save(branch.name, prose._id, prose.tree, text);
+      prose.tree.push(new_branch_name);
+      Proses.update(prose._id, {"$set": {branch: new_branch_name, tree: prose.tree, title: title, url: url, updated: new Date()}});
+    } else {
+      Branch.update(branch._id, prose, text);
+      Proses.update(prose._id, {"$set": {title: title, url: url, updated: new Date()}});
+    }
   },
-  save : function(prose, live_prose, branch, new_revision) {
+  save : function(prose, live_prose, branch, new_branch) {
     if (prose._id !== undefined) {
-      if (new_revision) {
-        this.update(prose, live_prose["title"], live_prose["url"], live_prose["text"], branch.name);
-      } else {
-        Branch.update(branch._id, prose, live_prose["text"]);
-      }
+      this.update(prose, live_prose["title"], live_prose["url"], live_prose["text"], branch, new_branch);
     } else {
       this.create(live_prose.title, live_prose.url, live_prose.text)
     }   
