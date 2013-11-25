@@ -101,3 +101,12 @@ textarea {
   border-bottom: none;
   border-left: none;
 }
+
+.hints {
+  font-size: 40%;
+  line-height: 80%;
+}
+
+.standout {
+  color: #36AECC;
+}

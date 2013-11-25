@@ -10,6 +10,14 @@ Template.prose_edit.prose = function() {
   return Session.get("selected_prose");
 }
 
+Template.prose_edit.displayShortCuts = function() {
+  return !!Session.get("display_shortcuts");
+}
+
+Template.prose_edit.displayFormatting = function() {
+  return !!Session.get("display_formatting");
+}
+
 Template.prose_edit.settings = function() {
   return {
     position: "bottom",
@@ -43,6 +51,12 @@ Template.prose_edit.events({
   'click input.save': function() {Template.prose_edit.save_prose(true)},
   'click a.edit_toggle': function() {
     Session.set("view_mode", true);
+  },
+  'click a.formatting_toggle': function() {
+    Session.set('display_formatting', !Session.get('display_formatting'));
+  },
+  'click a.shortcuts_toggle': function() {
+    Session.set('display_shortcuts', !Session.get('display_shortcuts'));
   }
 });
 
@@ -59,4 +73,3 @@ Template.prose_edit.rendered = function() {
     }
   });
 }
-
