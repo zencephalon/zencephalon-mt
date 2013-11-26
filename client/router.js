@@ -3,9 +3,7 @@ Router.configure({
 });
 
 getRouteData = function() {
-  prose = Session.get("selected_prose");
-  branch = Session.get("selected_branch");
-  return {prose: prose, branch: branch};
+  return {prose: Session.get("selected_prose"), branch: Session.get("selected_branch")};
 }
 
 setRouteSubscriptions = function(route, branch_name) {
