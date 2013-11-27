@@ -14,7 +14,7 @@ class @AutoComplete
 
     @rules = settings.rules
     # Expressions compiled for range from last word break to current cursor position
-    @expressions = (new RegExp('(^|\\b|\\s)\\]\\(([\\w.]*)$') for rule in @rules)
+    @expressions = (new RegExp('(^|\\b|\\s)' + rule.token + '([\\w.]*)$') for rule in @rules)
 
     @matched = -1
 
@@ -128,9 +128,9 @@ class @AutoComplete
     startpos = @$element.getCursorPosition()
     fullStuff = @getText()
     val = fullStuff.substring(0, startpos)
-    val = val.replace(@expressions[@matched], "$1" + @rules[@matched].token + replacement)
+    val = val.replace(@expressions[@matched], "$1" + @rules[@matched].replacement + replacement)
     posfix = fullStuff.substring(startpos, fullStuff.length)
-    separator = (if posfix.match(/^\s/) then "" else ")")
+    separator = @rules[@matched].end_token
     finalFight = val + separator + posfix
     @setText finalFight
     @$element.setCursorPosition val.length + 1

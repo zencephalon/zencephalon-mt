@@ -23,10 +23,12 @@ Template.prose_edit.settings = function() {
     position: "bottom",
     limit: 5,
     rules: [{
-      token: '](',
+      token: '\\]\\(',
+      replacement: '](',
+      end_token: ')',
       collection: Proses,
       field: "url",
-      template: Template.prose_url
+      template: Template.prose_url_title
     }]
   }
 }
@@ -61,8 +63,8 @@ Template.prose_edit.events({
 });
 
 Template.prose_edit.rendered = function() {
-  Mousetrap.bind('ctrl+s', function(e) { Template.prose_edit.save_prose(true);});
-  Mousetrap.bind('ctrl+space', function(e) { Template.prose_edit.save_prose(false);});
+  Mousetrap.bind('ctrl+shift+s', function(e) { Template.prose_edit.save_prose(true);});
+  Mousetrap.bind('ctrl+s', function(e) { Template.prose_edit.save_prose(false);});
   $(document).ready(function() {
     if (Session.get("just_loaded")) {
       $("#prose_text").focus();

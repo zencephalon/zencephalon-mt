@@ -12,6 +12,7 @@
         <a href="/index"><img src="/zenchinese.png" /></a>
       </header>
       {{yield}}
+      {{> quickswitcher}}
       {{> footer}}
     </div>
   </body>
@@ -28,4 +29,8 @@
 
 <template name="prose_url">
 {{url}}
+</template>
+
+<template name="prose_url_title">
+{{url}} - {{title}}
 </template>
