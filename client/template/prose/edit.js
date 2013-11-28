@@ -33,7 +33,7 @@ Template.prose_edit.settings = function() {
   }
 }
 
-Template.prose_edit.save_prose = function(new_revision) {
+Template.prose_edit.save_prose = function(new_revision, view_mode) {
   live_prose = Template.prose_edit.live_prose();
   prose = Template.prose_edit.prose();
   branch = Session.get("selected_branch");
@@ -43,16 +43,18 @@ Template.prose_edit.save_prose = function(new_revision) {
 
   Prose.save(prose, live_prose, branch, new_revision);
 
-  Session.set("view_mode", true);
+  Session.set("view_mode", view_mode);
   if (new_revision) {
     Router.go('prose', {url: live_prose["url"]});
   }
 }
 
 Template.prose_edit.events({
-  'click input.save': function() {Template.prose_edit.save_prose(true)},
+  'click a.save': function() {
+    Template.prose_edit.save_prose(true, true)
+  },
   'click a.edit_toggle': function() {
-    Session.set("view_mode", true);
+    Template.prose_edit.save_prose(false, true);
   },
   'click a.formatting_toggle': function() {
     Session.set('display_formatting', !Session.get('display_formatting'));
@@ -62,9 +64,19 @@ Template.prose_edit.events({
   }
 });
 
+var autosaveInterval;
+
+Template.prose_edit.created = function() {
+  //autosaveInterval = Meteor.setInterval(function() {Template.prose_edit.save_prose(false, false)}, 5000);
+}
+
+Template.prose_edit.destroyed = function() {
+  Meteor.clearInterval(autosaveInterval);
+}
+
 Template.prose_edit.rendered = function() {
-  Mousetrap.bind('ctrl+shift+s', function(e) { Template.prose_edit.save_prose(true);});
-  Mousetrap.bind('ctrl+s', function(e) { Template.prose_edit.save_prose(false);});
+  Mousetrap.bind('ctrl+shift+s', function(e) { Template.prose_edit.save_prose(true, true);});
+  Mousetrap.bind('ctrl+s', function(e) { Template.prose_edit.save_prose(false, true);});
   $(document).ready(function() {
     if (Session.get("just_loaded")) {
       $("#prose_text").focus();
