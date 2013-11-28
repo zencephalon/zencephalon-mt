@@ -167,11 +167,13 @@ textarea:focus {
 }
 
 #login-dropdown-list {
-  left: -160%;
+  position: relative;
+  padding: 8px 8px 20px 12px;
 }
 
 .login-link-text {
   color: #E8F2F5;
+  float:right;
 }
 
 #login-buttons .login-close-text {
