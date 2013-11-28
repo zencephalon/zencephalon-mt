@@ -84,6 +84,7 @@ Template.prose_edit.rendered = function() {
       Caret.set(prose_area, Session.get("caret_pos"));
       prose_area.scrollTop = Session.get("scroll_pos");
       Session.set("just_loaded", false);
+      $("#prose_text").autosize();
     }
   });
 }
