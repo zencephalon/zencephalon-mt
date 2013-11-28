@@ -7,5 +7,5 @@ Template.prose_view.events({
 });
 
 Template.prose_view.rendered = function() {
-  Mousetrap.bind('ctrl+space', function(e) { Session.set("view_mode", false)});
+  Mousetrap.bind('ctrl+s', function(e) { Session.set("view_mode", false)});
 }
