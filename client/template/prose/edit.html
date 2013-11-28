@@ -1,10 +1,8 @@
 <template name="prose_edit">
   <div class="edit_topbar">
-    <input type="text" id="prose_title" value="{{prose.title}}" /><a href="#" class="edit_toggle">view</a>
+    <input type="text" id="prose_title" value="{{prose.title}}" /><a href="#" class="edit_toggle mousetrap">view</a>
   </div>
-  <br>
 {{#textareaAutocomplete settings id="prose_text" class="mousetrap"}}{{{branch.text}}}{{/textareaAutocomplete}}
-  <br>
   <input type="text" id="prose_url" value="{{prose.url}}" style="display:none" />
   <a href="#" class="save" style="float:right">save</a>
   <a href="#" class="shortcuts_toggle">shortcut hints</a>, <a href="#" class="formatting_toggle">formatting hints</a>
