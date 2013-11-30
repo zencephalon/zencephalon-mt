@@ -1,5 +1,17 @@
 Proses = new Meteor.Collection("proses");
 
+Proses.allow({
+  update: function() {
+    return Permission.allow();
+  },
+  insert: function() {
+    return Permission.allow();
+  },
+  remove: function() {
+    return Permission.allow();
+  }
+});
+
 Prose = {
   get : function(url) {
     var prose = Proses.findOne({url: url});

@@ -1,5 +1,17 @@
 Branches = new Meteor.Collection("branches");
 
+Branches.allow({
+  update: function() {
+    return Permission.allow();
+  },
+  insert: function() {
+    return Permission.allow();
+  },
+  remove: function() {
+    return Permission.allow();
+  }
+});
+
 Branch = {
   get : function(prose_id, name) {
     var branch = Branches.findOne({prose: prose_id, name: name});
