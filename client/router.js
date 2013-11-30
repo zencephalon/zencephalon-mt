@@ -33,11 +33,25 @@ Router.map(function() {
     }
   });
 
-  this.route('list', {
-    path: '/z/list',
+  this.route('prose_list', {
+    path: '/z/prose',
     template: 'list_proses',
     waitOn: function() {
       Meteor.subscribe("proses");
+    },
+    data: function() {
+      return {proses: Proses.find({journal: {"$ne": true}}, {sort: {updated: -1}})};
+    }
+  });
+
+  this.route('journal_list', {
+    path: '/z/journal',
+    template: 'list_proses',
+    waitOn: function() {
+      Meteor.subscribe("proses");
+    },
+    data: function() {
+      return {proses: Proses.find({journal: true}, {sort: {updated: -1}})};
     }
   })
 
