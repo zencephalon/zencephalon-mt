@@ -55,6 +55,17 @@ Router.map(function() {
     }
   })
 
+  this.route('user_admin', {
+    path: '/z/users',
+    template: 'user_admin',
+    waitOn: function() {
+      Meteor.subscribe("users");
+    },
+    data: function() {
+      return {users: _.map(Meteor.users.find(), function(user) {return user.emails[0];})};
+    }
+  })
+
   this.route('prose', {
     path: '/:url',
     template: 'prose',
