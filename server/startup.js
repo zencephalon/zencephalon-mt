@@ -5,8 +5,8 @@ if (Meteor.isServer) {
     //Proses.update({}, {"$set":{"updated": new Date()}});
     //Branches.update({}, {"$set":{"updated": new Date()}});
     if (Proses.find().count() === 0) {
-      Prose.create("My Brain on Zen", "index", "I'm Matthew Bunday and I love you.");
-      Prose.create("I love Daria!", "i_love_daria", "Daria is seriously the best.");
+      Prose.create("My Brain on Zen", "index", "I'm Matthew Bunday and I love you.", false);
+      Prose.create("I love Daria!", "i_love_daria", "Daria is seriously the best.", false);
     }
 
     Meteor.publish("proses", function() {return Proses.find();});

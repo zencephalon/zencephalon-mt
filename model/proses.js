@@ -21,11 +21,11 @@ Prose = {
       return prose;
     }
   },
-  create : function(title, url, text) {
+  create : function(title, url, text, journal) {
     branch = '0';
     tree = ['0'];
     url = cleanURL(url);
-    prose = Proses.insert({title: title, url: url, branch: branch, tree: tree, updated: new Date()})
+    prose = Proses.insert({title: title, url: url, branch: branch, tree: tree, journal: journal, updated: new Date()})
     Branch.create(prose, text, '0');
   },
   update : function(prose, title, url, text, branch, new_branch) {
@@ -43,7 +43,7 @@ Prose = {
     if (prose._id !== undefined) {
       this.update(prose, live_prose["title"], live_prose["url"], live_prose["text"], branch, new_branch);
     } else {
-      this.create(live_prose.title, live_prose.url, live_prose.text)
+      this.create(live_prose.title, live_prose.url, live_prose.text, false)
     }   
   }
 }

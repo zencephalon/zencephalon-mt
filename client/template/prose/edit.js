@@ -67,17 +67,19 @@ Template.prose_edit.events({
 var autosaveInterval;
 
 Template.prose_edit.created = function() {
-  //autosaveInterval = Meteor.setInterval(function() {Template.prose_edit.save_prose(false, false)}, 5000);
+  autosaveInterval = Meteor.setInterval(function() {Template.prose_edit.save_prose(false, false)}, 5000);
 }
 
 Template.prose_edit.destroyed = function() {
   Meteor.clearInterval(autosaveInterval);
+  Mousetrap.unbind('ctrl+shift+s');
+  Mousetrap.unbind('ctrl+s');
 }
 
 Template.prose_edit.rendered = function() {
-  Mousetrap.bind('ctrl+shift+s', function(e) { Template.prose_edit.save_prose(true, true);});
-  Mousetrap.bind('ctrl+s', function(e) { Template.prose_edit.save_prose(false, true);});
   $(document).ready(function() {
+    Mousetrap.bind('ctrl+shift+s', function(e) { Template.prose_edit.save_prose(true, true);});
+    Mousetrap.bind('ctrl+s', function(e) { Template.prose_edit.save_prose(false, true);});
     if (Session.get("just_loaded")) {
       $("#prose_text").focus();
       prose_area = document.getElementById("prose_text");
