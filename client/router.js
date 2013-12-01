@@ -62,7 +62,14 @@ Router.map(function() {
       Meteor.subscribe("users");
     },
     data: function() {
-      return {users: _.map(Meteor.users.find(), function(user) {return user.emails[0];})};
+      return {users: _.map(Meteor.users.find().fetch(), function(user) {
+        if (user.emails !== undefined) {
+          return user.emails[0].address;
+        } else {
+          return "No email";
+        }
+      })
+    };
     }
   })
 
