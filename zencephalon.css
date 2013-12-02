@@ -160,12 +160,6 @@ textarea:focus {
   margin-bottom: .5em;
 }
 
-.edit_toggle {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-}
-
 #login-dropdown-list {
   position: relative;
   padding: 8px 8px 20px 12px;
