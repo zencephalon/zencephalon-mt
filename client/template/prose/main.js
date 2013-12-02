@@ -7,5 +7,6 @@ Template.prose.rendered = function() {
     j = Journal.today(); 
     Session.set("view_mode", false);
     Router.go('prose', {url: j}); 
+    return false;
   });
 }

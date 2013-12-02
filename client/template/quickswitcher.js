@@ -36,6 +36,7 @@ Template.quickswitcher.rendered = function() {
 
     $('.switcher').focus().val(":");
     document.body.scrollTop = document.documentElement.scrollTop = 0;
+    return false;
   });
   $(document).ready(function() {
     $('#quickswitcher').focusout(function() {

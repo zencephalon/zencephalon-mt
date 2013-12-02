@@ -80,12 +80,12 @@ Template.prose_edit.destroyed = function() {
 
 Template.prose_edit.rendered = function() {
   $(document).ready(function() {
-    Mousetrap.bind('ctrl+shift+s', function(e) { Template.prose_edit.save_prose(true, true);});
-    Mousetrap.bind('ctrl+s', function(e) { Template.prose_edit.save_prose(false, true);});
+    Mousetrap.bind('ctrl+shift+s', function(e) { Template.prose_edit.save_prose(true, true); return false; });
+    Mousetrap.bind('ctrl+s', function(e) { Template.prose_edit.save_prose(false, true); return false; });
     if (Session.get("just_loaded")) {
       // Restore the viewport
       View.restore();
-      
+
       Session.set("just_loaded", false);
       $("#prose_text").autosize();
     }
