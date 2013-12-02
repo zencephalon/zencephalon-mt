@@ -16,8 +16,8 @@ Template.quickswitcher.settings = function() {
 Template.quickswitcher.events({
   'submit form': function(event) { 
     event.preventDefault();
-    view_mode = Session.get("view_mode");
-    if (!view_mode && (view_mode !== undefined)) {
+
+    if (View.edit_mode()) {
       Template.prose_edit.save_prose(false);
     }
     Router.go('prose', {url: $('.switcher').val()})
@@ -30,8 +30,7 @@ Template.quickswitcher.rendered = function() {
     $('#quickswitcher').show();
 
     // Save the viewport
-    view_mode = Session.get("view_mode");
-    if (!view_mode && (view_mode !== undefined)) {
+    if (View.edit_mode()) {
       View.save();
     }
 
@@ -42,8 +41,7 @@ Template.quickswitcher.rendered = function() {
     $('#quickswitcher').focusout(function() {
       $('#quickswitcher').hide();
       // Restore the viewport
-      view_mode = Session.get("view_mode");
-      if (!view_mode && (view_mode !== undefined)) {
+      if (View.edit_mode()) {
         View.restore();
       }
     })

@@ -16,5 +16,9 @@ View = {
       prose_area.scrollTop = view.scroll_pos;
       document.body.scrollTop = document.documentElement.scrollTop = view.window_pos;
     }
+  },
+  edit_mode : function() {
+    view_mode = Session.get("view_mode");
+    return (!view_mode && (view_mode !== undefined))
   }
 }
