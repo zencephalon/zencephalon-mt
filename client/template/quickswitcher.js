@@ -30,7 +30,10 @@ Template.quickswitcher.rendered = function() {
     $('#quickswitcher').show();
 
     // Save the viewport
-    View.save();
+    view_mode = Session.get("view_mode");
+    if (!view_mode && (view_mode !== undefined)) {
+      View.save();
+    }
 
     $('.switcher').focus().val(":");
     document.body.scrollTop = document.documentElement.scrollTop = 0;
@@ -39,7 +42,10 @@ Template.quickswitcher.rendered = function() {
     $('#quickswitcher').focusout(function() {
       $('#quickswitcher').hide();
       // Restore the viewport
-      View.restore();
+      view_mode = Session.get("view_mode");
+      if (!view_mode && (view_mode !== undefined)) {
+        View.restore();
+      }
     })
   });
 }
