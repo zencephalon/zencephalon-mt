@@ -28,12 +28,18 @@ Template.quickswitcher.rendered = function() {
   Mousetrap.bind('ctrl+space', function(e) { 
     e.preventDefault();
     $('#quickswitcher').show();
+
+    // Save the viewport
+    View.save();
+
     $('.switcher').focus().val(":");
     document.body.scrollTop = document.documentElement.scrollTop = 0;
   });
   $(document).ready(function() {
     $('#quickswitcher').focusout(function() {
       $('#quickswitcher').hide();
+      // Restore the viewport
+      View.restore();
     })
   });
 }

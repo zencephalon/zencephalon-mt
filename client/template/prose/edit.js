@@ -37,9 +37,9 @@ Template.prose_edit.save_prose = function(new_revision, view_mode) {
   live_prose = Template.prose_edit.live_prose();
   prose = Template.prose_edit.prose();
   branch = Session.get("selected_branch");
-  prose_area = document.getElementById("prose_text");
-  Session.set("caret_pos", Caret.get(prose_area));
-  Session.set("scroll_pos", prose_area.scrollTop);
+
+  // Save the viewport
+  View.save();
 
   Prose.save(prose, live_prose, branch, new_revision);
 
@@ -83,10 +83,9 @@ Template.prose_edit.rendered = function() {
     Mousetrap.bind('ctrl+shift+s', function(e) { Template.prose_edit.save_prose(true, true);});
     Mousetrap.bind('ctrl+s', function(e) { Template.prose_edit.save_prose(false, true);});
     if (Session.get("just_loaded")) {
-      $("#prose_text").focus();
-      prose_area = document.getElementById("prose_text");
-      Caret.set(prose_area, Session.get("caret_pos"));
-      prose_area.scrollTop = Session.get("scroll_pos");
+      // Restore the viewport
+      View.restore();
+      
       Session.set("just_loaded", false);
       $("#prose_text").autosize();
     }
