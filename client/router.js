@@ -14,7 +14,7 @@ setRouteSubscriptions = function(route, branch_name) {
       Meteor.subscribe("current_branch", prose._id, branch_name);
       branch = Branch.get(prose._id, branch_name);
     } else {
-      Meteor.subscribe("current_branch", prose._id, branch_name);
+      Meteor.subscribe("current_branch", prose._id, prose.branch);
       branch = Branch.get(prose._id, prose.branch);
     }
     Meteor.subscribe("branches", prose._id);
@@ -88,6 +88,33 @@ Router.map(function() {
     data: getRouteData,
     before: function() {
       setRouteSubscriptions(this, this.params.branch_name);
+    }
+  });
+
+  this.route('diff', {
+    path: '/:url/b/:branch_name/:diff_branch_name',
+    template: 'diff',
+    waitOn: function() {
+      return Meteor.subscribe('proses');
+    },
+    before: function() {
+      prose = Prose.get(this.params.url);
+      this.subscribe("branches", prose._id).wait();
+    },
+    data: function() {
+      prose = Prose.get(this.params.url);
+      branch_name = this.params.branch_name;
+      diff_branch_name = this.params.diff_branch_name;
+      console.log(prose);
+      if (prose !== undefined) {
+        branch = Branch.get(prose._id, branch_name);
+        branch_diff = Branch.get(prose._id, diff_branch_name);
+      }
+      dmp = new diff_match_patch();
+      d = dmp.diff_main(branch.text, branch_diff.text);
+      dmp.diff_cleanupSemantic(d);
+      ds = dmp.diff_prettyHtml(d);
+      return {prose: prose, diff: ds}
     }
   })
 });
