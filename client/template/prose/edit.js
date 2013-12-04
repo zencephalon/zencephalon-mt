@@ -84,10 +84,10 @@ Template.prose_edit.rendered = function() {
     Mousetrap.bind('ctrl+s', function(e) { Template.prose_edit.save_prose(false, true); return false; });
     if (Session.get("just_loaded")) {
       // Restore the viewport
+      $("#prose_text").autosize();
       View.restore();
 
       Session.set("just_loaded", false);
-      $("#prose_text").autosize();
     }
   });
 }
