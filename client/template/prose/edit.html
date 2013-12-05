@@ -1,6 +1,6 @@
 <template name="prose_edit">
   <div class="edit_topbar">
-    <input type="text" id="prose_title" value="{{prose.title}}" />
+    <input type="text" id="prose_title" value="{{prose.title}}" class="mousetrap"/>
   </div>
 
   {{#textareaAutocomplete settings id="prose_text" class="mousetrap"}}{{{branch.text}}}{{/textareaAutocomplete}}
