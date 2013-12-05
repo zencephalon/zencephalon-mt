@@ -53,7 +53,7 @@ Router.map(function() {
     data: function() {
       return {proses: Proses.find({journal: true}, {sort: {updated: -1}})};
     }
-  })
+  });
 
   this.route('user_admin', {
     path: '/z/users',
@@ -63,15 +63,15 @@ Router.map(function() {
     },
     data: function() {
       return {users: _.map(Meteor.users.find().fetch(), function(user) {
-        if (user.emails !== undefined) {
-          return user.emails[0].address;
-        } else {
-          return "No email";
-        }
-      })
-    };
+          if (user.emails !== undefined) {
+            return user.emails[0].address;
+          } else {
+            return "No email";
+          }
+        });
+      }
     }
-  })
+  });
 
   this.route('prose', {
     path: '/:url',
@@ -106,7 +106,7 @@ Router.map(function() {
       branch_name = this.params.branch_name;
       diff_branch_name = this.params.diff_branch_name;
 
-      return {prose: prose, diff: Differ.diff(prose, branch_name, diff_branch_name)}
+      return {prose: prose, diff: Differ.diff(prose, branch_name, diff_branch_name)};
     }
   })
 });
