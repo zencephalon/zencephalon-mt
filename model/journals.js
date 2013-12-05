@@ -10,5 +10,13 @@ Journal = {
       Prose.create(title, day_string, Journal.template(), true);
     } 
     return day_string;
+  },
+  bindKeys : function() {
+    Mousetrap.bind('ctrl+j', function(e) { 
+      j = Journal.today(); 
+      Session.set("view_mode", false);
+      Router.go('prose', {url: j}); 
+      return false;
+    });
   }
 }
