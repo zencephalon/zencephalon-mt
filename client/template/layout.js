@@ -1,9 +1,9 @@
 Template.layout.rendered = function() {
   $('body').flowtype({
     minimum: 0,
-    maximum: 1200,
+    maximum: 1600,
     minFont: 12,
-    maxFont: 32,
+    maxFont: 42,
     fontRatio: 30,
     lineRatio: 1.45
   });
