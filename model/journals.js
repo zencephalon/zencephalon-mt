@@ -4,7 +4,8 @@ Journal = {
   },
   today : function() {
     d = new Date();
-    day_string = d.toLocaleDateString().replace(/\//g, '_');
+    day_string = Util.cleanURL(d.toLocaleDateString());
+
     if (Prose.get(day_string)._id === undefined) {
       title = _.first(d.toString().split(" "), 4).join(" ");
       Prose.create(title, day_string, Journal.template(), true);

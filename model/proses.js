@@ -24,12 +24,12 @@ Prose = {
   create : function(title, url, text, journal) {
     branch = '0';
     tree = ['0'];
-    url = cleanURL(url);
+    url = Util.cleanURL(url);
     prose = Proses.insert({title: title, url: url, branch: branch, tree: tree, journal: journal, updated: new Date()})
     Branch.create(prose, text, '0');
   },
   update : function(prose, title, url, text, branch, new_branch) {
-    url = cleanURL(url);
+    url = Util.cleanURL(url);
     if (new_branch) {
       new_branch_name = Branch.save(branch.name, prose._id, prose.tree, text);
       prose.tree.push(new_branch_name);
