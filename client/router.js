@@ -68,7 +68,7 @@ Router.map(function() {
           } else {
             return "No email";
           }
-        });
+        })
       }
     }
   });
