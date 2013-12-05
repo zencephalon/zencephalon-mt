@@ -1,4 +1,4 @@
 <template name="prose_view">
-  <h2 {{#if currentUser}}class="title"{{/if}}>{{prose.title}}</h2>
+  <h1 {{#if currentUser}}class="title"{{/if}}>{{prose.title}}</h2>
   {{#markdown}}{{{branch.text}}}{{/markdown}}
 </template>
