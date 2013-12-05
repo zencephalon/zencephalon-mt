@@ -33,30 +33,12 @@ Template.prose_edit.settings = function() {
   }
 }
 
-Template.prose_edit.save_prose = function(new_revision, view_mode) {
-  live_prose = Template.prose_edit.live_prose();
-  prose = Template.prose_edit.prose();
-  branch = Session.get("selected_branch");
-
-  // Save the viewport
-  View.save();
-
-  Prose.save(prose, live_prose, branch, new_revision);
-
-  if (Session.get("view_mode") != view_mode) {
-    Session.set("view_mode", view_mode);
-  }
-  if (new_revision) {
-    Router.go('prose', {url: live_prose["url"]});
-  }
-}
-
 Template.prose_edit.events({
   'click a.save': function() {
-    Template.prose_edit.save_prose(true, true)
+    Editor.saveProse(true, true)
   },
   'click a.edit_toggle': function() {
-    Template.prose_edit.save_prose(false, true);
+    Editor.saveProse(false, true);
   },
   'click a.formatting_toggle': function() {
     Session.set('display_formatting', !Session.get('display_formatting'));
@@ -81,8 +63,8 @@ Template.prose_edit.destroyed = function() {
 
 Template.prose_edit.rendered = function() {
   $(document).ready(function() {
-    Mousetrap.bind('ctrl+shift+s', function(e) { Template.prose_edit.save_prose(true, true); return false; });
-    Mousetrap.bind('ctrl+s', function(e) { Template.prose_edit.save_prose(false, true); return false; });
+    Mousetrap.bind('ctrl+shift+s', function(e) { Editor.saveProse(true, true); return false; });
+    Mousetrap.bind('ctrl+s', function(e) { Editor.saveProse(false, true); return false; });
     Mousetrap.bind('ctrl+d', function(e) {
       View.save();
       caret_pos = Session.get("saved_view").caret_pos;
