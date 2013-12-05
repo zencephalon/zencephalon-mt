@@ -1,4 +1,5 @@
 Template.layout.rendered = function() {
+  Journal.bindKeys();
   $('body').flowtype({
     minimum: 0,
     maximum: 1600,

@@ -3,5 +3,4 @@ Template.prose.view_mode = function() {
 }
 
 Template.prose.rendered = function() {
-  Journal.bindKeys();
 }
