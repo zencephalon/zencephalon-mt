@@ -1,11 +1,3 @@
-Template.prose_edit.live_prose = function() {
-  var o = {};
-  ["title", "text", "url"].forEach(function(ele) {
-    o[ele] = $("#prose_" + ele).val();
-  });
-  return o;
-}
-
 Template.prose_edit.prose = function() {
   return Deps.nonreactive(function() { return Session.get("selected_prose");});
 }
@@ -56,22 +48,11 @@ Template.prose_edit.created = function() {
 
 Template.prose_edit.destroyed = function() {
   //Meteor.clearInterval(autosaveInterval);
-  Mousetrap.unbind('ctrl+shift+s');
-  Mousetrap.unbind('ctrl+s');
-  Mousetrap.unbind('ctrl+d');
+  Editor.unbindKeys();
 }
 
 Template.prose_edit.rendered = function() {
   $(document).ready(function() {
-    Mousetrap.bind('ctrl+shift+s', function(e) { Editor.saveProse(true, true); return false; });
-    Mousetrap.bind('ctrl+s', function(e) { Editor.saveProse(false, true); return false; });
-    Mousetrap.bind('ctrl+d', Editor.insertTimestamp);
-    if (Session.get("just_loaded")) {
-      // Restore the viewport
-      $("#prose_text").autosize();
-      View.restore();
-
-      Session.set("just_loaded", false);
-    }
+    Editor.initView();
   });
 }

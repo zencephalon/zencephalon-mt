@@ -1,6 +1,14 @@
 Editor = {
+  liveProse : function() {
+    var o = {};
+    ["title", "text", "url"].forEach(function(ele) {
+      o[ele] = $("#prose_" + ele).val();
+    });
+    return o;
+  },
+
   saveProse : function(new_revision, view_mode) {
-    live_prose = Template.prose_edit.live_prose();
+    live_prose = this.liveProse();
     prose = Template.prose_edit.prose();
     branch = Session.get("selected_branch");
 
@@ -15,6 +23,7 @@ Editor = {
       Router.go('prose', {url: live_prose["url"]});
     }
   },
+
   insertTimestamp : function() {
     View.save();
     caret_pos = Session.get("saved_view").caret_pos;
@@ -27,5 +36,29 @@ Editor = {
     // Crazy, this is actually overriding a readline shortcut to delete a character in OSX. 
     // That is useless to me, so I'm removing it.
     return false;
+  },
+
+  bindKeys : function() {
+    Mousetrap.bind('ctrl+shift+s', function(e) { Editor.saveProse(true, true); return false; });
+    Mousetrap.bind('ctrl+s', function(e) { Editor.saveProse(false, true); return false; });
+    Mousetrap.bind('ctrl+d', Editor.insertTimestamp);
+  },
+
+  unbindKeys : function() {
+    Mousetrap.unbind('ctrl+shift+s');
+    Mousetrap.unbind('ctrl+s');
+    Mousetrap.unbind('ctrl+d');
+  },
+
+  initView : function() {
+    this.bindKeys();
+
+    if (Session.get("just_loaded")) {
+      // Restore the viewport
+      $("#prose_text").autosize();
+      View.restore();
+
+      Session.set("just_loaded", false);
+    }
   }
 }
