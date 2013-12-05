@@ -2,21 +2,32 @@
   <div class="edit_topbar">
     <input type="text" id="prose_title" value="{{prose.title}}" />
   </div>
-{{#textareaAutocomplete settings id="prose_text" class="mousetrap"}}{{{branch.text}}}{{/textareaAutocomplete}}
+
+  {{#textareaAutocomplete settings id="prose_text" class="mousetrap"}}{{{branch.text}}}{{/textareaAutocomplete}}
+
   <input type="text" id="prose_url" value="{{prose.url}}" style="display:none" />
+
   <span  style="float:right">
-  <a href="#" class="edit_toggle mousetrap">view</a> / <a href="#" class="save">save</a>
+    <a href="#" class="edit_toggle mousetrap">view</a> / <a href="#" class="save">save</a>
   </span>
+
   <a href="#" class="shortcuts_toggle">shortcut hints</a>, <a href="#" class="formatting_toggle">formatting hints</a>
+
   {{#if displayShortCuts}}
-  <span class="hints">Short-cuts: <span class="standout">ctrl-s</span> (save and preview) <span class="standout">ctrl-s</span> (return to edit), <span class="standout">ctrl-shift-s</span> (save a new revision)</span>
+    {{> shortcutsHelp}}
   {{/if}}
+
   {{#if displayFormatting}}
-  {{> formattingHelp}}
+    {{> formattingHelp}}
   {{/if}}
+  
   <hr>
   Revisions:
   {{> branch_list}}
+</template>
+
+<template name="shortcutsHelp">
+  <span class="hints">Short-cuts: <span class="standout">ctrl-s</span> (save and preview) <span class="standout">ctrl-s</span> (return to edit), <span class="standout">ctrl-shift-s</span> (save a new revision)</span>
 </template>
 
 <template name="formattingHelp">
