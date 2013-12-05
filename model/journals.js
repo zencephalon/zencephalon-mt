@@ -4,9 +4,10 @@ Journal = {
   },
   today : function() {
     d = new Date();
-    day_string = (d.getMonth() + 1) + "_" + d.getDate() + "_" + d.getFullYear();
+    day_string = d.toLocaleDateString().replace(/\//g, '_');
     if (Prose.get(day_string)._id === undefined) {
-      Prose.create(day_string, day_string, Journal.template(), true);
+      title = _.first(d.toString().split(" "), 4).join(" ");
+      Prose.create(title, day_string, Journal.template(), true);
     } 
     return day_string;
   }
