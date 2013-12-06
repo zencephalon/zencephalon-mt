@@ -43,16 +43,20 @@ Template.prose_edit.events({
 var autosaveInterval;
 
 Template.prose_edit.created = function() {
-  autosaveInterval = Meteor.setInterval(function() {Editor.saveProse(false, false)}, 3000);
 }
 
 Template.prose_edit.destroyed = function() {
-  Meteor.clearInterval(autosaveInterval);
   Editor.unbindKeys();
 }
 
 Template.prose_edit.rendered = function() {
   $(document).ready(function() {
     Editor.initView();
+    $('#prose_text').focus(function() {
+      autosaveInterval = Meteor.setInterval(function() {Editor.saveProse(false, false)}, 3000);
+    });
+    $('#prose_text').focusout(function() {
+      Meteor.clearInterval(autosaveInterval);
+    });
   });
 }
