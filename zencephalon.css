@@ -28,7 +28,7 @@ del {text-decoration: line-through; color: #777777;}
 
 footer { font-size: 0.7em; margin-top: 2em;}
 
-#content { margin: 0 auto; max-width: 37em; position: relative;}
+#content { margin: 0 auto; padding: 0 1em; ax-width: 37em; position: relative;}
 
 a {
     color: #36AECC;
@@ -100,7 +100,7 @@ textarea:focus {
 }
 
 .logo {
-  height: 60px;
+  height: 2em;
 }
 
 #iron-router-progress {
@@ -143,15 +143,15 @@ textarea:focus {
 #quickswitcher {
   position: absolute;
   top: 0;
-  left: 0;
-  right: 0;
+  left: 1em;
+  right: 1em;
   margin-left: 0em;
 }
 
 .switcher {
-  font-size: 50px;
+  font-size: 2em;
   font-family: Georgia; line-height:100%; color: #36AECC; font-weight: 400;
-  height: 60px;
+  height: 1.1em;
   width: 100%;
 }
 
