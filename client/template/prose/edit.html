@@ -11,7 +11,7 @@
     <a href="#" class="edit_toggle mousetrap">view</a> / <a href="#" class="save">save</a>
   </span>
 
-  <a href="#" class="shortcuts_toggle">shortcut hints</a>, <a href="#" class="formatting_toggle">formatting hints</a>
+  <span class="hints"><a href="#" class="shortcuts_toggle">shortcut hints</a>, <a href="#" class="formatting_toggle">formatting hints</a></span>
 
   {{#if displayShortCuts}}
     {{> shortcutsHelp}}
@@ -27,7 +27,7 @@
 </template>
 
 <template name="shortcutsHelp">
-  <span class="hints">Short-cuts: <span class="standout">ctrl-s</span> (save and preview) <span class="standout">ctrl-s</span> (return to edit), <span class="standout">ctrl-shift-s</span> (save a new revision)</span>
+  <span class="hints">Short-cuts: <span class="standout">ctrl-s</span> (save new branch) <span class="standout">ctrl-s</span> (return to edit), <span class="standout">ctrl-d</span> (insert time)</span>
 </template>
 
 <template name="formattingHelp">

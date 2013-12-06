@@ -76,6 +76,7 @@ Router.map(function() {
   this.route('prose', {
     path: '/:url',
     template: 'prose',
+    reactive: false,
     data: getRouteData,
     before: function() {
       setRouteSubscriptions(this, false);
@@ -85,6 +86,7 @@ Router.map(function() {
   this.route('branch', {
     path: '/:url/b/:branch_name',
     template: 'prose',
+    reactive: false,
     data: getRouteData,
     before: function() {
       setRouteSubscriptions(this, this.params.branch_name);

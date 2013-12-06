@@ -39,13 +39,11 @@ Editor = {
   },
 
   bindKeys : function() {
-    Mousetrap.bind('ctrl+shift+s', function(e) { Editor.saveProse(true, true); return false; });
-    Mousetrap.bind('ctrl+s', function(e) { Editor.saveProse(false, true); return false; });
+    Mousetrap.bind('ctrl+s', function(e) { Editor.saveProse(true, true); return false; });
     Mousetrap.bind('ctrl+d', Editor.insertTimestamp);
   },
 
   unbindKeys : function() {
-    Mousetrap.unbind('ctrl+shift+s');
     Mousetrap.unbind('ctrl+s');
     Mousetrap.unbind('ctrl+d');
   },
