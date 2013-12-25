@@ -18,6 +18,6 @@ View = {
   },
   edit_mode : function() {
     view_mode = Session.get("view_mode");
-    return (!view_mode && (view_mode !== undefined))
+    return (!view_mode || (view_mode === undefined))
   }
 }

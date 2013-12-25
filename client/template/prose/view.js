@@ -7,5 +7,4 @@ Template.prose_view.events({
 });
 
 Template.prose_view.rendered = function() {
-  Mousetrap.bind('ctrl+s', function(e) { Session.set("view_mode", false); return false; });
 }

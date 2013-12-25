@@ -18,7 +18,7 @@ Template.quickswitcher.events({
     event.preventDefault();
 
     if (View.edit_mode()) {
-      Template.prose_edit.save_prose(false);
+      Editor.saveProse(false, false);
     }
     Router.go('prose', {url: $('.switcher').val()})
   }
