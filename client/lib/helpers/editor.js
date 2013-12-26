@@ -29,7 +29,7 @@ Editor = {
     caret_pos = Session.get("saved_view").caret_pos;
     content = $('#prose_text').val();
     d = new Date();
-    date_str = d.toLocaleTimeString() + ': ';
+    date_str = d.toTimeString() + ': ';
     content = content.substr(0, caret_pos) + date_str + content.substr(caret_pos);
     $('#prose_text').val(content);
     View.set_caret(caret_pos + date_str.length);
