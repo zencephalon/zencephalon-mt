@@ -8,7 +8,7 @@ EPrimer = {
   },
   highlighter : function(word, input) {
     var rgxp = new RegExp("\\b" + word + "\\b", 'ig');
-    var repl = '<span class="standout">' + word + '</span>';
+    var repl = '<span class="error">' + word + '</span>';
     return input.replace(rgxp, repl);
   }
 }

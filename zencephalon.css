@@ -140,6 +140,10 @@ textarea:focus {
   color: #36AECC;
 }
 
+.error {
+  background: #ffe6e6;
+}
+
 #quickswitcher {
   position: absolute;
   top: 0;
