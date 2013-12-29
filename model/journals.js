@@ -1,5 +1,5 @@
 Journal = {
-  defaultTemplate : "#### TODO?\n\n #### Code?\n\n#### Meditate?\n\n#### Exercise?\n\n#### Taijutsu?\n\n#### Journal?\n",
+  defaultTemplate : "#### TODO?\n\n#### Code?\n\n#### Meditate?\n\n#### Exercise?\n\n#### Taijutsu?\n\n#### Journal?\n",
   template : function() {
     name = "__journal_template__";
     template = Prose.get(name);
