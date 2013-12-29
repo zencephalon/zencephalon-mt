@@ -7,14 +7,21 @@ getRouteData = function() {
 }
 
 setRouteSubscriptions = function(route, branch_name) {
-  Meteor.subscribe("proses");
+  route.subscribe("proses").wait();
   prose = Prose.get(route.params.url);
+
+  // handle the journal
+  journal = Prose.get("__journal_template__");
+  if (journal._id !== undefined) {
+    route.subscribe("current_branch", journal._id, journal.branch).wait();
+  }
+
   if (prose !== undefined) {
     if (branch_name) {
-      Meteor.subscribe("current_branch", prose._id, branch_name);
+      route.subscribe("current_branch", prose._id, branch_name).wait();
       branch = Branch.get(prose._id, branch_name);
     } else {
-      Meteor.subscribe("current_branch", prose._id, prose.branch);
+      route.subscribe("current_branch", prose._id, prose.branch).wait();
       branch = Branch.get(prose._id, prose.branch);
     }
     Meteor.subscribe("branches", prose._id);

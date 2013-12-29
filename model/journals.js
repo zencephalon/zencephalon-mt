@@ -1,6 +1,14 @@
 Journal = {
+  defaultTemplate : "#### TODO?\n\n #### Code?\n\n#### Meditate?\n\n#### Exercise?\n\n#### Taijutsu?\n\n#### Journal?\n",
   template : function() {
-    return "#### Code?\n\n#### Meditate?\n\n#### Exercise?\n\n#### Taijutsu?\n\n#### Journal?\n"
+    name = "__journal_template__";
+    template = Prose.get(name);
+    if (template._id === undefined) {
+      Prose.create("Journal Template", name, Journal.defaultTemplate, true);
+      return Journal.defaultTemplate;
+    } else {
+      return Branch.get(template._id, template.branch).text;
+    }
   },
   today : function() {
     d = new Date();
