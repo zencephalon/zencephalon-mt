@@ -13,7 +13,7 @@ Editor = {
     branch = Session.get("selected_branch");
 
     // always save a new revision if it has been over ten minutes
-    if (branch.updated.getTime() + 60 * 1000 * 10 < new Date().getTime()) {
+    if (branch !== undefined && branch.updated.getTime() + 60 * 1000 * 10 < new Date().getTime()) {
       new_revision = true;
     }
 
