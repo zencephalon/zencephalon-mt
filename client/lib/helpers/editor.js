@@ -9,8 +9,13 @@ Editor = {
 
   saveProse : function(new_revision, view_mode) {
     live_prose = this.liveProse();
-    prose = Template.prose_edit.prose();
+    prose = Session.get("selected_prose");
     branch = Session.get("selected_branch");
+
+    // always save a new revision if it has been over ten minutes
+    if (branch.updated.getTime() + 60 * 1000 * 10 < new Date().getTime()) {
+      new_revision = true;
+    }
 
     // Save the viewport
     View.save();
