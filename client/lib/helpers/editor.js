@@ -29,28 +29,36 @@ Editor = {
     }
   },
 
-  insertTimestamp : function() {
+  insertText : function(str) {
     View.save();
     caret_pos = Session.get("saved_view").caret_pos;
     content = $('#prose_text').val();
-    d = new Date();
-    date_str = d.toLocaleTimeString() + ': ';
-    content = content.substr(0, caret_pos) + date_str + content.substr(caret_pos);
+    content = content.substr(0, caret_pos) + str + content.substr(caret_pos);
     $('#prose_text').val(content);
-    View.set_caret(caret_pos + date_str.length);
-    // Crazy, this is actually overriding a readline shortcut to delete a character in OSX. 
-    // That is useless to me, so I'm removing it.
+    View.set_caret(caret_pos + str.length);
+  },
+
+  insertTimestamp : function() {
+    date_str = d.toLocaleTimeString() + ': ';
+    Editor.insertText(date_str);
+    return false;
+  },
+
+  insertTodo : function() {
+    Editor.insertText("- [] ");
     return false;
   },
 
   bindKeys : function() {
     Mousetrap.bind('ctrl+shift+s', function(e) { Editor.saveProse(true, true); return false; });
     Mousetrap.bind('ctrl+d', Editor.insertTimestamp);
+    Mousetrap.bind('ctrl+z', Editor.insertTodo);
   },
 
   unbindKeys : function() {
     Mousetrap.unbind('ctrl+shift+s');
     Mousetrap.unbind('ctrl+d');
+    Mousetrap.unbind('ctrl+z');
   },
 
   initView : function() {
