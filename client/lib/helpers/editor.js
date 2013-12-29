@@ -39,7 +39,7 @@ Editor = {
   },
 
   insertTimestamp : function() {
-    date_str = d.toLocaleTimeString() + ': ';
+    date_str = new Date().toLocaleTimeString() + ': ';
     Editor.insertText(date_str);
     return false;
   },
