@@ -49,16 +49,47 @@ Editor = {
     return false;
   },
 
+  goSectionDown : function() {
+    View.save();
+    header_str = "\n####";
+    caret_pos = Session.get("saved_view").caret_pos;
+    content = $('#prose_text').val();
+    bottom = content.substr(caret_pos);
+    new_pos = bottom.indexOf(header_str);
+    // We are in the bottom section
+    console.log("caret_pos: " + caret_pos);
+    console.log("new_pos: " + new_pos);
+    if (new_pos == -1) {
+      new_pos = content.indexOf(header_str);
+    } else {
+      if (new_pos == 0) {
+        next_sec = bottom.substr(new_pos + header_str.length).indexOf(header_str) + header_str.length;
+      } else {
+        next_sec = bottom.substr(new_pos).indexOf(header_str);
+      }
+      console.log("next_sec: " + next_sec);
+      if (next_sec == -1) {
+        new_pos = content.indexOf(header_str);
+      } else {
+        new_pos = caret_pos + new_pos + next_sec;
+      }
+    }
+    View.set_caret(new_pos);
+    return false;
+  },
+
   bindKeys : function() {
     Mousetrap.bind('ctrl+shift+s', function(e) { Editor.saveProse(true, true); return false; });
     Mousetrap.bind('ctrl+d', Editor.insertTimestamp);
     Mousetrap.bind('ctrl+z', Editor.insertTodo);
+    Mousetrap.bind('ctrl+n', Editor.goSectionDown);
   },
 
   unbindKeys : function() {
     Mousetrap.unbind('ctrl+shift+s');
     Mousetrap.unbind('ctrl+d');
     Mousetrap.unbind('ctrl+z');
+    Mousetrap.unbind('ctrl+n');
   },
 
   initView : function() {
