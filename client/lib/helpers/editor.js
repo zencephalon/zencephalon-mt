@@ -63,19 +63,18 @@ Editor = {
       if (new_pos == 0) {
         next_sec = bottom.substr(new_pos + header_str.length).indexOf(header_str) + header_str.length;
       } else {
-        console.log("yolo");
         next_sec = bottom.substr(new_pos).indexOf(header_str);
       }
 
       if (next_sec - header_str.length == -1) {
-        console.log("here!");
         new_pos = content.length;
       } else {
         new_pos = caret_pos + new_pos + next_sec;
       }
     }
-    
+
     View.set_caret(new_pos);
+    View.cursor_scroll();
     return false;
   },
 

@@ -177,3 +177,18 @@ textarea:focus {
 #login-buttons .login-close-text {
   float: right;
 }
+
+#text-height-helper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-color:transparent;
+  width: 100%;
+  z-index: -10;
+}
+
+#text-height-helper span {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  color:transparent;
+}

@@ -19,5 +19,17 @@ View = {
   edit_mode : function() {
     view_mode = Session.get("view_mode");
     return (!view_mode || (view_mode === undefined))
+  },
+  cursor_scroll : function() {
+    helper = document.getElementById('text-height-helper').firstChild;
+    cursor_pos = Caret.get(this.prose_area());
+    helper.innerHTML = this.prose_area().value.substr(0, cursor_pos);
+    rects = document.getElementById('text-height-helper').getClientRects();
+    lastRect = rects[rects.length - 1];
+    console.log($('#prose_text').position().top);
+    console.log(lastRect.height);
+    new_top = $('#prose_text').position().top + lastRect.height + 50;
+    console.log("top: " + new_top);
+    document.body.scrollTop = document.documentElement.scrollTop = new_top;
   }
 }
