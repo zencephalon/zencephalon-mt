@@ -23,12 +23,12 @@ View = {
   cursor_scroll : function() {
     helper = document.getElementById('text-height-helper').firstChild;
     cursor_pos = Caret.get(this.prose_area());
-    helper.innerHTML = this.prose_area().value.substr(0, cursor_pos);
+    helper.innerHTML = this.prose_area().value.substr(0, cursor_pos).replace(/\n$/,"\n\001");
     rects = document.getElementById('text-height-helper').getClientRects();
     lastRect = rects[rects.length - 1];
     console.log($('#prose_text').position().top);
     console.log(lastRect.height);
-    new_top = $('#prose_text').position().top + lastRect.height + 50;
+    new_top = $('#prose_text').position().top + lastRect.height - 100;
     console.log("top: " + new_top);
     document.body.scrollTop = document.documentElement.scrollTop = new_top;
   }
