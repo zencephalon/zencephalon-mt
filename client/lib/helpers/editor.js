@@ -34,13 +34,11 @@ Editor = {
     caret_pos = Session.get("saved_view").caret_pos;
     content = $('#prose_text').val();
     func(caret_pos, content);
+    return false;
   },
 
   insertText : function(str) {
-    View.save();
-    caret_pos = Session.get("saved_view").caret_pos;
-    content = $('#prose_text').val();
-    Edtior.editorFunc(function(caret_pos, content) {
+    Editor.editorFunc(function(caret_pos, content) {
       $('#prose_text').val(content.substr(0, caret_pos) + str + content.substr(caret_pos));
       View.set_caret(caret_pos + str.length);
     });
@@ -57,50 +55,49 @@ Editor = {
     return false;
   },
 
+  scrollCursor : function(new_pos) {
+      View.set_caret(new_pos);
+      View.cursor_scroll();
+  },
+
   goSectionDown : function() {
-    View.save();
-    header_str = "\n####";
-    caret_pos = Session.get("saved_view").caret_pos;
-    content = $('#prose_text').val();
-    bottom = content.substr(caret_pos);
-    new_pos = bottom.indexOf(header_str);
+    return Editor.editorFunc(function(caret_pos, content) {
+      header_str = "\n####";
+      bottom = content.substr(caret_pos);
+      new_pos = bottom.indexOf(header_str);
 
-    if (new_pos == -1) {
-      new_pos = content.indexOf(header_str);
-    } else {
-      if (new_pos == 0) {
-        next_sec = bottom.substr(new_pos + header_str.length).indexOf(header_str) + header_str.length;
+      if (new_pos == -1) {
+        new_pos = content.indexOf(header_str);
       } else {
-        next_sec = bottom.substr(new_pos).indexOf(header_str);
+        if (new_pos == 0) {
+          next_sec = bottom.substr(new_pos + header_str.length).indexOf(header_str) + header_str.length;
+        } else {
+          next_sec = bottom.substr(new_pos).indexOf(header_str);
+        }
+
+        if (next_sec - header_str.length == -1) {
+          new_pos = content.length;
+        } else {
+          new_pos = caret_pos + new_pos + next_sec;
+        }
       }
 
-      if (next_sec - header_str.length == -1) {
-        new_pos = content.length;
-      } else {
-        new_pos = caret_pos + new_pos + next_sec;
-      }
-    }
-
-    View.set_caret(new_pos);
-    View.cursor_scroll();
-    return false;
+      Editor.scrollCursor(new_pos);
+    });
   },
 
   goSectionUp : function() {
-    View.save();
-    header_str = "\n####";
-    caret_pos = Session.get("saved_view").caret_pos;
-    content = $('#prose_text').val();
-    top_content = content.substr(0, caret_pos);
-    new_pos = top_content.lastIndexOf(header_str);
+    return Editor.editorFunc(function(caret_pos, content) {
+      header_str = "\n####";
+      top_content = content.substr(0, caret_pos);
+      new_pos = top_content.lastIndexOf(header_str);
 
-    if (new_pos == -1) {
-      new_pos = content.length;
-    }
+      if (new_pos == -1) {
+        new_pos = content.length;
+      }
 
-    View.set_caret(new_pos);
-    View.cursor_scroll();
-    return false;
+      Editor.scrollCursor(new_pos);
+    });
   },
 
   bindKeys : function() {
