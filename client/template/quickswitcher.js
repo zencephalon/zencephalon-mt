@@ -30,9 +30,7 @@ Template.quickswitcher.rendered = function() {
     $('#quickswitcher').show();
 
     // Save the viewport
-    if (View.edit_mode()) {
-      View.save();
-    }
+    View.save();
 
     $('.switcher').focus().val(":");
     document.body.scrollTop = document.documentElement.scrollTop = 0;
@@ -42,9 +40,7 @@ Template.quickswitcher.rendered = function() {
     $('#quickswitcher').focusout(function() {
       $('#quickswitcher').hide();
       // Restore the viewport
-      if (View.edit_mode()) {
-        View.restore();
-      }
+      View.restore();
     })
   });
 }
