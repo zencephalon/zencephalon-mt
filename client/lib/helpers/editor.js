@@ -29,13 +29,21 @@ Editor = {
     }
   },
 
+  editorFunc : function(func) {
+    View.save();
+    caret_pos = Session.get("saved_view").caret_pos;
+    content = $('#prose_text').val();
+    func(caret_pos, content);
+  },
+
   insertText : function(str) {
     View.save();
     caret_pos = Session.get("saved_view").caret_pos;
     content = $('#prose_text').val();
-    content = content.substr(0, caret_pos) + str + content.substr(caret_pos);
-    $('#prose_text').val(content);
-    View.set_caret(caret_pos + str.length);
+    Edtior.editorFunc(function(caret_pos, content) {
+      $('#prose_text').val(content.substr(0, caret_pos) + str + content.substr(caret_pos));
+      View.set_caret(caret_pos + str.length);
+    });
   },
 
   insertTimestamp : function() {
