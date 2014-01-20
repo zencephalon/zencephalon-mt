@@ -28,7 +28,7 @@ View = {
     lastRect = rects[rects.length - 1];
     console.log($('#prose_text').position().top);
     console.log(lastRect.height);
-    new_top = $('#prose_text').position().top + lastRect.height - 100;
+    new_top = $('#prose_text').position().top + lastRect.height - 200;
     console.log("top: " + new_top);
     document.body.scrollTop = document.documentElement.scrollTop = new_top;
   }

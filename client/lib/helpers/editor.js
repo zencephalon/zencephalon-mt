@@ -78,11 +78,29 @@ Editor = {
     return false;
   },
 
+  goSectionUp : function() {
+    View.save();
+    header_str = "\n####";
+    caret_pos = Session.get("saved_view").caret_pos;
+    content = $('#prose_text').val();
+    top_content = content.substr(0, caret_pos);
+    new_pos = top_content.lastIndexOf(header_str);
+
+    if (new_pos == -1) {
+      new_pos = content.length;
+    }
+
+    View.set_caret(new_pos);
+    View.cursor_scroll();
+    return false;
+  },
+
   bindKeys : function() {
     Mousetrap.bind('ctrl+shift+s', function(e) { Editor.saveProse(true, true); return false; });
     Mousetrap.bind('ctrl+d', Editor.insertTimestamp);
     Mousetrap.bind('ctrl+z', Editor.insertTodo);
     Mousetrap.bind('ctrl+n', Editor.goSectionDown);
+    Mousetrap.bind('ctrl+b', Editor.goSectionUp);
   },
 
   unbindKeys : function() {
@@ -90,6 +108,7 @@ Editor = {
     Mousetrap.unbind('ctrl+d');
     Mousetrap.unbind('ctrl+z');
     Mousetrap.unbind('ctrl+n');
+    Mousetrap.unbind('ctrl+b');
   },
 
   initView : function() {
