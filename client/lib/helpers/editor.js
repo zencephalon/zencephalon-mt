@@ -31,7 +31,7 @@ Editor = {
 
   editorFunc : function(func) {
     View.save();
-    caret_pos = Session.get("saved_view").caret_pos;
+    caret_pos = View.getCaret();
     content = $('#prose_text').val();
     func(caret_pos, content);
     return false;
@@ -40,7 +40,7 @@ Editor = {
   insertText : function(str) {
     Editor.editorFunc(function(caret_pos, content) {
       $('#prose_text').val(content.substr(0, caret_pos) + str + content.substr(caret_pos));
-      View.set_caret(caret_pos + str.length);
+      View.setCaret(caret_pos + str.length);
     });
   },
 
@@ -56,8 +56,8 @@ Editor = {
   },
 
   scrollCursor : function(new_pos) {
-      View.set_caret(new_pos);
-      View.cursor_scroll();
+      View.setCaret(new_pos);
+      View.cursorScroll();
   },
 
   goSectionDown : function() {
