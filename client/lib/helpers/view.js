@@ -37,7 +37,7 @@ View = {
     if (view !== undefined && (view = view[view_id]) !== undefined) {
       return view.caret_pos;
     }
-  }
+  },
   setCaret : function(caret_pos) {
     Caret.set(this.proseArea(), caret_pos);
   },
