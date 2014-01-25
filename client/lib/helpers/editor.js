@@ -56,9 +56,9 @@ Editor = {
       sel = prose.getSelection();
 
       if (sel.text.indexOf("- []") === 0) {
-        prose.val(content.replace(sel.text, sel.text.replace("- []", "- [x]")));
-      } else if (sel.text.indexOf("- [x]") === 0) {
-        prose.val(content.replace(sel.text, sel.text.replace("- [x]", "- []")));
+        prose.val(content.replace(sel.text, sel.text.replace("- []", "- [♥]")));
+      } else if (sel.text.indexOf("- [♥]") === 0) {
+        prose.val(content.replace(sel.text, sel.text.replace("- [♥]", "- []")));
       } else {
         prose.val(content.replace(sel.text, "- [] " + sel.text));
       }

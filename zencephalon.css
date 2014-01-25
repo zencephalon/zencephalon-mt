@@ -145,6 +145,10 @@ textarea:focus {
   background: #ffe6e6;
 }
 
+.love {
+  background: #e6ffe6;
+}
+
 #quickswitcher {
   position: absolute;
   top: 0;

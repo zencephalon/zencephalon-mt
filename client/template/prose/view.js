@@ -11,6 +11,7 @@ Template.prose_view.branch_text = function() {
   if (branch !== undefined) {
     if (Meteor.user()) {
       branch.text = EPrimer.showErrors(branch.text);
+      branch.text = Lover.showLove(branch.text);
     }
     return branch.text;
   } else {
