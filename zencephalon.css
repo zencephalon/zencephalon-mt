@@ -146,7 +146,8 @@ textarea:focus {
 }
 
 .love {
-  background: #e6ffe6;
+  text-decoration: line-through;
+  color: #aaa;
 }
 
 .heart {
