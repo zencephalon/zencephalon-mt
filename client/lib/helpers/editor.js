@@ -122,8 +122,8 @@ Editor = {
     Mousetrap.bind('ctrl+z', function() {View.setCaret($('#prose_text').getSelection().start); dd.command('n', 'l'); Editor.insertTodo(); return false});
     // Set the key bindings.
     ['w', 's', 'q'].forEach(function (letter) {
-      Mousetrap.bind('ctrl+' + letter, function() {dd.command('n', letter); return false});
-      Mousetrap.bind('ctrl+shift+' + letter, function() {dd.command('p', letter); return false});
+      Mousetrap.bind('ctrl+' + letter, function() {dd.command('n', letter); View.cursorScroll(); return false});
+      Mousetrap.bind('ctrl+shift+' + letter, function() {dd.command('p', letter); View.cursorScroll(); return false});
     });
 },
 
