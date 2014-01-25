@@ -101,12 +101,19 @@ Editor = {
   },
 
   bindKeys : function() {
-    Mousetrap.bind('ctrl+shift+s', function(e) { Editor.saveProse(true, true); return false; });
+    Mousetrap.bind('mod+shift+s', function(e) { Editor.saveProse(true, true); return false; });
     Mousetrap.bind('ctrl+d', Editor.insertTimestamp);
     Mousetrap.bind('ctrl+z', Editor.insertTodo);
     Mousetrap.bind('ctrl+n', Editor.goSectionDown);
     Mousetrap.bind('ctrl+b', Editor.goSectionUp);
-  },
+    // Create new DeftDraft object.
+    var dd = new DeftDraft($('#prose_text'));
+    // Set the key bindings.
+    ['w', 's', 'q'].forEach(function (letter) {
+      Mousetrap.bind('ctrl+' + letter, function() {dd.command('n', letter); return false});
+      Mousetrap.bind('ctrl+shift+' + letter, function() {dd.command('p', letter); return false});
+    });
+},
 
   unbindKeys : function() {
     Mousetrap.unbind('ctrl+shift+s');

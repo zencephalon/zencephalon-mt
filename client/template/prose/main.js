@@ -4,7 +4,7 @@ Template.prose.view_mode = function() {
 
 Template.prose.rendered = function() {
   $(document).ready(function() {
-    Mousetrap.bind('ctrl+s', function(e) { 
+    Mousetrap.bind('mod+s', function(e) { 
       if (View.editMode()) { 
         Editor.saveProse(false, true);
       } else { 
