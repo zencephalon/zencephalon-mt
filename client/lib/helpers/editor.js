@@ -51,7 +51,18 @@ Editor = {
   },
 
   insertTodo : function() {
-    Editor.insertText("- [] ");
+    Editor.editorFunc(function(caret_pos, content) {
+      sel = $('#prose_text').getSelection();
+
+      if (sel.text.indexOf("- []") === 0) {
+        $('#prose_text').val(content.replace(sel.text, sel.text.replace("- []", "- [x]")));
+      } else if (sel.text.indexOf("- [x]") === 0) {
+        $('#prose_text').val(content.replace(sel.text, sel.text.replace("- [x]", "- []")));
+      } else {
+        $('#prose_text').val(content.replace(sel.text, "- [] " + sel.text));
+      }
+      View.setCaret(sel.start);
+    });
     return false;
   },
 
@@ -103,11 +114,11 @@ Editor = {
   bindKeys : function() {
     Mousetrap.bind('mod+shift+s', function(e) { Editor.saveProse(true, true); return false; });
     Mousetrap.bind('ctrl+d', Editor.insertTimestamp);
-    Mousetrap.bind('ctrl+z', Editor.insertTodo);
     Mousetrap.bind('ctrl+n', Editor.goSectionDown);
     Mousetrap.bind('ctrl+b', Editor.goSectionUp);
     // Create new DeftDraft object.
     var dd = new DeftDraft($('#prose_text'));
+    Mousetrap.bind('ctrl+z', function() {dd.command('n', 'l'); Editor.insertTodo(); return false});
     // Set the key bindings.
     ['w', 's', 'q'].forEach(function (letter) {
       Mousetrap.bind('ctrl+' + letter, function() {dd.command('n', letter); return false});

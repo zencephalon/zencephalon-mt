@@ -63,11 +63,13 @@ DeftDraft.regexDict = {
   'a' : { // after, for boundaries
     'w' : [0, /\W/], // word, no offset, non-word char
     's' : [1, /[.!?](\W|$)/], // sentence, offset for punctuation, punctuation followed by non-word or end
+    'l' : [0, /\n/],
     'q' : [0, /\n\n/] // qaragraph, no offset, two new lines
   },
   'b' : { // before, for boundaries -- note these regexes operate on the input reversed
     'w' : [0, /\W/], // word, no offset, non-word char
     's' : [0, /((^|\W)[.!?]|\n)/], // sentence, no offset, (punctuation followed by non-word or start) or new line
+    'l' : [0, /\n/],
     'q' : [0, /\n\n/] // qaragraph, no offset, two new lines
   },
   'n' : { // next, for selections
