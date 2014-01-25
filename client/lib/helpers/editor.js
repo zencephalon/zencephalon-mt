@@ -55,12 +55,12 @@ Editor = {
       prose = $('#prose_text');
       sel = prose.getSelection();
 
-      if (sel.text.indexOf("- []") === 0) {
-        prose.val(content.replace(sel.text, sel.text.replace("- []", "- [♥]")));
-      } else if (sel.text.indexOf("- [♥]") === 0) {
-        prose.val(content.replace(sel.text, sel.text.replace("- [♥]", "- []")));
+      if (sel.text.indexOf("- ()") === 0) {
+        prose.val(content.replace(sel.text, sel.text.replace("- ()", "- (♥)")));
+      } else if (sel.text.indexOf("- (♥)") === 0) {
+        prose.val(content.replace(sel.text, sel.text.replace("- (♥)", "- ()")));
       } else {
-        prose.val(content.replace(sel.text, "- [] " + sel.text));
+        prose.val(content.replace(sel.text, "- () " + sel.text));
       }
       View.setCaret(sel.start);
     });

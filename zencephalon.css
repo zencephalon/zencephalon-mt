@@ -149,6 +149,10 @@ textarea:focus {
   background: #e6ffe6;
 }
 
+.heart {
+  color: #ff0000;
+}
+
 #quickswitcher {
   position: absolute;
   top: 0;
