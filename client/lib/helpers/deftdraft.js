@@ -75,11 +75,13 @@ DeftDraft.regexDict = {
   'n' : { // next, for selections
     'w' : /[\w']+(\W|$)/, // word, a number of word chars ended by end or non-word char
     's' : /.*?[.!?](\W|$)/, // sentence, a number of chars ended by punctuation and non-char char or end
+    'l' : /(.)/,
     'q' : /.+(\n\n|$)/ // qaragraph, a number of chars ended by two new lines or the end
   },
   'p' : {
     'w' : /(^|\W)[\w']+(\W|$)/, // word, a number of word chars ended by end or non-word char
     's' : /(^|\W)[.?!].*?(\W[.!?]|$|\n\n)/, // sentence, can start with new paragraph or start of text, or end of earlier sentence, a number of chars, ending in punctuation followed by non-word char or end
+    'l' : /(.)/,
     'q' : /(\n\n|^).+(\n\n|$)/ // qaragraph, start with new paragraph or start of text end with paragraph or end
   }
 }

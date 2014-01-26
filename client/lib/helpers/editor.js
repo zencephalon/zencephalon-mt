@@ -57,12 +57,19 @@ Editor = {
 
       if (sel.text.indexOf("- ()") === 0) {
         prose.val(content.replace(sel.text, sel.text.replace("- ()", "- (♥)")));
+        View.setCaret(sel.end + 1);
       } else if (sel.text.indexOf("- (♥)") === 0) {
         prose.val(content.replace(sel.text, sel.text.replace("- (♥)", "- ()")));
+        View.setCaret(sel.end - 1);
       } else {
-        prose.val(content.replace(sel.text, "- () " + sel.text));
+        console.log(sel.text);
+        if (sel.text === undefined) {
+          Editor.insertText("- () ");
+        } else {
+          prose.val(content.replace(sel.text, "- () " + sel.text));
+        }
+        View.setCaret(sel.end + 5);
       }
-      View.setCaret(sel.start);
     });
     return false;
   },
@@ -119,7 +126,12 @@ Editor = {
     Mousetrap.bind('ctrl+b', Editor.goSectionUp);
     // Create new DeftDraft object.
     var dd = new DeftDraft($('#prose_text'));
-    Mousetrap.bind('ctrl+z', function() {View.setCaret($('#prose_text').getSelection().start); dd.command('n', 'l'); Editor.insertTodo(); return false});
+    Mousetrap.bind('ctrl+z', function() {
+      View.setCaret($('#prose_text').getSelection().start); 
+      dd.command('n', 'l'); 
+      Editor.insertTodo(); 
+      return false;
+    });
     // Set the key bindings.
     ['w', 's', 'q'].forEach(function (letter) {
       Mousetrap.bind('ctrl+' + letter, function() {dd.command('n', letter); View.cursorScroll(); return false});
