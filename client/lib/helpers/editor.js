@@ -119,11 +119,33 @@ Editor = {
     });
   },
 
+  goDir : function(dir) {
+    prose = $('#prose_text');
+    sel = prose.getSelection();
+    if (sel.length == 0) {
+      sel.start -= dir ? 1 : -1;
+      prose.setSelection(sel.start, sel.start);
+    } else {
+      prose.collapseSelection(dir);
+    }
+    return false;
+  },
+
+  goLeft : function() {
+    return Editor.goDir(true);
+  },
+
+  goRight : function() {
+    return Editor.goDir(false);
+  },
+
   bindKeys : function() {
     Mousetrap.bind('mod+shift+s', function(e) { Editor.saveProse(true, true); return false; });
     Mousetrap.bind('ctrl+d', Editor.insertTimestamp);
     Mousetrap.bind('ctrl+n', Editor.goSectionDown);
     Mousetrap.bind('ctrl+b', Editor.goSectionUp);
+    Mousetrap.bind('ctrl+x', Editor.goLeft);
+    Mousetrap.bind('ctrl+c', Editor.goRight);
     // Create new DeftDraft object.
     var dd = new DeftDraft($('#prose_text'));
     Mousetrap.bind('ctrl+z', function() {
