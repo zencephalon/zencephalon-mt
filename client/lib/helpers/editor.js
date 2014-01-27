@@ -63,11 +63,12 @@ Editor = {
         View.setCaret(sel.end - 1);
       } else {
         if (sel.text == "") {
-          prose.insertText("- () ", old);
+          prose.insertText("- () I will  because I love", old);
+          View.setCaret(old + 12);
         } else {
           prose.val(content.replace(sel.text, "- () " + sel.text));
+          View.setCaret(sel.end + 5);
         }
-        View.setCaret(sel.end + 5);
       }
     });
     return false;
