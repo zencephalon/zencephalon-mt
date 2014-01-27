@@ -50,7 +50,7 @@ Editor = {
     return false;
   },
 
-  insertTodo : function() {
+  insertTodo : function(old) {
     Editor.editorFunc(function(caret_pos, content) {
       prose = $('#prose_text');
       sel = prose.getSelection();
@@ -62,9 +62,8 @@ Editor = {
         prose.val(content.replace(sel.text, sel.text.replace("- (♥)", "- ()")));
         View.setCaret(sel.end - 1);
       } else {
-        console.log(sel.text);
-        if (sel.text === undefined) {
-          Editor.insertText("- () ");
+        if (sel.text == "") {
+          prose.insertText("- () ", old);
         } else {
           prose.val(content.replace(sel.text, "- () " + sel.text));
         }
@@ -149,9 +148,10 @@ Editor = {
     // Create new DeftDraft object.
     var dd = new DeftDraft($('#prose_text'));
     Mousetrap.bind('ctrl+z', function() {
-      View.setCaret($('#prose_text').getSelection().start); 
+      old = $('#prose_text').getSelection().start;
+      View.setCaret(old); 
       dd.command('n', 'l'); 
-      Editor.insertTodo(); 
+      Editor.insertTodo(old); 
       return false;
     });
     // Set the key bindings.
