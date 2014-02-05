@@ -9,3 +9,13 @@ Template.layout.rendered = function() {
     lineRatio: 1.45
   });
 }
+
+Template.footer.word_count = function() {
+  return Counts.findOne({}, {sort: {_id:1}}).word_count;
+}
+
+Template.footer.prose_count = function() {
+  return Counts.findOne({}, {sort: {_id:1}}).prose_count;
+}
+
+Meteor.subscribe("counts");
