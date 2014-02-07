@@ -63,7 +63,7 @@ Editor = {
         View.setCaret(sel.end - 1);
       } else {
         if (sel.text == "") {
-          prose.insertText("- () I will  because I love", old);
+          prose.insertText("- () I love  so I will ", old);
           View.setCaret(old + 12);
         } else {
           prose.val(content.replace(sel.text, "- () " + sel.text));
