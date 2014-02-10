@@ -15,15 +15,17 @@ if (Meteor.isServer) {
       var proses = 0;
       Proses.find().forEach(function (prose) {
         var branch = Branch.get(prose._id, prose.branch);
+        Branches.update(branch._id, {"$set": {active: true, title: prose.title}});
         words += branch.text.split(' ').length;
         proses++;
       });
+      Branches.update({updated: {"$exists": false}}, {"$set":{"updated": new Date()}})
       Counts.insert({prose_count: proses, word_count: words, time: new Date()});
     }
 
-    if (Counts.find().count() === 0) {
+    //if (Counts.find().count() === 0) {
       doCount();
-    }
+    //}
 
     Meteor.setInterval(function() {
       doCount();
