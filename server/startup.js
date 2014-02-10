@@ -19,18 +19,18 @@ if (Meteor.isServer) {
         words += branch.text.split(' ').length;
         proses++;
       });
-      Branches.find().forEach(function (branch) {
-        if (! branch.updated) {
-          Branches.update(branch._id, {"$set": {"updated": new Date()}});
-        }
-      });
+      // Branches.find().forEach(function (branch) {
+      //   if (! branch.updated) {
+      //     Branches.update(branch._id, {"$set": {"updated": new Date()}});
+      //   }
+      // });
       //Branches.update({updated: {"$exists": false}}, {"$set":{"updated": new Date()}})
       Counts.insert({prose_count: proses, word_count: words, time: new Date()});
     }
 
-    //if (Counts.find().count() === 0) {
+    if (Counts.find().count() === 0) {
       doCount();
-    //}
+    }
 
     Meteor.setInterval(function() {
       doCount();
