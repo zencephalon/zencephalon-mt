@@ -26,18 +26,26 @@ Prose = {
     tree = ['0'];
     url = Util.cleanURL(url);
     prose = Proses.insert({title: title, url: url, branch: branch, tree: tree, journal: journal, updated: new Date()})
-    Branch.create(prose, text, '0');
+    Branch.create(prose, text, '0', true);
+  },
+  change_title : function(prose, title) {
+    if (prose.title != title) {
+      Proses.update(prose._id, {"$set": {title: title}});
+      //Branches.update({prose: prose._id}, {"$set": {title: title}});
+      Util.bulkUpdate(Branches, {prose: prose._id}, {"$set": {title: title}});
+    }
   },
   update : function(prose, title, url, text, branch, new_branch) {
     url = Util.cleanURL(url);
     if (new_branch) {
-      new_branch_name = Branch.save(branch.name, prose._id, prose.tree, text);
+      new_branch_name = Branch.save(branch.name, prose._id, prose.tree, text, true);
       prose.tree.push(new_branch_name);
-      Proses.update(prose._id, {"$set": {branch: new_branch_name, tree: prose.tree, title: title, url: url, updated: new Date()}});
+      Proses.update(prose._id, {"$set": {branch: new_branch_name, tree: prose.tree, url: url, updated: new Date()}});
     } else {
-      Branch.update(branch._id, prose, text);
-      Proses.update(prose._id, {"$set": {title: title, url: url, updated: new Date()}});
+      Branch.update(branch._id, prose._id, text);
+      Proses.update(prose._id, {"$set": {url: url, updated: new Date()}});
     }
+    this.change_title(prose, title);
   },
   save : function(prose, live_prose, branch, new_branch) {
     if (prose._id !== undefined) {

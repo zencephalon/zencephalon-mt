@@ -14,19 +14,29 @@ Branches.allow({
 
 Branch = {
   get : function(prose_id, name) {
-    var branch = Branches.findOne({prose: prose_id, name: name});
+    return Branches.findOne({prose: prose_id, name: name});
+  },
+  getByTitle : function(title) {
+    var branch = Branches.findOne({title: title, active: true});
     return branch;
   },
-  create : function(prose_id, text, name) {
-    return Branches.insert({prose: prose_id, text: text, name: name, updated: new Date()});
+  create : function(prose_id, text, name, active) {
+    return Branches.insert({active: active, prose: prose_id, text: text, name: name, updated: new Date()});
   },
   update : function(branch_id, prose_id, text) {
-    Branches.update(branch_id, {'$set': {text: text, updated: new Date()}});
+    this.unsetOthersActive(prose_id);
+    Branches.update(branch_id, {'$set': {text: text, updated: new Date(), active: true}});
   },
-  save : function(current_branch, prose, tree, text) {
+  save : function(current_branch, prose_id, tree, text, active) {
     new_branch_name = this.get_new_branch_name(current_branch, tree);
-    this.create(prose, text, new_branch_name);
+    if (active) {
+      this.unsetOthersActive(prose_id);
+    }
+    this.create(prose_id, text, new_branch_name, active);
     return new_branch_name;
+  },
+  unsetOthersActive : function(prose_id) {
+      Util.bulkUpdate(Branches, {prose: prose_id}, {'$set': {active: false}});
   },
   digits : function(branch) {
     return /\d+$/.exec(branch)[0];
