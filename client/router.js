@@ -80,14 +80,14 @@ Router.map(function() {
     }
   });
 
-  this.route('prose', {
-    path: '/:url',
-    template: 'prose',
-    data: getRouteData,
-    before: function() {
-      setRouteSubscriptions(this, false);
-    }
-  });
+  // this.route('prose', {
+  //   path: '/:url',
+  //   template: 'prose',
+  //   data: getRouteData,
+  //   before: function() {
+  //     setRouteSubscriptions(this, false);
+  //   }
+  // });
 
   this.route('branch', {
     path: '/:url/b/:branch_name',
