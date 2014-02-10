@@ -16,12 +16,12 @@ Branch = {
   get : function(prose_id, name) {
     return Branches.findOne({prose: prose_id, name: name});
   },
-  getByTitle : function(title) {
-    var branch = Branches.findOne({title: title, active: true});
+  getByUrl : function(url) {
+    var branch = Branches.findOne({url: url, active: true});
     return branch;
   },
-  create : function(prose_id, text, name, active) {
-    return Branches.insert({active: active, prose: prose_id, text: text, name: name, updated: new Date()});
+  create : function(prose_id, url, text, name, active) {
+    return Branches.insert({active: active, url: url, prose: prose_id, text: text, name: name, updated: new Date()});
   },
   update : function(branch_id, prose_id, text) {
     this.unsetOthersActive(prose_id);

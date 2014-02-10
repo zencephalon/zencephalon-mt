@@ -26,13 +26,13 @@ Prose = {
     tree = ['0'];
     url = Util.cleanURL(url);
     prose = Proses.insert({title: title, url: url, branch: branch, tree: tree, journal: journal, updated: new Date()})
-    Branch.create(prose, text, '0', true);
+    Branch.create(prose, url, text, '0', true);
   },
-  change_title : function(prose, title) {
-    if (prose.title != title) {
-      Proses.update(prose._id, {"$set": {title: title}});
+  change_url : function(prose, url) {
+    if (prose.url != url) {
+      Proses.update(prose._id, {"$set": {url: url}});
       //Branches.update({prose: prose._id}, {"$set": {title: title}});
-      Util.bulkUpdate(Branches, {prose: prose._id}, {"$set": {title: title}});
+      Util.bulkUpdate(Branches, {prose: prose._id}, {"$set": {url: url}});
     }
   },
   update : function(prose, title, url, text, branch, new_branch) {
@@ -45,7 +45,7 @@ Prose = {
       Branch.update(branch._id, prose._id, text);
       Proses.update(prose._id, {"$set": {url: url, updated: new Date()}});
     }
-    this.change_title(prose, title);
+    this.change_url(prose, url);
   },
   save : function(prose, live_prose, branch, new_branch) {
     if (prose._id !== undefined) {
