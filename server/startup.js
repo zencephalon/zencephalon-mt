@@ -15,11 +15,16 @@ if (Meteor.isServer) {
       var proses = 0;
       Proses.find().forEach(function (prose) {
         var branch = Branch.get(prose._id, prose.branch);
-        Branches.update(branch._id, {"$set": {active: true, title: prose.title}});
+        //Branches.update(branch._id, {"$set": {active: true, title: prose.title}});
         words += branch.text.split(' ').length;
         proses++;
       });
-      Branches.update({updated: {"$exists": false}}, {"$set":{"updated": new Date()}})
+      Branches.find().forEach(function (branch)) {
+        if (! branch.updated) {
+          Branches.update(branch._id, {"$set": {"updated": new Date()}});
+        }
+      }
+      //Branches.update({updated: {"$exists": false}}, {"$set":{"updated": new Date()}})
       Counts.insert({prose_count: proses, word_count: words, time: new Date()});
     }
 
