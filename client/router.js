@@ -10,10 +10,7 @@ setRouteSubscriptions = function(route, branch_name) {
   route.subscribe("proses").wait();
   route.subscribe("branch_by_url", route.params.url).wait();
   prose = Prose.get(route.params.url);
-  sub = Meteor.subscribe("branches_by_url", route.params.url)
-  if (branch_name) {
-    sub.wait();
-  }
+  route.subscribe("branches_by_url", route.params.url).wait();
   branch = Branch.getByUrl(route.params.url, branch_name);
 
   route.subscribe("branch_by_url", "__journal_template__");

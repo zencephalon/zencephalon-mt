@@ -18,12 +18,11 @@ Branch = {
   },
   getByUrl : function(url, branch_name) {
     if (branch_name) {
-      query = {url: url, active: true, name: branch_name};
+      query = {url: url, name: branch_name};
     } else {
       query = {url: url, active: true};
     }
-    var branch = Branches.findOne(query);
-    return branch;
+    return Branches.findOne(query);
   },
   create : function(prose_id, url, text, name, active) {
     return Branches.insert({active: active, url: url, prose: prose_id, text: text, name: name, updated: new Date()});
