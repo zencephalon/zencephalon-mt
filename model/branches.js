@@ -17,9 +17,10 @@ Branch = {
     return Branches.findOne({prose: prose_id, name: name});
   },
   getByUrl : function(url, branch_name) {
-    query = {url: url, active: true};
     if (branch_name) {
-      query['name'] = branch_name;
+      query = {url: url, active: true, name: branch_name};
+    } else {
+      query = {url: url, active: true};
     }
     var branch = Branches.findOne(query);
     return branch;
