@@ -1,8 +1,16 @@
 Template.prose_view.prose = Template.prose_edit.prose;
 
 Template.prose_view.events({
-  'click h2.title': function() {
+  'click h1.title': function() {
     Session.set("view_mode", false);
+  },
+  'mouseover a': function(e) {
+    var target = $(e.target);
+    var href = target.attr('href');
+    if (href.substr(0, 4) !== 'http') {
+      Meteor.subscribe("prose_by_url", href);
+      Meteor.subscribe("branch_by_url", href);
+    }
   }
 });
 
