@@ -27,12 +27,12 @@ Branch = {
     this.unsetOthersActive(prose_id);
     Branches.update(branch_id, {'$set': {text: text, updated: new Date(), active: true}});
   },
-  save : function(current_branch, prose_id, tree, text, active) {
+  save : function(current_branch, prose_id, tree, text, url, active) {
     new_branch_name = this.get_new_branch_name(current_branch, tree);
     if (active) {
       this.unsetOthersActive(prose_id);
     }
-    this.create(prose_id, text, new_branch_name, active);
+    this.create(prose_id, url, text, new_branch_name, active);
     return new_branch_name;
   },
   unsetOthersActive : function(prose_id) {

@@ -41,6 +41,7 @@ if (Meteor.isServer) {
     Meteor.publish("current_branch", function(prose, branch) {return Branches.find({prose: prose, name: branch});});
     Meteor.publish("branch_by_url", function(url) {return Branches.find({url: url, active: true})});
     Meteor.publish("branches", function(prose) {return Branches.find({prose: prose});});
+    Meteor.publish("branches_by_url", function(url) {return Branches.find({url: url})});
     Meteor.publish("users", function() {
       return Meteor.users.find({}, {fields: {emails: 1, profile: 1}});
     })

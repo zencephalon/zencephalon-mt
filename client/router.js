@@ -12,15 +12,8 @@ setRouteSubscriptions = function(route, branch_name) {
   prose = Prose.get(route.params.url);
   branch = Branch.getByUrl(route.params.url);
 
-  // handle the journal
-  journal = Prose.get("__journal_template__");
-  if (journal._id !== undefined) {
-    route.subscribe("current_branch", journal._id, journal.branch).wait();
-  }
-
-  if (prose !== undefined) {
-    Meteor.subscribe("branches", prose._id);
-  }
+  route.subscribe("branch_by_url", "__journal_template__");
+  Meteor.subscribe("branches_by_url", route.params.url);
 
   Session.set("selected_prose", prose);
   Session.set("selected_branch", branch);

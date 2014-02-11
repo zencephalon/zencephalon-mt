@@ -38,7 +38,7 @@ Prose = {
   update : function(prose, title, url, text, branch, new_branch) {
     url = Util.cleanURL(url);
     if (new_branch) {
-      new_branch_name = Branch.save(branch.name, prose._id, prose.tree, text, true);
+      new_branch_name = Branch.save(branch.name, prose._id, prose.tree, text, url, true);
       prose.tree.push(new_branch_name);
       Proses.update(prose._id, {"$set": {branch: new_branch_name, tree: prose.tree, url: url, updated: new Date()}});
     } else {
