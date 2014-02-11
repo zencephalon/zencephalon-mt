@@ -15,7 +15,7 @@ if (Meteor.isServer) {
       var proses = 0;
       Proses.find().forEach(function (prose) {
         var branch = Branch.get(prose._id, prose.branch);
-        Branches.update({prose: prose._id}, {"$set": {url: prose.url, active: true});
+        Branches.update({prose: prose._id}, {"$set": {url: prose.url, active: true}});
         words += branch.text.split(' ').length;
         proses++;
       });
