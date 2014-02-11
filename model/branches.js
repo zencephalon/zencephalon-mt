@@ -16,8 +16,12 @@ Branch = {
   get : function(prose_id, name) {
     return Branches.findOne({prose: prose_id, name: name});
   },
-  getByUrl : function(url) {
-    var branch = Branches.findOne({url: url, active: true});
+  getByUrl : function(url, branch_name) {
+    query = {url: url, active: true};
+    if (branch_name) {
+      query['name'] = branch_name;
+    }
+    var branch = Branches.findOne(query);
     return branch;
   },
   create : function(prose_id, url, text, name, active) {
