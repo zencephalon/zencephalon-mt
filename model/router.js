@@ -2,29 +2,18 @@ Router.configure({
   layoutTemplate: 'layout'
 });
 
-getRouteData = function() {
-  return {prose: Session.get("selected_prose"), branch: Session.get("selected_branch")};
-}
-
-setRouteSubscriptions = function(route, branch_name) {
-  route.subscribe("proses").wait();
-  route.subscribe("branch_by_url", route.params.url).wait();
-  prose = Prose.get(route.params.url);
-  sub = route.subscribe("branches_by_url", route.params.url);
-  if (branch_name) {
-    sub.wait();
-  }
-  branch = Branch.getByUrl(route.params.url, branch_name);
-
-  route.subscribe("branch_by_url", "__journal_template__");
-
+getRouteData = function(url, branch_name) {
+  prose = Prose.get(url);
+  branch = Branch.getByUrl(url, branch_name);
   Session.set("selected_prose", prose);
   Session.set("selected_branch", branch);
   Session.set("just_loaded", true);
+  return {prose: prose, branch: branch};
 }
 
 if (Meteor.isServer) {
   FastRender.onAllRoutes(function(urlPath) {
+    this.subscribe("branch_by_url", "__journal_template__");
     this.subscribe('counts');
   })
 }
@@ -82,19 +71,32 @@ Router.map(function() {
     path: '/:url',
     template: 'prose',
     data: getRouteData,
+    fastRender: true,
+    waitOn: function() {
+      Meteor.subscribe("proses");
+      Meteor.subscribe("branch_by_url", this.params.url);
+    },
     before: function() {
-      setRouteSubscriptions(this, false);
+      Meteor.subscribe("branches_by_url", this.params.url);
+    },
+    data: function() {
+      return getRouteData(this.params.url, false);
     }
   });
 
   this.route('branch', {
     path: '/:url/b/:branch_name',
     template: 'prose',
-    reactive: false,
     data: getRouteData,
-    before: function() {
-      setRouteSubscriptions(this, this.params.branch_name);
-    }
+    fastRender: true,
+    waitOn: function() {
+      Meteor.subscribe("proses");
+      Meteor.subscribe("branch_by_url", this.params.url);
+      Meteor.subscribe("branches_by_url", this.params.url);
+    },
+    data: function() {
+      return getRouteData(this.params.url, this.params.branch_name);
+    },
   });
 
   this.route('diff', {

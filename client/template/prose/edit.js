@@ -1,5 +1,5 @@
 Template.prose_edit.prose = function() {
-  return Deps.nonreactive(function() { return Session.get("selected_prose");});
+  return Session.get("selected_prose");
 }
 
 Template.prose_edit.displayShortCuts = function() {
