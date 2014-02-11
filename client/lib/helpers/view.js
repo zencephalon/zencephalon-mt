@@ -1,7 +1,7 @@
 View = {
   proseArea : function() { return document.getElementById("prose_text")},
   save : function() {
-    if (View.editMode()) {
+    if (View.editMode() && Session.get("selected_branch") !== undefined) {
       prose_area = this.proseArea();
       view_id = Session.get("selected_prose").url;
       old_view = Session.get("saved_view");
@@ -18,7 +18,7 @@ View = {
     }
   },
   restore : function() {
-    if (View.editMode()) {
+    if (View.editMode() && Session.get("selected_branch") !== undefined) {
       prose_area = this.proseArea();
       prose_area.focus();
       view_id = Session.get("selected_prose").url;

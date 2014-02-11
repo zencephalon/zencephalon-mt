@@ -39,6 +39,7 @@ if (Meteor.isServer) {
     Meteor.publish("proses", function() { return Proses.find(); });
     Meteor.publish("counts", function() { return Counts.find(); });
     Meteor.publish("current_branch", function(prose, branch) {return Branches.find({prose: prose, name: branch});});
+    Meteor.publish("prose_by_url", function(url) {return Proses.find({url: url})});
     Meteor.publish("branch_by_url", function(url) {return Branches.find({url: url, active: true})});
     Meteor.publish("branches", function(prose) {return Branches.find({prose: prose});});
     Meteor.publish("branches_by_url", function(url) {return Branches.find({url: url})});
