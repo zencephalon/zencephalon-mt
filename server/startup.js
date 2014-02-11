@@ -15,7 +15,7 @@ if (Meteor.isServer) {
       var proses = 0;
       Proses.find().forEach(function (prose) {
         var branch = Branch.get(prose._id, prose.branch);
-        //Branches.update({prose: prose._id}, {"$set": {url: prose.url}, "$unset": {title: 1}});
+        Branches.update({prose: prose._id}, {"$set": {url: prose.url, active: true});
         words += branch.text.split(' ').length;
         proses++;
       });
@@ -28,9 +28,9 @@ if (Meteor.isServer) {
       Counts.insert({prose_count: proses, word_count: words, time: new Date()});
     }
 
-    if (Counts.find().count() === 0) {
+    //if (Counts.find().count() === 0) {
       doCount();
-    }
+    //}
 
     Meteor.setInterval(function() {
       doCount();
