@@ -29,6 +29,8 @@ View = {
         prose_area.scrollTop = view.scroll_pos;
         document.body.scrollTop = document.documentElement.scrollTop = view.window_pos;
       }
+    } else {
+      document.body.scrollTop = document.documentElement.scrollTop = 0;
     }
   },
   getCaret : function() {
