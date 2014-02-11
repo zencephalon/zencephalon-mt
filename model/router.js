@@ -41,6 +41,7 @@ Router.map(function() {
   this.route('journal_list', {
     path: '/z/journal',
     template: 'list_proses',
+    fastRender: true,
     waitOn: function() {
       Meteor.subscribe("proses");
     },
@@ -52,6 +53,7 @@ Router.map(function() {
   this.route('user_admin', {
     path: '/z/users',
     template: 'user_admin',
+    fastRender: true,
     waitOn: function() {
       Meteor.subscribe("users");
     },
@@ -102,12 +104,10 @@ Router.map(function() {
   this.route('diff', {
     path: '/:url/b/:branch_name/:diff_branch_name',
     template: 'diff',
+    fastRender: true,
     waitOn: function() {
-      return Meteor.subscribe('proses');
-    },
-    before: function() {
-      prose = Prose.get(this.params.url);
-      this.subscribe("branches", prose._id).wait();
+      Meteor.subscribe('proses');
+      Meteor.subscribe('branches_by_url', this.params.url);
     },
     data: function() {
       prose = Prose.get(this.params.url);
