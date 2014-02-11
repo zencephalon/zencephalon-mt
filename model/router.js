@@ -23,6 +23,12 @@ setRouteSubscriptions = function(route, branch_name) {
   Session.set("just_loaded", true);
 }
 
+if (Meteor.isServer) {
+  FastRender.onAllRoutes(function(urlPath) {
+    this.subscribe('counts');
+  })
+}
+
 Router.map(function() {
   this.route('home', {
     path: '/',
@@ -34,6 +40,7 @@ Router.map(function() {
   this.route('prose_list', {
     path: '/z/prose',
     template: 'list_proses',
+    fastRender: true,
     waitOn: function() {
       Meteor.subscribe("proses");
     },
@@ -71,14 +78,14 @@ Router.map(function() {
     }
   });
 
-  // this.route('prose', {
-  //   path: '/:url',
-  //   template: 'prose',
-  //   data: getRouteData,
-  //   before: function() {
-  //     setRouteSubscriptions(this, false);
-  //   }
-  // });
+  this.route('prose', {
+    path: '/:url',
+    template: 'prose',
+    data: getRouteData,
+    before: function() {
+      setRouteSubscriptions(this, false);
+    }
+  });
 
   this.route('branch', {
     path: '/:url/b/:branch_name',

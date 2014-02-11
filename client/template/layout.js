@@ -17,5 +17,3 @@ Template.footer.word_count = function() {
 Template.footer.prose_count = function() {
   return Counts.findOne({}, {sort: {_id:1}}).prose_count;
 }
-
-Meteor.subscribe("counts");
