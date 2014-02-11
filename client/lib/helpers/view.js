@@ -1,7 +1,7 @@
 View = {
   proseArea : function() { return document.getElementById("prose_text")},
   save : function() {
-    if (View.editMode() && Session.get("selected_branch") !== undefined) {
+    if (View.editMode()) {
       prose_area = this.proseArea();
       view_id = Session.get("selected_prose").url;
       old_view = Session.get("saved_view");
@@ -18,7 +18,7 @@ View = {
     }
   },
   restore : function() {
-    if (View.editMode() && Session.get("selected_branch") !== undefined) {
+    if (View.editMode()) {
       prose_area = this.proseArea();
       prose_area.focus();
       view_id = Session.get("selected_prose").url;
@@ -43,7 +43,7 @@ View = {
   },
   editMode : function() {
     view_mode = Session.get("view_mode");
-    return (!view_mode || (view_mode === undefined))
+    return ((!view_mode || (view_mode === undefined)) && Session.get("selected_branch") !== undefined && Meteor.user());
   },
   cursorScroll : function() {
     prose_area = this.proseArea();

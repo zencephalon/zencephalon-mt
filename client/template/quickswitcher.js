@@ -17,7 +17,7 @@ Template.quickswitcher.events({
   'submit form': function(event) { 
     event.preventDefault();
 
-    if (View.editMode() && Session.get("selected_branch") !== undefined) {
+    if (View.editMode()) {
       Editor.saveProse(false, false);
     }
     Router.go('prose', {url: $('.switcher').val()})
