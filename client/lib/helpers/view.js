@@ -43,7 +43,7 @@ View = {
   },
   editMode : function() {
     view_mode = Session.get("view_mode");
-    return ((!view_mode || (view_mode === undefined)) && Session.get("selected_branch") !== undefined && Meteor.user());
+    return ((!view_mode || (view_mode === undefined)) && (Session.get("selected_branch") !== undefined) && !!Meteor.user());
   },
   cursorScroll : function() {
     prose_area = this.proseArea();
