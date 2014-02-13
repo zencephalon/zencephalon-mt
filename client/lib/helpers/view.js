@@ -30,7 +30,7 @@ View = {
         document.body.scrollTop = document.documentElement.scrollTop = view.window_pos;
       }
     } else {
-      document.body.scrollTop = document.documentElement.scrollTop = 0;
+      //document.body.scrollTop = document.documentElement.scrollTop = 0;
     }
   },
   getCaret : function() {
