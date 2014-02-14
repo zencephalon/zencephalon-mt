@@ -15,7 +15,7 @@ if (Meteor.isServer) {
       var proses = 0;
       Proses.find().forEach(function (prose) {
         var branch = Branch.get(prose._id, prose.branch);
-        Branches.update(branch._id, {"$set": {active: true} }, {multi:true});
+        //Branches.update(branch._id, {"$set": {active: true} }, {multi:true});
         words += branch.text.split(' ').length;
         proses++;
       });
@@ -28,20 +28,18 @@ if (Meteor.isServer) {
       Counts.insert({prose_count: proses, word_count: words, time: new Date()});
     }
 
-    //if (Counts.find().count() === 0) {
+    if (Counts.find().count() === 0) {
       doCount();
-    //}
+    }
 
     Meteor.setInterval(function() {
       doCount();
     }, 1000*60*60*8); // every eight hours
 
     Meteor.publish("proses", function() { return Proses.find(); });
-    Meteor.publish("counts", function() { return Counts.find(); });
-    Meteor.publish("current_branch", function(prose, branch) {return Branches.find({prose: prose, name: branch});});
+    Meteor.publish("counts", function() { return Counts.find({},{sort: {_id:1}, limit: 1}); });
     Meteor.publish("prose_by_url", function(url) {return Proses.find({url: url})});
     Meteor.publish("branch_by_url", function(url) {return Branches.find({url: url, active: true})});
-    Meteor.publish("branches", function(prose) {return Branches.find({prose: prose});});
     Meteor.publish("branches_by_url", function(url) {return Branches.find({url: url})});
     Meteor.publish("users", function() {
       return Meteor.users.find({}, {fields: {emails: 1, profile: 1}});
