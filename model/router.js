@@ -32,6 +32,7 @@ Router.map(function() {
     fastRender: true,
     waitOn: function() {
       Meteor.subscribe("proses");
+      Meteor.subscribe("counts");
     },
     data: function() {
       return {proses: Proses.find({journal: {"$ne": true}}, {sort: {updated: -1}})};
@@ -44,6 +45,7 @@ Router.map(function() {
     fastRender: true,
     waitOn: function() {
       Meteor.subscribe("proses");
+      Meteor.subscribe("counts");
     },
     data: function() {
       return {proses: Proses.find({journal: true}, {sort: {updated: -1}})};
@@ -59,6 +61,7 @@ Router.map(function() {
     },
     data: function() {
       Meteor.subscribe("proses");
+      Meteor.subscribe("counts");
       return {users: _.map(Meteor.users.find().fetch(), function(user) {
           if (user.emails !== undefined) {
             return user.emails[0].address;
@@ -81,6 +84,7 @@ Router.map(function() {
     },
     before: function() {
       Meteor.subscribe("proses");
+      Meteor.subscribe("counts");
       Meteor.subscribe("branches_by_url", this.params.url);
     },
     data: function() {
@@ -101,6 +105,7 @@ Router.map(function() {
     },
     before: function() {
       Meteor.subscribe("proses");
+      Meteor.subscribe("counts");
     },
     data: function() {
       return getRouteData(this.params.url, this.params.branch_name);
@@ -112,12 +117,12 @@ Router.map(function() {
     template: 'diff',
     fastRender: true,
     waitOn: function() {
-      //Meteor.subscribe('proses');
       Meteor.subscribe("prose_by_url", this.params.url);
       Meteor.subscribe('branches_by_url', this.params.url);
     },
     data: function() {
       Meteor.subscribe("proses");
+      Meteor.subscribe("counts");
       prose = Prose.get(this.params.url);
       branch_name = this.params.branch_name;
       diff_branch_name = this.params.diff_branch_name;
