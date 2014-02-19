@@ -5,10 +5,12 @@ Router.configure({
 getRouteData = function(url, branch_name) {
   prose = Prose.get(url);
   branch = Branch.getByUrl(url, branch_name);
-  Session.set("selected_prose", prose);
-  Session.set("selected_branch", branch);
-  Session.set("just_loaded", true);
-  return {prose: prose, branch: branch};
+  if (!prose.journal || Meteor.user()) {
+    Session.set("selected_prose", prose);
+    Session.set("selected_branch", branch);
+    Session.set("just_loaded", true);
+    return {prose: prose, branch: branch};
+  }
 }
 
 if (Meteor.isServer) {
