@@ -4,7 +4,8 @@
     "basePackages": {
       "iron-router": {},
       "iron-router-progress": {},
-      "autocomplete": {}
+      "autocomplete": {},
+      "fast-render": {}
     },
     "packages": {
       "iron-router": {
@@ -21,6 +22,11 @@
         "git": "https://github.com/mizzao/meteor-autocomplete.git",
         "tag": "v0.3.0",
         "commit": "3130f6911e3ece890532be7c669b1ffa42dbb097"
+      },
+      "fast-render": {
+        "git": "https://github.com/arunoda/meteor-fast-render.git",
+        "tag": "v0.2.2",
+        "commit": "2a7298d72a84b85e989ec2cc9300bbea7c159eb8"
       },
       "blaze-layout": {
         "git": "https://github.com/EventedMind/blaze-layout.git",

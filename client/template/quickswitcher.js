@@ -16,11 +16,12 @@ Template.quickswitcher.settings = function() {
 Template.quickswitcher.events({
   'submit form': function(event) { 
     event.preventDefault();
+    //console.log($(''))
 
     if (View.editMode()) {
       Editor.saveProse(false, false);
     }
-    Router.go('prose', {url: $('.switcher').val()})
+    Router.go('prose', {url: $('#switcher').val()})
   }
 });
 
@@ -32,7 +33,7 @@ Template.quickswitcher.rendered = function() {
     // Save the viewport
     View.save();
 
-    $('.switcher').focus().val(":");
+    $('#switcher').focus().val(":");
     document.body.scrollTop = document.documentElement.scrollTop = 0;
     return false;
   });

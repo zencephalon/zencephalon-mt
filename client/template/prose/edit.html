@@ -3,7 +3,7 @@
     <input type="text" id="prose_title" value="{{prose.title}}" class="mousetrap"/>
   </div>
 
-  {{#textareaAutocomplete settings id="prose_text" class="mousetrap"}}{{{branch.text}}}{{/textareaAutocomplete}}
+  {{#textareaAutocomplete settings=settings id="prose_text" class="mousetrap"}}{{{branch.text}}}{{/textareaAutocomplete}}
 
   <input type="text" id="prose_url" value="{{prose.url}}" style="display:none" />
   <div id="text-height-helper"><span></span></div>
