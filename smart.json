@@ -2,7 +2,6 @@
   "packages": {
     "iron-router": {},
     "iron-router-progress": {},
-    "autocomplete": {},
-    "fast-render": {}
+    "autocomplete": {}
   }
 }
