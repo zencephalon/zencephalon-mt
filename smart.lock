@@ -3,18 +3,34 @@
   "dependencies": {
     "basePackages": {
       "iron-router": {},
-      "iron-router-progress": {}
+      "iron-router-progress": {},
+      "autocomplete": {}
     },
     "packages": {
       "iron-router": {
         "git": "https://github.com/EventedMind/iron-router.git",
-        "tag": "v0.6.1",
-        "commit": "4e1ee0581d68bff422a915dacb0bd30eae10fe08"
+        "tag": "v0.7.1",
+        "commit": "d1ffb3f06ea4c112132b030f2eb1a70b81675ecb"
       },
       "iron-router-progress": {
         "git": "https://github.com/Multiply/iron-router-progress.git",
-        "tag": "v0.2.0",
-        "commit": "ce730d1d26feadb7c75ea25f22c5bfdb0c549a8b"
+        "tag": "v0.3.1",
+        "commit": "3f7900feb4bb70a1289b39a1fdcd1f438c0335b3"
+      },
+      "autocomplete": {
+        "git": "https://github.com/mizzao/meteor-autocomplete.git",
+        "tag": "v0.3.0",
+        "commit": "3130f6911e3ece890532be7c669b1ffa42dbb097"
+      },
+      "blaze-layout": {
+        "git": "https://github.com/EventedMind/blaze-layout.git",
+        "tag": "v0.2.4",
+        "commit": "b40e9b0612329288d75cf52ad14a7da64bb8618f"
+      },
+      "jquery-migrate": {
+        "git": "https://github.com/canadaduane/meteor-jquery-migrate.git",
+        "tag": "v2.0.0",
+        "commit": "636819c9de59f66410e148867b229869bb045cea"
       }
     }
   }

@@ -9,6 +9,7 @@ accounts-password
 iron-router
 jquery
 showdown
-zen-markdown-autocomplete
+#zen-markdown-autocomplete
 spiderable
 meteor-fast-render
+autocomplete
