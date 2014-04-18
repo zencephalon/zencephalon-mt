@@ -16,7 +16,6 @@ Template.quickswitcher.settings = function() {
 Template.quickswitcher.events({
   'submit form': function(event) { 
     event.preventDefault();
-    //console.log($(''))
 
     if (View.editMode()) {
       Editor.saveProse(false, false);
