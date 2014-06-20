@@ -12,10 +12,10 @@
     <div id="content">
       <header>
         <a href="/index"><img src="/zenchinese.png" class="logo"/></a>
-        {{loginButtons}}
+        {{> loginButtons}}
         {{> quickswitcher}}
       </header>
-      {{yield}}
+      {{> yield}}
       {{> footer}}
     </div>
   </body>

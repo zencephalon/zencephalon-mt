@@ -14,10 +14,8 @@ getRouteData = function(url, branch_name) {
 }
 
 if (Meteor.isServer) {
-  FastRender.onAllRoutes(function(urlPath) {
-    this.subscribe("branch_by_url", "__journal_template__");
-    this.subscribe('counts');
-  })
+    //Meteor.subscribe("branch_by_url", "__journal_template__");
+    //Meteor.subscribe('counts');
 }
 
 Router.map(function() {
@@ -31,7 +29,6 @@ Router.map(function() {
   this.route('prose_list', {
     path: '/z/prose',
     template: 'list_proses',
-    fastRender: true,
     waitOn: function() {
       Meteor.subscribe("proses");
       Meteor.subscribe("counts");
@@ -44,7 +41,6 @@ Router.map(function() {
   this.route('journal_list', {
     path: '/z/journal',
     template: 'list_proses',
-    fastRender: true,
     waitOn: function() {
       Meteor.subscribe("proses");
       Meteor.subscribe("counts");
@@ -57,7 +53,6 @@ Router.map(function() {
   this.route('user_admin', {
     path: '/z/users',
     template: 'user_admin',
-    fastRender: true,
     waitOn: function() {
       Meteor.subscribe("users");
     },
@@ -79,7 +74,6 @@ Router.map(function() {
     path: '/:url',
     template: 'prose',
     data: getRouteData,
-    fastRender: true,
     waitOn: function() {
       Meteor.subscribe("prose_by_url", this.params.url);
       Meteor.subscribe("branch_by_url", this.params.url);
@@ -98,7 +92,6 @@ Router.map(function() {
     path: '/:url/b/:branch_name',
     template: 'prose',
     data: getRouteData,
-    fastRender: true,
     waitOn: function() {
       //Meteor.subscribe("proses");
       Meteor.subscribe("prose_by_url", this.params.url);
@@ -117,7 +110,6 @@ Router.map(function() {
   this.route('diff', {
     path: '/:url/b/:branch_name/:diff_branch_name',
     template: 'diff',
-    fastRender: true,
     waitOn: function() {
       Meteor.subscribe("prose_by_url", this.params.url);
       Meteor.subscribe('branches_by_url', this.params.url);
