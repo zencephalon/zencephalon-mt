@@ -112,15 +112,15 @@ Router.map(function() {
     template: 'diff',
     waitOn: function() {
       Meteor.subscribe("prose_by_url", this.params.url);
+      Meteor.subscribe("branch_by_url", this.params.url);
       Meteor.subscribe('branches_by_url', this.params.url);
     },
-    data: function() {
+    onBeforeAction: function() {
       Meteor.subscribe("proses");
       Meteor.subscribe("counts");
-      prose = Prose.get(this.params.url);
-      branch_name = this.params.branch_name;
-      diff_branch_name = this.params.diff_branch_name;
-
+      Meteor.subscribe("branches_by_url", this.params.url);
+    },
+    data: function() {
       return {prose: prose, diff: Differ.diff(prose, branch_name, diff_branch_name)};
     }
   })
