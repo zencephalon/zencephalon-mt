@@ -121,6 +121,9 @@ Router.map(function() {
       Meteor.subscribe("branches_by_url", this.params.url);
     },
     data: function() {
+      prose = Prose.get(this.params.url);
+      branch_name = this.params.branch_name;
+      diff_branch_name = this.params.diff_branch_name;
       return {prose: prose, diff: Differ.diff(prose, branch_name, diff_branch_name)};
     }
   })
