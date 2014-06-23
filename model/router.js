@@ -78,7 +78,7 @@ Router.map(function() {
       Meteor.subscribe("prose_by_url", this.params.url);
       Meteor.subscribe("branch_by_url", this.params.url);
     },
-    before: function() {
+    onBeforeAction: function() {
       Meteor.subscribe("proses");
       Meteor.subscribe("counts");
       Meteor.subscribe("branches_by_url", this.params.url);
@@ -98,7 +98,7 @@ Router.map(function() {
       Meteor.subscribe("branch_by_url", this.params.url);
       Meteor.subscribe("branches_by_url", this.params.url);
     },
-    before: function() {
+    onBeforeAction: function() {
       Meteor.subscribe("proses");
       Meteor.subscribe("counts");
     },
