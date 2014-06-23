@@ -162,7 +162,7 @@ textarea:focus {
   margin-left: 0em;
 }
 
-.switcher {
+#switcher {
   font-size: 2em;
   font-family: Georgia; line-height:100%; color: #36AECC; font-weight: 400;
   height: 1.1em;
