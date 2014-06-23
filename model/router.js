@@ -13,10 +13,17 @@ getRouteData = function(url, branch_name) {
   }
 }
 
-if (Meteor.isServer) {
-    //Meteor.subscribe("branch_by_url", "__journal_template__");
-    //Meteor.subscribe('counts');
+waitOnFunction = function() {
+  Meteor.subscribe("prose_by_url", this.params.url);
+  Meteor.subscribe("branch_by_url", this.params.url);
+  Meteor.subscribe('branches_by_url', this.params.url);
 }
+
+Router.onBeforeAction(function() {
+  Meteor.subscribe("branch_by_url", "__journal_template__");
+  Meteor.subscribe('counts');
+  Meteor.subscribe("proses");
+});
 
 Router.map(function() {
   this.route('home', {
@@ -29,10 +36,6 @@ Router.map(function() {
   this.route('prose_list', {
     path: '/z/prose',
     template: 'list_proses',
-    waitOn: function() {
-      Meteor.subscribe("proses");
-      Meteor.subscribe("counts");
-    },
     data: function() {
       return {proses: Proses.find({journal: {"$ne": true}}, {sort: {updated: -1}})};
     }
@@ -41,10 +44,6 @@ Router.map(function() {
   this.route('journal_list', {
     path: '/z/journal',
     template: 'list_proses',
-    waitOn: function() {
-      Meteor.subscribe("proses");
-      Meteor.subscribe("counts");
-    },
     data: function() {
       return {proses: Proses.find({journal: true}, {sort: {updated: -1}})};
     }
@@ -57,8 +56,6 @@ Router.map(function() {
       Meteor.subscribe("users");
     },
     data: function() {
-      Meteor.subscribe("proses");
-      Meteor.subscribe("counts");
       return {users: _.map(Meteor.users.find().fetch(), function(user) {
           if (user.emails !== undefined) {
             return user.emails[0].address;
@@ -74,15 +71,7 @@ Router.map(function() {
     path: '/:url',
     template: 'prose',
     data: getRouteData,
-    waitOn: function() {
-      Meteor.subscribe("prose_by_url", this.params.url);
-      Meteor.subscribe("branch_by_url", this.params.url);
-    },
-    onBeforeAction: function() {
-      Meteor.subscribe("proses");
-      Meteor.subscribe("counts");
-      Meteor.subscribe("branches_by_url", this.params.url);
-    },
+    waitOn: waitOnFunction,
     data: function() {
       return getRouteData(this.params.url, false);
     }
@@ -91,17 +80,7 @@ Router.map(function() {
   this.route('branch', {
     path: '/:url/b/:branch_name',
     template: 'prose',
-    data: getRouteData,
-    waitOn: function() {
-      //Meteor.subscribe("proses");
-      Meteor.subscribe("prose_by_url", this.params.url);
-      Meteor.subscribe("branch_by_url", this.params.url);
-      Meteor.subscribe("branches_by_url", this.params.url);
-    },
-    onBeforeAction: function() {
-      Meteor.subscribe("proses");
-      Meteor.subscribe("counts");
-    },
+    waitOn: waitOnFunction,
     data: function() {
       return getRouteData(this.params.url, this.params.branch_name);
     },
@@ -110,16 +89,7 @@ Router.map(function() {
   this.route('diff', {
     path: '/:url/b/:branch_name/:diff_branch_name',
     template: 'diff',
-    waitOn: function() {
-      Meteor.subscribe("prose_by_url", this.params.url);
-      Meteor.subscribe("branch_by_url", this.params.url);
-      Meteor.subscribe('branches_by_url', this.params.url);
-    },
-    onBeforeAction: function() {
-      Meteor.subscribe("proses");
-      Meteor.subscribe("counts");
-      Meteor.subscribe("branches_by_url", this.params.url);
-    },
+    waitOn: waitOnFunction,
     data: function() {
       prose = Prose.get(this.params.url);
       branch_name = this.params.branch_name;
