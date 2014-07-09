@@ -12,13 +12,19 @@ Proses.allow({
   }
 });
 
+ProseObj = function (pojo) {
+  for (property in pojo) {
+    this[property] = pojo[property]
+  }
+  this.change_url = func
+}
 Prose = {
   get : function(url) {
     var prose = Proses.findOne({url: url});
     if (prose === undefined) {
-      return {title: url, url: url}
+      return new ProseObj({title: url, url: url});
     } else {
-      return prose;
+      return new ProseObj(prose);
     }
   },
   create : function(title, url, text, journal) {
