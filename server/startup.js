@@ -25,10 +25,10 @@ if (Meteor.isServer) {
       //   }
       // });
       //Branches.update({updated: {"$exists": false}}, {"$set":{"updated": new Date()}})
-      Counts.insert({prose_count: proses, word_count: words, time: new Date()});
+      _Counts.insert({prose_count: proses, word_count: words, time: new Date()});
     }
 
-    if (Counts.find().count() === 0) {
+    if (_Counts.find().count() === 0) {
       doCount();
     }
 
@@ -37,7 +37,7 @@ if (Meteor.isServer) {
     }, 1000*60*60*8); // every eight hours
 
     Meteor.publish("proses", function() { return Proses.find(); });
-    Meteor.publish("counts", function() { return Counts.find({},{sort: {_id:1}, limit: 1}); });
+    Meteor.publish("counts", Counts._publication_single);
     Meteor.publish("prose_by_url", function(url) {return Proses.find({url: url})});
     Meteor.publish("branch_by_url", function(url) {return Branches.find({url: url, active: true})});
     Meteor.publish("branches_by_url", function(url) {return Branches.find({url: url})});
