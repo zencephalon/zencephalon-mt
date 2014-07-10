@@ -12,21 +12,20 @@ Proses.allow({
   }
 });
 
-ProseObj = function (pojo) {
+_Prose = function (pojo) {
   for (property in pojo) {
     this[property] = pojo[property]
   }
-  this.change_url = func
 }
 
-ProseObj.prototype.change_url = function(url) {
+_Prose.prototype.change_url = function(url) {
   if (this.url != url) {
     Proses.update(this._id, {"$set": {url: url}});
       Util.bulkUpdate(Branches, {prose: this._id}, {"$set": {url: url}});
     }
 }
 
-ProseObj.prototype.update = function(title, url, text, branch, new_branch) {
+_Prose.prototype.update = function(title, url, text, branch, new_branch) {
     url = Util.cleanURL(url);
     if (new_branch) {
       new_branch_name = Branch.save(branch.name, this._id, this.tree, text, url, true);
@@ -38,14 +37,22 @@ ProseObj.prototype.update = function(title, url, text, branch, new_branch) {
     }
     this.change_url(url);
 }
+  
+_Prose.prototype.save : function(prose, live_prose, branch, new_branch) {
+    if (prose._id !== undefined) {
+      this.update(prose, live_prose["title"], live_prose["url"], live_prose["text"], branch, new_branch);
+    } else {
+      this.create(live_prose.title, live_prose.url, live_prose.text, false)
+    }   
+  }
 
 Prose = {
   get : function(url) {
     var prose = Proses.findOne({url: url});
     if (prose === undefined) {
-      return new ProseObj({title: url, url: url});
+      return new _Prose({title: url, url: url});
     } else {
-      return new ProseObj(prose);
+      return new _Prose(prose);
     }
   },
   create : function(title, url, text, journal) {
@@ -54,12 +61,5 @@ Prose = {
     url = Util.cleanURL(url);
     prose = Proses.insert({title: title, url: url, branch: branch, tree: tree, journal: journal, updated: new Date()})
     Branch.create(prose, url, text, '0', true);
-  },
-  save : function(prose, live_prose, branch, new_branch) {
-    if (prose._id !== undefined) {
-      this.update(prose, live_prose["title"], live_prose["url"], live_prose["text"], branch, new_branch);
-    } else {
-      this.create(live_prose.title, live_prose.url, live_prose.text, false)
-    }   
   }
 }
