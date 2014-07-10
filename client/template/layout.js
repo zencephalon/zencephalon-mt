@@ -11,14 +11,14 @@ Template.layout.rendered = function() {
 }
 
 Template.footer.word_count = function() {
-  var count = Counts.findOne({}, {sort: {_id:1}});
+  var count = Counts.get();
   if (count !== undefined) {
     return count.word_count;
   }
 }
 
 Template.footer.prose_count = function() {
-  var count = Counts.findOne({}, {sort: {_id:1}});
+  var count = Counts.get();
   if (count !== undefined) {
     return count.prose_count;
   }
