@@ -14,23 +14,23 @@
       },
       "iron-router-progress": {
         "git": "https://github.com/Multiply/iron-router-progress.git",
-        "tag": "v0.3.1",
-        "commit": "3f7900feb4bb70a1289b39a1fdcd1f438c0335b3"
+        "tag": "v0.4.0",
+        "commit": "02f78bdaca4c13d59f548d5a0ce83408c34b56d1"
       },
       "autocomplete": {
         "git": "https://github.com/mizzao/meteor-autocomplete.git",
-        "tag": "v0.3.0",
-        "commit": "3130f6911e3ece890532be7c669b1ffa42dbb097"
+        "tag": "v0.4.5",
+        "commit": "48a706f0055939ac9e05dd619ad6d4df3dcc237d"
       },
       "blaze-layout": {
         "git": "https://github.com/EventedMind/blaze-layout.git",
         "tag": "v0.2.4",
         "commit": "b40e9b0612329288d75cf52ad14a7da64bb8618f"
       },
-      "jquery-migrate": {
-        "git": "https://github.com/canadaduane/meteor-jquery-migrate.git",
-        "tag": "v2.0.0",
-        "commit": "636819c9de59f66410e148867b229869bb045cea"
+      "caret-position": {
+        "git": "https://github.com/StockBase/meteor-caret-position.git",
+        "tag": "v2.1.0-3",
+        "commit": "6028cf980f62cbf72cb2ea527091a3a31f87b8a7"
       }
     }
   }

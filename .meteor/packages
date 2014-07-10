@@ -9,5 +9,5 @@ accounts-password
 iron-router
 jquery
 showdown
-zen-markdown-autocomplete
 spiderable
+autocomplete
