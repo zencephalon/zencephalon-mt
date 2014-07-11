@@ -30,11 +30,9 @@ _Prose.prototype.update = function(title, url, text, branch, new_branch) {
     if (new_branch) {
       new_branch_name = Branch.save(branch.name, this._id, this.tree, text, url, true);
       this.tree.push(new_branch_name);
-      console.log("new branch")
       _Proses.update(this._id, {"$set": {title: title, branch: new_branch_name, tree: this.tree, url: url, updated: new Date()}});
     } else {
       Branch.update(branch._id, this._id, text);
-      console.log("updating")
       _Proses.update(this._id, {"$set": {title: title, url: url, updated: new Date()}});
     }
     this.change_url(url);
@@ -42,8 +40,6 @@ _Prose.prototype.update = function(title, url, text, branch, new_branch) {
   
 _Prose.prototype.save = function(live_prose, branch, new_branch) {
     if (this._id !== undefined) {
-      console.log(live_prose["text"])
-      console.log(live_prose["title"])
       this.update(live_prose["title"], live_prose["url"], live_prose["text"], branch, new_branch);
     } else {
       Prose.create(live_prose.title, live_prose.url, live_prose.text, false)
