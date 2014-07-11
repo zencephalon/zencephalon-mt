@@ -2,9 +2,9 @@ Journal = {
   defaultTemplate : "#### TODO?\n\n#### Code?\n\n#### Meditate?\n\n#### Exercise?\n\n#### Taijutsu?\n\n#### Journal?\n",
   template : function() {
     name = "__journal_template__";
-    template = Prose.get(name);
+    template = Proses.get(name);
     if (template._id === undefined) {
-      Prose.create("Journal Template", name, Journal.defaultTemplate, true);
+      Proses.create("Journal Template", name, Journal.defaultTemplate, true);
       return Journal.defaultTemplate;
     } else {
       return Branch.get(template._id, template.branch).text;
@@ -17,9 +17,9 @@ Journal = {
     d = new Date();
     day_string = Journal.getDayString(d);
 
-    if (Prose.get(day_string)._id === undefined) {
+    if (Proses.get(day_string)._id === undefined) {
       title = _.first(d.toString().split(" "), 4).join(" ");
-      Prose.create(title, day_string, Journal.template(), true);
+      Proses.create(title, day_string, Journal.template(), true);
     } 
     return day_string;
   },
