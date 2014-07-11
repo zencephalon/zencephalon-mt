@@ -21,8 +21,8 @@ if (Meteor.isServer) {
     Meteor.publish("proses", function() { return _Proses.find(); });
     Meteor.publish("counts", Counts._publication_single);
     Meteor.publish("prose_by_url", function(url) {return _Proses.find({url: url})});
-    Meteor.publish("branch_by_url", function(url) {return Branches.find({url: url, active: true})});
-    Meteor.publish("branches_by_url", function(url) {return Branches.find({url: url})});
+    Meteor.publish("branch_by_url", function(url) {return _Branches.find({url: url, active: true})});
+    Meteor.publish("branches_by_url", function(url) {return _Branches.find({url: url})});
     Meteor.publish("users", function() {
       return Meteor.users.find({}, {fields: {emails: 1, profile: 1}});
     })

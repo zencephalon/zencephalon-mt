@@ -11,7 +11,7 @@ Counts = {
     var words = 0;
     var proses = 0;
     _Proses.find().forEach(function (prose) {
-      var branch = Branch.get(prose._id, prose.branch);
+      var branch = Branches.get(prose._id, prose.branch);
         words += branch.text.split(' ').length;
         proses++;
     });

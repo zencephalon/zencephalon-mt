@@ -7,7 +7,7 @@ Journal = {
       Proses.create("Journal Template", name, Journal.defaultTemplate, true);
       return Journal.defaultTemplate;
     } else {
-      return Branch.get(template._id, template.branch).text;
+      return Branches.get(template._id, template.branch).text;
     }
   },
   getDayString : function(d) {
