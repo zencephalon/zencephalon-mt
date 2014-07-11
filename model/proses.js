@@ -1,6 +1,6 @@
-Proses = new Meteor.Collection("proses");
+_Proses = new Meteor.Collection("proses");
 
-Proses.allow({
+_Proses.allow({
   update: function() {
     return Permission.allow();
   },
@@ -12,46 +12,55 @@ Proses.allow({
   }
 });
 
+_Prose = function (pojo) {
+  for (property in pojo) {
+    this[property] = pojo[property]
+  }
+}
+
+_Prose.prototype.change_url = function(url) {
+  if (this.url != url) {
+    _Proses.update(this._id, {"$set": {url: url}});
+      Util.bulkUpdate(Branches, {prose: this._id}, {"$set": {url: url}});
+    }
+}
+
+_Prose.prototype.update = function(title, url, text, branch, new_branch) {
+    url = Util.cleanURL(url);
+    if (new_branch) {
+      new_branch_name = Branch.save(branch.name, this._id, this.tree, text, url, true);
+      this.tree.push(new_branch_name);
+      _Proses.update(this._id, {"$set": {title: title, branch: new_branch_name, tree: this.tree, url: url, updated: new Date()}});
+    } else {
+      Branch.update(branch._id, this._id, text);
+      _Proses.update(this._id, {"$set": {title: title, url: url, updated: new Date()}});
+    }
+    this.change_url(url);
+}
+  
+_Prose.prototype.save = function(live_prose, branch, new_branch) {
+    if (this._id !== undefined) {
+      this.update(live_prose["title"], live_prose["url"], live_prose["text"], branch, new_branch);
+    } else {
+      Prose.create(live_prose.title, live_prose.url, live_prose.text, false)
+    }   
+  }
+
 Prose = {
   get : function(url) {
-    var prose = Proses.findOne({url: url});
+    var prose = _Proses.findOne({url: url});
     if (prose === undefined) {
-      return {title: url, url: url}
+      return new _Prose({title: url, url: url});
     } else {
-      return prose;
+      return new _Prose(prose);
     }
   },
   create : function(title, url, text, journal) {
     branch = '0';
     tree = ['0'];
     url = Util.cleanURL(url);
-    prose = Proses.insert({title: title, url: url, branch: branch, tree: tree, journal: journal, updated: new Date()})
+    prose = _Proses.insert({title: title, url: url, branch: branch, tree: tree, journal: journal, updated: new Date()})
     Branch.create(prose, url, text, '0', true);
-  },
-  change_url : function(prose, url) {
-    if (prose.url != url) {
-      Proses.update(prose._id, {"$set": {url: url}});
-      //Branches.update({prose: prose._id}, {"$set": {title: title}});
-      Util.bulkUpdate(Branches, {prose: prose._id}, {"$set": {url: url}});
-    }
-  },
-  update : function(prose, title, url, text, branch, new_branch) {
-    url = Util.cleanURL(url);
-    if (new_branch) {
-      new_branch_name = Branch.save(branch.name, prose._id, prose.tree, text, url, true);
-      prose.tree.push(new_branch_name);
-      Proses.update(prose._id, {"$set": {branch: new_branch_name, tree: prose.tree, url: url, updated: new Date()}});
-    } else {
-      Branch.update(branch._id, prose._id, text);
-      Proses.update(prose._id, {"$set": {url: url, updated: new Date()}});
-    }
-    this.change_url(prose, url);
-  },
-  save : function(prose, live_prose, branch, new_branch) {
-    if (prose._id !== undefined) {
-      this.update(prose, live_prose["title"], live_prose["url"], live_prose["text"], branch, new_branch);
-    } else {
-      this.create(live_prose.title, live_prose.url, live_prose.text, false)
-    }   
   }
+
 }

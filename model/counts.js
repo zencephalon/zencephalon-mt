@@ -10,7 +10,7 @@ Counts = {
   doCount : function() {
     var words = 0;
     var proses = 0;
-    Proses.find().forEach(function (prose) {
+    _Proses.find().forEach(function (prose) {
       var branch = Branch.get(prose._id, prose.branch);
         words += branch.text.split(' ').length;
         proses++;

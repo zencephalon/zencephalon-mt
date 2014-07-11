@@ -9,7 +9,7 @@ Editor = {
 
   saveProse : function(new_revision, view_mode) {
     live_prose = this.liveProse();
-    prose = Session.get("selected_prose");
+    prose = State.prose();
     branch = Session.get("selected_branch");
 
     // always save a new revision if it has been over ten minutes
@@ -20,7 +20,7 @@ Editor = {
     // Save the viewport
     View.save();
 
-    Prose.save(prose, live_prose, branch, new_revision);
+    prose.save(live_prose, branch, new_revision);
 
     Session.set("view_mode", view_mode);
     // If we saved a new revision refresh because the url could have changed.

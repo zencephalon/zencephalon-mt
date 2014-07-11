@@ -6,6 +6,7 @@ getRouteData = function(url, branch_name) {
   prose = Prose.get(url);
   branch = Branch.getByUrl(url, branch_name);
   if (!prose.journal || Meteor.user()) {
+    console.log(prose)
     Session.set("selected_prose", prose);
     Session.set("selected_branch", branch);
     Session.set("just_loaded", true);
@@ -37,7 +38,7 @@ Router.map(function() {
     path: '/z/prose',
     template: 'list_proses',
     data: function() {
-      return {proses: Proses.find({journal: {"$ne": true}}, {sort: {updated: -1}})};
+      return {proses: _Proses.find({journal: {"$ne": true}}, {sort: {updated: -1}})};
     }
   });
 
@@ -45,7 +46,7 @@ Router.map(function() {
     path: '/z/journal',
     template: 'list_proses',
     data: function() {
-      return {proses: Proses.find({journal: true}, {sort: {updated: -1}})};
+      return {proses: _Proses.find({journal: true}, {sort: {updated: -1}})};
     }
   });
 
