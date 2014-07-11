@@ -12,6 +12,12 @@ _Branches.allow({
   }
 });
 
+Branch = function(o) {
+  for (p in o) {
+    this[p] = o[p]
+  }
+}
+
 Branches = {
   get : function(prose_id, name) {
     return _Branches.findOne({prose: prose_id, name: name});

@@ -12,7 +12,7 @@ _Proses.allow({
   }
 });
 
-Prose = function (o) {
+Prose = function(o) {
   for (p in o) {
     this[p] = o[p]
   }
