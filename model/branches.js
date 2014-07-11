@@ -1,6 +1,6 @@
-Branches = new Meteor.Collection("branches");
+_Branches = new Meteor.Collection("branches");
 
-Branches.allow({
+_Branches.allow({
   update: function() {
     return Permission.allow();
   },
@@ -12,9 +12,9 @@ Branches.allow({
   }
 });
 
-Branch = {
+Branches = {
   get : function(prose_id, name) {
-    return Branches.findOne({prose: prose_id, name: name});
+    return _Branches.findOne({prose: prose_id, name: name});
   },
   getByUrl : function(url, branch_name) {
     if (branch_name) {
@@ -22,14 +22,14 @@ Branch = {
     } else {
       query = {url: url, active: true};
     }
-    return Branches.findOne(query);
+    return _Branches.findOne(query);
   },
   create : function(prose_id, url, text, name, active) {
-    return Branches.insert({active: active, url: url, prose: prose_id, text: text, name: name, updated: new Date()});
+    return _Branches.insert({active: active, url: url, prose: prose_id, text: text, name: name, updated: new Date()});
   },
   update : function(branch_id, prose_id, text) {
     this.unsetOthersActive(prose_id);
-    Branches.update(branch_id, {'$set': {text: text, updated: new Date(), active: true}});
+    _Branches.update(branch_id, {'$set': {text: text, updated: new Date(), active: true}});
   },
   save : function(current_branch, prose_id, tree, text, url, active) {
     new_branch_name = this.get_new_branch_name(current_branch, tree);
@@ -40,7 +40,7 @@ Branch = {
     return new_branch_name;
   },
   unsetOthersActive : function(prose_id) {
-      Util.bulkUpdate(Branches, {prose: prose_id}, {'$set': {active: false}});
+      Util.bulkUpdate(_Branches, {prose: prose_id}, {'$set': {active: false}});
   },
   digits : function(branch) {
     return /\d+$/.exec(branch)[0];
