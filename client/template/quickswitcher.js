@@ -6,7 +6,7 @@ Template.quickswitcher.settings = function() {
       token: ':',
       replacement: '',
       end_token: '',
-      collection: Proses,
+      collection: _Proses,
       field: "url",
       template: Template.prose_url_title
     }]

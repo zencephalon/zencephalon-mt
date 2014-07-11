@@ -20,7 +20,7 @@ Editor = {
     // Save the viewport
     View.save();
 
-    Prose.save(prose, live_prose, branch, new_revision);
+    prose.save(live_prose, branch, new_revision);
 
     Session.set("view_mode", view_mode);
     // If we saved a new revision refresh because the url could have changed.
