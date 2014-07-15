@@ -5,9 +5,10 @@ Template.layout.rendered = function() {
     maximum: 1600,
     minFont: 12,
     maxFont: 42,
-    fontRatio: 30,
+    fontRatio: 40,
     lineRatio: 1.45
   });
+//$('#content').width($(window).height() * (1 + Math.sqrt(5)) / 2);
 }
 
 Template.footer.word_count = function() {

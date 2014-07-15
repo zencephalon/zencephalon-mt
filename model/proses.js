@@ -42,7 +42,7 @@ Prose.prototype.save = function(live_prose, branch, new_branch) {
     if (this._id !== undefined) {
       this.update(live_prose["title"], live_prose["url"], live_prose["text"], branch, new_branch);
     } else {
-      Prose.create(live_prose.title, live_prose.url, live_prose.text, false)
+      Proses.create(live_prose.title, live_prose.url, live_prose.text, false)
     }   
   }
 
