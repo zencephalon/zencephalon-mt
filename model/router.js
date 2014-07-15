@@ -4,7 +4,7 @@ Router.configure({
 
 getRouteData = function(url, branch_name) {
   prose = Proses.get(url);
-  branch = Branch.getByUrl(url, branch_name);
+  branch = Branches.getByUrl(url, branch_name);
   if (!prose.journal || Meteor.user()) {
     console.log(prose)
     Session.set("selected_prose", prose);

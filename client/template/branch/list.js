@@ -1,6 +1,6 @@
 Template.branch_list.branch_display = function(current_branch, parent_branch_length) {
   prose = Session.get("selected_prose");
-  branch_names = _.pluck(Branches.find({prose: prose._id}).fetch(), 'name');
+  branch_names = _.pluck(_Branches.find({prose: prose._id}).fetch(), 'name');
   output = "<table><tr>";
   function branch_url(branch, parent_branch_length) {
     // FIXME: this is bad coupling.
@@ -19,7 +19,7 @@ Template.branch_list.branch_display = function(current_branch, parent_branch_len
         output += "<tr><td>";
         output += Template.branch_list.branch_display(current_branch + next_lat_code + '0', parent_branch_length + 2);
         output += "</td></tr>";
-        next_lat_code = Branch.next_lateral_code(next_lat_code);
+        next_lat_code = Branches.next_lateral_code(next_lat_code);
       }
       output += "</table>";
     } else {
@@ -27,7 +27,7 @@ Template.branch_list.branch_display = function(current_branch, parent_branch_len
     }
 
     output += "</td>";
-    current_branch = Branch.next_sequential_branch(current_branch);
+    current_branch = Branches.next_sequential_branch(current_branch);
   }
   output += "</tr></table>";
   return output;
