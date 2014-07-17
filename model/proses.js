@@ -32,7 +32,7 @@ Prose.prototype.update = function(title, url, text, branch, new_branch) {
       this.tree.push(new_branch_name);
       _Proses.update(this._id, {"$set": {title: title, branch: new_branch_name, tree: this.tree, url: url, updated: new Date()}});
     } else {
-      Branch.update(branch._id, this._id, text);
+      Branches.update(branch._id, this._id, text);
       _Proses.update(this._id, {"$set": {title: title, url: url, updated: new Date()}});
     }
     this.change_url(url);
