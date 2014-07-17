@@ -22,6 +22,7 @@ waitOnFunction = function() {
 
 Router.onBeforeAction(function() {
   Meteor.subscribe("branch_by_url", "__journal_template__");
+  Meteor.subscribe("branch_by_url", "__footer_template__");
   Meteor.subscribe('counts');
   Meteor.subscribe("proses");
 });
