@@ -11,3 +11,10 @@ Template.footer.prose_count = function() {
     return count.prose_count;
   }
 }
+
+Template.footer.content = function() {
+  template = Proses.get("__footer_template__");
+  if (template._id !== undefined) {
+    return Branches.get(template._id, template.branch).text
+  }
+}
