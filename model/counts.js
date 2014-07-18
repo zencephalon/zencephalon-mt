@@ -11,9 +11,10 @@ Counts = {
     var words = 0;
     var proses = 0;
     _Proses.find().forEach(function (prose) {
-      var branch = Branches.get(prose._id, prose.branch);
-        words += branch.text.split(' ').length;
-        proses++;
+      prose = new Prose(prose);
+      branch = prose.getBranch();
+      words += branch.text.split(' ').length;
+      proses++;
     });
     _Counts.insert({prose_count: proses, word_count: words, time: new Date()});
   }
