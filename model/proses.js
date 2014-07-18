@@ -39,12 +39,20 @@ Prose.prototype.update = function(title, url, text, branch, new_branch) {
 }
   
 Prose.prototype.save = function(live_prose, branch, new_branch) {
-    if (this._id !== undefined) {
-      this.update(live_prose["title"], live_prose["url"], live_prose["text"], branch, new_branch);
-    } else {
-      Proses.create(live_prose.title, live_prose.url, live_prose.text, false)
-    }   
+  if (this._id !== undefined) {
+    this.update(live_prose["title"], live_prose["url"], live_prose["text"], branch, new_branch);
+  } else {
+    Proses.create(live_prose.title, live_prose.url, live_prose.text, false)
+  }   
+}
+
+Prose.prototype.getBranch = function(branch_name) {
+  if (branch_name !== undefined) {
+    return Branches.get(this._id, branch_name);
+  } else {
+    return Branches.get(this._id, this.branch);
   }
+}
 
 Proses = {
   get : function(url) {
