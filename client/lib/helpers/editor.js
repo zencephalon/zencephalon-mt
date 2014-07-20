@@ -62,11 +62,7 @@ Editor = {
         View.setCaret(sel.end - 1, prose);
       } else {
         if (sel.text == "") {
-          console.log("before insert")
-          console.log(prose.getSelection());
           prose.insertText("- () I love  so I will ", old);
-          console.log('after insert')
-          console.log(prose.getSelection());
           View.setCaret(old + 12, prose);
         } else {
           prose.val(content.replace(sel.text, "- () " + sel.text));
@@ -144,15 +140,11 @@ Editor = {
 
   loadSubedit : function(e) {
     e.preventDefault();
-    console.log(e);
     var target = $(e.target);
     var selection = target.getSelection();
-    console.log(selection);
     var sub_prose = Proses.get(selection.text);
     if (sub_prose !== undefined) {
       Meteor.subscribe("branch_by_url", selection.text);
-      console.log(sub_prose);
-      console.log(sub_prose.getBranch());
       UI.insert(UI.renderWithData(Template.prose_subedit, {branch: sub_prose.getBranch(), prose: sub_prose}), e.target.parentNode, e.target.nextSibling);
     }
   },
@@ -172,11 +164,8 @@ Editor = {
       dd = new DeftDraft(target);
       old = target.getSelection().start;
       View.setCaret(old, target); 
-      console.log(target.getSelection())
       dd.command('n', 'l'); 
-      console.log(target.getSelection())
       Editor.insertTodo(old, target); 
-      console.log(target.getSelection())
       return false;
     });
     // Set the key bindings.

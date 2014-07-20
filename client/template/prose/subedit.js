@@ -14,8 +14,6 @@ Template.prose_subedit.events({
   },
   'select, mouseup': function(e) {
     var target = $(e.target);
-    console.log(target);
-    console.log(target.getSelection());
     Meteor.subscribe("branch_by_url", target.getSelection().text);
   }
 });
