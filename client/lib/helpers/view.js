@@ -40,8 +40,8 @@ View = {
       return view.caret_pos;
     }
   },
-  setCaret : function(caret_pos) {
-    Caret.set(this.proseArea(), caret_pos);
+  setCaret : function(caret_pos, target) {
+    Caret.set(target, caret_pos);
   },
   editMode : function() {
     view_mode = Session.get("view_mode");

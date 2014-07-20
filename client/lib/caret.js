@@ -1,6 +1,6 @@
 Caret = {
     set : function(input, pos) {
-        this.setSelectionRange(input, pos, pos);
+        this.setSelectionRange(input[0], pos, pos);
     },
     get : function(el) {
         if (el.selectionStart) {
