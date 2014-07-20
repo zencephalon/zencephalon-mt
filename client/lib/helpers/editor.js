@@ -139,6 +139,12 @@ Editor = {
     return Editor.goDir(false);
   },
 
+  loadSubedit : function(e) {
+    e.preventDefault();
+    console.log(e);
+    console.log($(e.target).getSelection());
+  },
+
   bindKeys : function() {
     Mousetrap.bind('mod+shift+s', function(e) { Editor.saveProse(true, true); return false; });
     Mousetrap.bind('ctrl+d', Editor.insertTimestamp);
@@ -146,6 +152,7 @@ Editor = {
     Mousetrap.bind('ctrl+b', Editor.goSectionUp);
     Mousetrap.bind('ctrl+x', Editor.goLeft);
     Mousetrap.bind('ctrl+c', Editor.goRight);
+    Mousetrap.bind('ctrl+enter', function(e) {Editor.loadSubedit(e)});
     // Create new DeftDraft object.
     var dd = new DeftDraft($('#prose_text'));
     Mousetrap.bind('ctrl+z', function() {
