@@ -43,7 +43,7 @@ Editor = {
       target = $(target);
       console.log(caret_pos);
       target.val(content.substr(0, caret_pos) + str + content.substr(caret_pos));
-      View.setCaret(caret_pos + str.length, target);
+      View.setCaret(caret_pos + str.length, target[0]);
     });
   },
 
@@ -54,22 +54,22 @@ Editor = {
   },
 
   insertTodo : function(old, prose) {
-    Editor.editorFunc(function(caret_pos, content) {
+    Editor.editorFunc(prose[0], function(caret_pos, content) {
       sel = prose.getSelection();
 
       if (sel.text.indexOf("- ()") === 0) {
         prose.val(content.replace(sel.text, sel.text.replace("- ()", "- (♥)")));
-        View.setCaret(sel.end + 1, prose);
+        View.setCaret(sel.end + 1, prose[0]);
       } else if (sel.text.indexOf("- (♥)") === 0) {
         prose.val(content.replace(sel.text, sel.text.replace("- (♥)", "- ()")));
-        View.setCaret(sel.end - 1, prose);
+        View.setCaret(sel.end - 1, prose[0]);
       } else {
         if (sel.text == "") {
           prose.insertText("- () I love  so I will ", old);
-          View.setCaret(old + 12, prose);
+          View.setCaret(old + 12, prose[0]);
         } else {
           prose.val(content.replace(sel.text, "- () " + sel.text));
-          View.setCaret(sel.end + 5, prose);
+          View.setCaret(sel.end + 5, prose[0]);
         }
       }
     });
@@ -82,7 +82,7 @@ Editor = {
   },
 
   goSectionDown : function(target) {
-    return Editor.editorFunc(function(caret_pos, content) {
+    return Editor.editorFunc(target, function(caret_pos, content) {
       header_str = "\n####";
       bottom = content.substr(caret_pos);
       new_pos = bottom.indexOf(header_str);
@@ -158,7 +158,10 @@ Editor = {
       Editor.insertTimestamp(e.target);
       return false;
     });
-    Mousetrap.bind('ctrl+n', Editor.goSectionDown);
+    Mousetrap.bind('ctrl+n', function(e) {
+      Editor.goSectionDown(e.target)
+      return false;
+    });
     Mousetrap.bind('ctrl+b', Editor.goSectionUp);
     Mousetrap.bind('ctrl+x', Editor.goLeft);
     Mousetrap.bind('ctrl+c', Editor.goRight);
@@ -169,7 +172,7 @@ Editor = {
       target = $(e.target);
       dd = new DeftDraft(target);
       old = target.getSelection().start;
-      View.setCaret(old, target); 
+      View.setCaret(old, e.target); 
       dd.command('n', 'l'); 
       Editor.insertTodo(old, target); 
       return false;
