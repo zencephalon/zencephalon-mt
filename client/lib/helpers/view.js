@@ -36,8 +36,8 @@ View = {
       //document.body.scrollTop = document.documentElement.scrollTop = 0;
     }
   },
-  getCaret : function() {
-    view_id = Session.get("selected_prose").url;
+  getCaret : function(prose_area) {
+    view_id = $(prose_area).attr("data-prose");
     view = Session.get("saved_view");
     if (view !== undefined && (view = view[view_id]) !== undefined) {
       return view.caret_pos;

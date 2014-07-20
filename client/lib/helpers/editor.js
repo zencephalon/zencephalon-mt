@@ -29,16 +29,19 @@ Editor = {
     }
   },
 
-  editorFunc : function(func) {
-    View.save();
-    caret_pos = View.getCaret();
-    content = $('#prose_text').val();
+  editorFunc : function(target, func) {
+    View.save(target);
+    caret_pos = View.getCaret(target);
+    content = $(target).val();
+    console.log(caret_pos);
     func(caret_pos, content);
     return false;
   },
 
   insertText : function(str, target) {
-    Editor.editorFunc(function(caret_pos, content) {
+    Editor.editorFunc(target, function(caret_pos, content) {
+      target = $(target);
+      console.log(caret_pos);
       target.val(content.substr(0, caret_pos) + str + content.substr(caret_pos));
       View.setCaret(caret_pos + str.length, target);
     });
@@ -151,7 +154,10 @@ Editor = {
 
   bindKeys : function() {
     Mousetrap.bind('mod+shift+s', function(e) { Editor.saveProse(true, true); return false; });
-    Mousetrap.bind('ctrl+d', Editor.insertTimestamp);
+    Mousetrap.bind('ctrl+d', function(e) {
+      Editor.insertTimestamp(e.target);
+      return false;
+    });
     Mousetrap.bind('ctrl+n', Editor.goSectionDown);
     Mousetrap.bind('ctrl+b', Editor.goSectionUp);
     Mousetrap.bind('ctrl+x', Editor.goLeft);
