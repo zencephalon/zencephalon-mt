@@ -37,49 +37,48 @@ Editor = {
     return false;
   },
 
-  insertText : function(str) {
+  insertText : function(str, target) {
     Editor.editorFunc(function(caret_pos, content) {
-      $('#prose_text').val(content.substr(0, caret_pos) + str + content.substr(caret_pos));
-      View.setCaret(caret_pos + str.length);
+      target.val(content.substr(0, caret_pos) + str + content.substr(caret_pos));
+      View.setCaret(caret_pos + str.length, target);
     });
   },
 
-  insertTimestamp : function() {
+  insertTimestamp : function(target) {
     date_str = new Date().toLocaleTimeString() + ': ';
-    Editor.insertText(date_str);
+    Editor.insertText(date_str, target);
     return false;
   },
 
-  insertTodo : function(old) {
+  insertTodo : function(old, prose) {
     Editor.editorFunc(function(caret_pos, content) {
-      prose = $('#prose_text');
       sel = prose.getSelection();
 
       if (sel.text.indexOf("- ()") === 0) {
         prose.val(content.replace(sel.text, sel.text.replace("- ()", "- (♥)")));
-        View.setCaret(sel.end + 1);
+        View.setCaret(sel.end + 1, prose);
       } else if (sel.text.indexOf("- (♥)") === 0) {
         prose.val(content.replace(sel.text, sel.text.replace("- (♥)", "- ()")));
-        View.setCaret(sel.end - 1);
+        View.setCaret(sel.end - 1, prose);
       } else {
         if (sel.text == "") {
           prose.insertText("- () I love  so I will ", old);
-          View.setCaret(old + 12);
+          View.setCaret(old + 12, prose);
         } else {
           prose.val(content.replace(sel.text, "- () " + sel.text));
-          View.setCaret(sel.end + 5);
+          View.setCaret(sel.end + 5, prose);
         }
       }
     });
     return false;
   },
 
-  scrollCursor : function(new_pos) {
-      View.setCaret(new_pos);
+  scrollCursor : function(new_pos, target) {
+      View.setCaret(new_pos, target);
       View.cursorScroll();
   },
 
-  goSectionDown : function() {
+  goSectionDown : function(target) {
     return Editor.editorFunc(function(caret_pos, content) {
       header_str = "\n####";
       bottom = content.substr(caret_pos);
@@ -101,7 +100,7 @@ Editor = {
         }
       }
 
-      Editor.scrollCursor(new_pos);
+      Editor.scrollCursor(new_pos, target);
     });
   },
 
@@ -141,15 +140,11 @@ Editor = {
 
   loadSubedit : function(e) {
     e.preventDefault();
-    console.log(e);
     var target = $(e.target);
     var selection = target.getSelection();
-    console.log(selection);
     var sub_prose = Proses.get(selection.text);
     if (sub_prose !== undefined) {
       Meteor.subscribe("branch_by_url", selection.text);
-      console.log(sub_prose);
-      console.log(sub_prose.getBranch());
       UI.insert(UI.renderWithData(Template.prose_subedit, {branch: sub_prose.getBranch(), prose: sub_prose}), e.target.parentNode, e.target.nextSibling);
     }
   },
@@ -164,11 +159,13 @@ Editor = {
     Mousetrap.bind('ctrl+enter', function(e) {Editor.loadSubedit(e)});
     // Create new DeftDraft object.
     var dd = new DeftDraft($('#prose_text'));
-    Mousetrap.bind('ctrl+z', function() {
-      old = $('#prose_text').getSelection().start;
-      View.setCaret(old); 
+    Mousetrap.bind('ctrl+z', function(e) {
+      target = $(e.target);
+      dd = new DeftDraft(target);
+      old = target.getSelection().start;
+      View.setCaret(old, target); 
       dd.command('n', 'l'); 
-      Editor.insertTodo(old); 
+      Editor.insertTodo(old, target); 
       return false;
     });
     // Set the key bindings.
@@ -195,7 +192,6 @@ Editor = {
 
     if (Session.get("just_loaded")) {
       // Restore the viewport
-      $("#prose_text").autosize();
       View.restore();
 
       Session.set("just_loaded", false);

@@ -30,7 +30,7 @@ Template.quickswitcher.rendered = function() {
     $('#quickswitcher').show();
 
     // Save the viewport
-    View.save();
+    View.save(e.target);
 
     $('#switcher').focus().val(":");
     document.body.scrollTop = document.documentElement.scrollTop = 0;

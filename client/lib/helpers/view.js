@@ -1,9 +1,9 @@
 View = {
   proseArea : function() { return document.getElementById("prose_text")},
-  save : function() {
+  save : function(prose_area) {
+    prose_area_jq = $(prose_area);
     if (View.editMode()) {
-      prose_area = this.proseArea();
-      view_id = Session.get("selected_prose").url;
+      view_id = prose_area_jq.attr("data-prose");
       old_view = Session.get("saved_view");
       view = {caret_pos: Caret.get(prose_area), scroll_pos: prose_area.scrollTop, window_pos: document.body.scrollTop};
 
@@ -15,19 +15,22 @@ View = {
       }
 
       Session.set("saved_view", old_view);
+      Session.set("current_view", view_id);
     }
   },
   restore : function() {
     if (View.editMode()) {
-      prose_area = this.proseArea();
-      prose_area.focus();
-      view_id = Session.get("selected_prose").url;
-      view = Session.get("saved_view");
+      view_id = Session.get("current_view");
+      if (view_id !== undefined) {
+        prose_area = $("[data-prose='" + view_id + "']").get(0);
+        prose_area.focus();
+        view = Session.get("saved_view");
 
-      if (view !== undefined && (view = view[view_id]) !== undefined) {
-        Caret.set(prose_area, view.caret_pos);
-        prose_area.scrollTop = view.scroll_pos;
-        document.body.scrollTop = document.documentElement.scrollTop = view.window_pos;
+        if (view !== undefined && (view = view[view_id]) !== undefined) {
+          Caret.set(prose_area, view.caret_pos);
+          prose_area.scrollTop = view.scroll_pos;
+          document.body.scrollTop = document.documentElement.scrollTop = view.window_pos;
+        }
       }
     } else {
       //document.body.scrollTop = document.documentElement.scrollTop = 0;
@@ -40,8 +43,8 @@ View = {
       return view.caret_pos;
     }
   },
-  setCaret : function(caret_pos) {
-    Caret.set(this.proseArea(), caret_pos);
+  setCaret : function(caret_pos, target) {
+    Caret.set(target, caret_pos);
   },
   editMode : function() {
     view_mode = Session.get("view_mode");
