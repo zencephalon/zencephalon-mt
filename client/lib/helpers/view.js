@@ -50,14 +50,13 @@ View = {
     view_mode = Session.get("view_mode");
     return ((!view_mode || (view_mode === undefined)) && (Session.get("selected_branch") !== undefined) && !!Meteor.user());
   },
-  cursorScroll : function() {
-    prose_area = this.proseArea();
+  cursorScroll : function(prose_area) {
     helper = document.getElementById('text-height-helper').firstChild;
     cursor_pos = Caret.get(prose_area);
     helper.innerHTML = prose_area.value.substr(0, cursor_pos).replace(/\n$/,"\n\001");
     rects = document.getElementById('text-height-helper').getClientRects();
     lastRect = rects[rects.length - 1];
 
-    document.body.scrollTop = document.documentElement.scrollTop = $('#prose_text').position().top + lastRect.height - 200;
+    document.body.scrollTop = document.documentElement.scrollTop = $(prose_area).position().top + lastRect.height - 200;
   }
 }

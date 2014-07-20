@@ -75,7 +75,7 @@ Editor = {
 
   scrollCursor : function(new_pos, target) {
       View.setCaret(new_pos, target);
-      View.cursorScroll();
+      View.cursorScroll(target);
   },
 
   goSectionDown : function(target) {
@@ -171,11 +171,16 @@ Editor = {
     // Set the key bindings.
     ['w', 's', 'q'].forEach(function (letter) {
       Mousetrap.bind('ctrl+' + letter, function(e) {
-        dd.command('n', letter); View.cursorScroll(); 
+        target = $(e.target);
+        dd = new DeftDraft(target);
+        dd.command('n', letter); View.cursorScroll(e.target); 
         $(e.target).trigger('mouseup');
         return false;
       });
-      Mousetrap.bind('ctrl+shift+' + letter, function() {dd.command('p', letter); View.cursorScroll(); return false});
+      Mousetrap.bind('ctrl+shift+' + letter, function(e) {
+        target = $(e.target);
+        dd = new DeftDraft(target);
+        dd.command('p', letter); View.cursorScroll(e.target); return false});
     });
 },
 
