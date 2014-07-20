@@ -204,3 +204,7 @@ textarea:focus {
   overflow-wrap: break-word;
   color: transparent;
 }
+
+.subview {
+  border-left: 4px solid #36AECC;
+}

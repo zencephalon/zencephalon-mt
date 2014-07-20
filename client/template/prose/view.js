@@ -19,7 +19,14 @@ Template.prose_view.events({
     if (href.substr(0, 4) !== 'http') {
       console.log(href);
       console.log(e.target.parentNode);
-      UI.insert(UI.renderWithData(Template.prose_subview, {branch_text: Proses.get(href).getBranch().text}), e.target.parentNode, e.target.nextSibling)
+      var branch = Proses.get(href).getBranch();
+      var subview_node = $("[data-url='" + branch.url + "']");
+      console.log(subview_node);
+      if (subview_node.length === 0) {
+        UI.insert(UI.renderWithData(Template.prose_subview, {branch: branch}), e.target.parentNode, e.target.nextSibling)
+      } else {
+        subview_node.remove();
+      }
     }
   }
 });
