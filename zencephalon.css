@@ -204,3 +204,12 @@ textarea:focus {
   overflow-wrap: break-word;
   color: transparent;
 }
+
+.subview {
+  border-left: 1px solid #AAA;
+  padding-left: .2em;
+}
+
+.open-link {
+  text-decoration: underline; 
+}
