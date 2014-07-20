@@ -7,6 +7,7 @@ Template.prose_view.events({
   'mouseover a': function(e) {
     var target = $(e.target);
     var href = target.attr('href');
+    
     if (href.substr(0, 4) !== 'http') {
       Meteor.subscribe("prose_by_url", href);
       Meteor.subscribe("branch_by_url", href);
@@ -15,13 +16,13 @@ Template.prose_view.events({
   'click a': function(e) {
     var target = $(e.target);
     var href = target.attr('href');
+
     if (href.substr(0, 4) !== 'http') {
-      console.log(href);
-      console.log(e.target.parentNode);
       e.preventDefault();
+
       var branch = Proses.get(href).getBranch();
       var subview_node = $("[data-url='" + branch.url + "']");
-      console.log(subview_node);
+
       if (subview_node.length === 0) {
         target.attr('class', 'open-link');
         UI.insert(UI.renderWithData(Template.prose_subview, {branch: branch}), e.target.parentNode, e.target.nextSibling);
