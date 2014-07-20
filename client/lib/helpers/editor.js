@@ -29,18 +29,20 @@ Editor = {
     }
   },
 
-  editorFunc : function(func) {
-    View.save();
-    caret_pos = View.getCaret();
-    content = $('#prose_text').val();
+  editorFunc : function(target, func) {
+    View.save(target);
+    caret_pos = View.getCaret(target);
+    content = $(target).val();
     func(caret_pos, content);
     return false;
   },
 
   insertText : function(str, target) {
-    Editor.editorFunc(function(caret_pos, content) {
+    Editor.editorFunc(target, function(caret_pos, content) {
+      target = $(target);
+      console.log(caret_pos);
       target.val(content.substr(0, caret_pos) + str + content.substr(caret_pos));
-      View.setCaret(caret_pos + str.length, target);
+      View.setCaret(caret_pos + str.length, target[0]);
     });
   },
 
@@ -51,22 +53,22 @@ Editor = {
   },
 
   insertTodo : function(old, prose) {
-    Editor.editorFunc(function(caret_pos, content) {
+    Editor.editorFunc(prose[0], function(caret_pos, content) {
       sel = prose.getSelection();
 
       if (sel.text.indexOf("- ()") === 0) {
         prose.val(content.replace(sel.text, sel.text.replace("- ()", "- (♥)")));
-        View.setCaret(sel.end + 1, prose);
+        View.setCaret(sel.end + 1, prose[0]);
       } else if (sel.text.indexOf("- (♥)") === 0) {
         prose.val(content.replace(sel.text, sel.text.replace("- (♥)", "- ()")));
-        View.setCaret(sel.end - 1, prose);
+        View.setCaret(sel.end - 1, prose[0]);
       } else {
         if (sel.text == "") {
           prose.insertText("- () I love  so I will ", old);
-          View.setCaret(old + 12, prose);
+          View.setCaret(old + 12, prose[0]);
         } else {
           prose.val(content.replace(sel.text, "- () " + sel.text));
-          View.setCaret(sel.end + 5, prose);
+          View.setCaret(sel.end + 5, prose[0]);
         }
       }
     });
@@ -75,11 +77,11 @@ Editor = {
 
   scrollCursor : function(new_pos, target) {
       View.setCaret(new_pos, target);
-      View.cursorScroll();
+      View.cursorScroll(target);
   },
 
   goSectionDown : function(target) {
-    return Editor.editorFunc(function(caret_pos, content) {
+    return Editor.editorFunc(target, function(caret_pos, content) {
       header_str = "\n####";
       bottom = content.substr(caret_pos);
       new_pos = bottom.indexOf(header_str);
@@ -104,8 +106,8 @@ Editor = {
     });
   },
 
-  goSectionUp : function() {
-    return Editor.editorFunc(function(caret_pos, content) {
+  goSectionUp : function(target) {
+    return Editor.editorFunc(target, function(caret_pos, content) {
       header_str = "\n####";
       top_content = content.substr(0, caret_pos);
       new_pos = top_content.lastIndexOf(header_str);
@@ -114,12 +116,12 @@ Editor = {
         new_pos = content.length;
       }
 
-      Editor.scrollCursor(new_pos);
+      Editor.scrollCursor(new_pos, target);
     });
   },
 
-  goDir : function(dir) {
-    prose = $('#prose_text');
+  goDir : function(dir, target) {
+    prose = $(target);
     sel = prose.getSelection();
     if (sel.length == 0) {
       sel.start -= dir ? 1 : -1;
@@ -130,12 +132,12 @@ Editor = {
     return false;
   },
 
-  goLeft : function() {
-    return Editor.goDir(true);
+  goLeft : function(target) {
+    return Editor.goDir(true, target);
   },
 
-  goRight : function() {
-    return Editor.goDir(false);
+  goRight : function(target) {
+    return Editor.goDir(false, target);
   },
 
   loadSubedit : function(e) {
@@ -151,11 +153,26 @@ Editor = {
 
   bindKeys : function() {
     Mousetrap.bind('mod+shift+s', function(e) { Editor.saveProse(true, true); return false; });
-    Mousetrap.bind('ctrl+d', Editor.insertTimestamp);
-    Mousetrap.bind('ctrl+n', Editor.goSectionDown);
-    Mousetrap.bind('ctrl+b', Editor.goSectionUp);
-    Mousetrap.bind('ctrl+x', Editor.goLeft);
-    Mousetrap.bind('ctrl+c', Editor.goRight);
+    Mousetrap.bind('ctrl+d', function(e) {
+      Editor.insertTimestamp(e.target);
+      return false;
+    });
+    Mousetrap.bind('ctrl+n', function(e) {
+      Editor.goSectionDown(e.target);
+      return false;
+    });
+    Mousetrap.bind('ctrl+b', function(e) {
+      Editor.goSectionUp(e.target);
+      return false;
+    });
+    Mousetrap.bind('ctrl+x', function(e) {
+      Editor.goLeft(e.target);
+      return false;
+    });
+    Mousetrap.bind('ctrl+c', function(e) {
+      Editor.goRight(e.target);
+      return false;
+    });
     Mousetrap.bind('ctrl+enter', function(e) {Editor.loadSubedit(e)});
     // Create new DeftDraft object.
     var dd = new DeftDraft($('#prose_text'));
@@ -163,7 +180,7 @@ Editor = {
       target = $(e.target);
       dd = new DeftDraft(target);
       old = target.getSelection().start;
-      View.setCaret(old, target); 
+      View.setCaret(old, e.target); 
       dd.command('n', 'l'); 
       Editor.insertTodo(old, target); 
       return false;
@@ -171,11 +188,16 @@ Editor = {
     // Set the key bindings.
     ['w', 's', 'q'].forEach(function (letter) {
       Mousetrap.bind('ctrl+' + letter, function(e) {
-        dd.command('n', letter); View.cursorScroll(); 
+        target = $(e.target);
+        dd = new DeftDraft(target);
+        dd.command('n', letter); View.cursorScroll(e.target); 
         $(e.target).trigger('mouseup');
         return false;
       });
-      Mousetrap.bind('ctrl+shift+' + letter, function() {dd.command('p', letter); View.cursorScroll(); return false});
+      Mousetrap.bind('ctrl+shift+' + letter, function(e) {
+        target = $(e.target);
+        dd = new DeftDraft(target);
+        dd.command('p', letter); View.cursorScroll(e.target); return false});
     });
 },
 
