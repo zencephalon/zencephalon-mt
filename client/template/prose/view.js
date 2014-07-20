@@ -11,6 +11,16 @@ Template.prose_view.events({
       Meteor.subscribe("prose_by_url", href);
       Meteor.subscribe("branch_by_url", href);
     }
+  },
+  'click a': function(e) {
+    e.preventDefault();
+    var target = $(e.target);
+    var href = target.attr('href');
+    if (href.substr(0, 4) !== 'http') {
+      console.log(href);
+      console.log(e.target.parentNode);
+      UI.insert(UI.renderWithData(Template.prose_subview, {branch_text: Proses.get(href).getBranch().text}), e.target.parentNode, e.target.nextSibling)
+    }
   }
 });
 
