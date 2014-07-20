@@ -13,12 +13,12 @@ Template.prose_view.events({
     }
   },
   'click a': function(e) {
-    e.preventDefault();
     var target = $(e.target);
     var href = target.attr('href');
     if (href.substr(0, 4) !== 'http') {
       console.log(href);
       console.log(e.target.parentNode);
+      e.preventDefault();
       var branch = Proses.get(href).getBranch();
       var subview_node = $("[data-url='" + branch.url + "']");
       console.log(subview_node);
