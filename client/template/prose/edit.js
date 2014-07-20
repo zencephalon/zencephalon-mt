@@ -1,7 +1,3 @@
-Template.prose_edit.prose = function() {
-  return Session.get("selected_prose");
-}
-
 Template.prose_edit.displayShortCuts = function() {
   return !!Session.get("display_shortcuts");
 }
