@@ -192,7 +192,6 @@ Editor = {
 
     if (Session.get("just_loaded")) {
       // Restore the viewport
-      $("#prose_text").autosize();
       View.restore();
 
       Session.set("just_loaded", false);

@@ -1,6 +1,5 @@
 Template.prose_subedit.events({
   'keyup': function(e) {
-    console.log(this);
     var target = $(e.target);
     var branch = this.branch;
     var prose = this.prose;
@@ -17,3 +16,9 @@ Template.prose_subedit.events({
     Meteor.subscribe("branch_by_url", target.getSelection().text);
   }
 });
+
+Template.prose_subedit.rendered = function() {
+  $(document).ready(function() {
+    $("textarea").autosize();
+  });
+}
