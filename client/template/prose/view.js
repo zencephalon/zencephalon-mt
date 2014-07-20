@@ -23,8 +23,10 @@ Template.prose_view.events({
       var subview_node = $("[data-url='" + branch.url + "']");
       console.log(subview_node);
       if (subview_node.length === 0) {
-        UI.insert(UI.renderWithData(Template.prose_subview, {branch: branch}), e.target.parentNode, e.target.nextSibling)
+        target.attr('class', 'open-link');
+        UI.insert(UI.renderWithData(Template.prose_subview, {branch: branch}), e.target.parentNode, e.target.nextSibling);
       } else {
+        target.attr('class', '');
         subview_node.remove();
       }
     }

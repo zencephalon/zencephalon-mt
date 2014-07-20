@@ -206,5 +206,10 @@ textarea:focus {
 }
 
 .subview {
-  border-left: 4px solid #36AECC;
+  border-left: 1px solid #AAA;
+  padding-left: .2em;
+}
+
+.open-link {
+  text-decoration: underline; 
 }
