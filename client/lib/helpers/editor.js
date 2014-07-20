@@ -33,7 +33,6 @@ Editor = {
     View.save(target);
     caret_pos = View.getCaret(target);
     content = $(target).val();
-    console.log(caret_pos);
     func(caret_pos, content);
     return false;
   },
@@ -107,8 +106,8 @@ Editor = {
     });
   },
 
-  goSectionUp : function() {
-    return Editor.editorFunc(function(caret_pos, content) {
+  goSectionUp : function(target) {
+    return Editor.editorFunc(target, function(caret_pos, content) {
       header_str = "\n####";
       top_content = content.substr(0, caret_pos);
       new_pos = top_content.lastIndexOf(header_str);
@@ -117,12 +116,12 @@ Editor = {
         new_pos = content.length;
       }
 
-      Editor.scrollCursor(new_pos);
+      Editor.scrollCursor(new_pos, target);
     });
   },
 
-  goDir : function(dir) {
-    prose = $('#prose_text');
+  goDir : function(dir, target) {
+    prose = $(target);
     sel = prose.getSelection();
     if (sel.length == 0) {
       sel.start -= dir ? 1 : -1;
@@ -133,12 +132,12 @@ Editor = {
     return false;
   },
 
-  goLeft : function() {
-    return Editor.goDir(true);
+  goLeft : function(target) {
+    return Editor.goDir(true, target);
   },
 
-  goRight : function() {
-    return Editor.goDir(false);
+  goRight : function(target) {
+    return Editor.goDir(false, target);
   },
 
   loadSubedit : function(e) {
@@ -159,12 +158,21 @@ Editor = {
       return false;
     });
     Mousetrap.bind('ctrl+n', function(e) {
-      Editor.goSectionDown(e.target)
+      Editor.goSectionDown(e.target);
       return false;
     });
-    Mousetrap.bind('ctrl+b', Editor.goSectionUp);
-    Mousetrap.bind('ctrl+x', Editor.goLeft);
-    Mousetrap.bind('ctrl+c', Editor.goRight);
+    Mousetrap.bind('ctrl+b', function(e) {
+      Editor.goSectionUp(e.target);
+      return false;
+    });
+    Mousetrap.bind('ctrl+x', function(e) {
+      Editor.goLeft(e.target);
+      return false;
+    });
+    Mousetrap.bind('ctrl+c', function(e) {
+      Editor.goRight(e.target);
+      return false;
+    });
     Mousetrap.bind('ctrl+enter', function(e) {Editor.loadSubedit(e)});
     // Create new DeftDraft object.
     var dd = new DeftDraft($('#prose_text'));
