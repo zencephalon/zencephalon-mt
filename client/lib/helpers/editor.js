@@ -142,7 +142,13 @@ Editor = {
   loadSubedit : function(e) {
     e.preventDefault();
     console.log(e);
-    console.log($(e.target).getSelection());
+    var target = $(e.target);
+    var selection = target.getSelection();
+    console.log(selection);
+    var sub_prose = Proses.get(selection.text);
+    if (sub_prose !== undefined) {
+      console.log(sub_prose);
+    }
   },
 
   bindKeys : function() {
