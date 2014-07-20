@@ -4,18 +4,12 @@ Template.prose_subedit.events({
     var target = $(e.target);
     var branch = this.branch;
     var prose = this.prose;
-    //var prose = Proses.get(this.branch.url)
-    console.log(prose);
-    console.log(branch);
-    // console.log(Template.prose_subedit.prose);
-    // console.log(Template.prose_subedit.branch);
 
     new_revision = false;
     if (branch !== undefined && branch.updated.getTime() + 60 * 1000 * 10 < new Date().getTime()) {
       new_revision = true;
     }
     
-    //prose = new Prose(prose);
     prose.save({title: prose.title, text: target.val(), url: prose.url}, branch, new_revision);
   },
   'select, mouseup': function(e) {
