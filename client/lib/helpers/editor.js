@@ -147,7 +147,10 @@ Editor = {
     console.log(selection);
     var sub_prose = Proses.get(selection.text);
     if (sub_prose !== undefined) {
+      Meteor.subscribe("branch_by_url", selection.text);
       console.log(sub_prose);
+      console.log(sub_prose.getBranch());
+      UI.insert(UI.renderWithData(Template.prose_subedit, {branch: sub_prose.getBranch()}), e.target.parentNode, e.target.nextSibling);
     }
   },
 
@@ -170,7 +173,11 @@ Editor = {
     });
     // Set the key bindings.
     ['w', 's', 'q'].forEach(function (letter) {
-      Mousetrap.bind('ctrl+' + letter, function() {dd.command('n', letter); View.cursorScroll(); return false});
+      Mousetrap.bind('ctrl+' + letter, function(e) {
+        dd.command('n', letter); View.cursorScroll(); 
+        $(e.target).trigger('mouseup');
+        return false;
+      });
       Mousetrap.bind('ctrl+shift+' + letter, function() {dd.command('p', letter); View.cursorScroll(); return false});
     });
 },

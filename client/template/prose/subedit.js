@@ -9,5 +9,10 @@ Template.prose_subedit.events({
     
     prose = new Prose(prose);
     prose.save({title: prose.title, text: target.val(), url: prose.url}, branch, new_revision);
+  },
+  'select, mouseup': function(e) {
+    var target = $(e.target);
+    console.log(target);
+    console.log(target.getSelection());
   }
 });
