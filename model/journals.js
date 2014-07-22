@@ -45,7 +45,7 @@ Journal = {
     });
   },
   keyBindFunc : function(j) {
-    View.save();
+    //View.save();
     Session.set("view_mode", false);
     Session.set("journal_day", j);
     Router.go('prose', {url: j}); 

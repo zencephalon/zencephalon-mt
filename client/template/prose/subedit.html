@@ -1,8 +1,9 @@
 <template name="prose_subedit">
-<div class="subedit" data-url="{{branch.url}}">
+<div class="subedit" data-url="{{prose.url}}">
   <div class="edit_topbar">
     <input type="text" id="prose_title" value="{{prose.title}}" class="mousetrap"/>
   </div>
   <textarea id="prose_text" class="mousetrap" data-prose="{{prose.url}}">{{{branch.text}}}</textarea>
+  <input type="text" id="prose_url" value="{{prose.url}}" style="display:none" />
 </div>
 </template>

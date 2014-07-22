@@ -1,5 +1,5 @@
 Editor = {
-  liveProse : function() {
+  liveProse : function(target) {
     var o = {};
     ["title", "text", "url"].forEach(function(ele) {
       o[ele] = $("#prose_" + ele).val();
@@ -7,8 +7,8 @@ Editor = {
     return o;
   },
 
-  saveProse : function(new_revision, view_mode) {
-    live_prose = this.liveProse();
+  saveProse : function(target, new_revision, view_mode) {
+    live_prose = this.liveProse(target);
     prose = State.prose();
     branch = Session.get("selected_branch");
 
@@ -18,7 +18,7 @@ Editor = {
     }
 
     // Save the viewport
-    View.save();
+    View.save(target);
 
     prose.save(live_prose, branch, new_revision);
 
