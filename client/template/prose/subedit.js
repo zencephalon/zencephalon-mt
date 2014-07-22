@@ -22,7 +22,10 @@ Template.prose_subedit.events({
   },
   'select, mouseup': function(e) {
     var target = $(e.target);
-    Meteor.subscribe("branch_by_url", target.getSelection().text);
+    var selection = target.getSelection();
+    if (selection !== undefined) {
+      Meteor.subscribe("branch_by_url", target.getSelection().text);
+    }
   }
 });
 
