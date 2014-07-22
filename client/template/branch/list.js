@@ -16,10 +16,11 @@ Template.branch_list.branch_display = function(current_branch, parent_branch_len
 
       next_lat_code = 'a';
       while (_.contains(branch_names, current_branch + next_lat_code + '0')) {
+        n_lat_code = Branches.next_lateral_code(next_lat_code);
         output += "<tr><td>";
-        output += Template.branch_list.branch_display(current_branch + next_lat_code + '0', parent_branch_length + next_lat_code.length + 1);
+        output += Template.branch_list.branch_display(current_branch + next_lat_code + '0', parent_branch_length + n_lat_code.length + 1);
         output += "</td></tr>";
-        next_lat_code = Branches.next_lateral_code(next_lat_code);
+        next_lat_code = n_lat_code;
       }
       output += "</table>";
     } else {
