@@ -17,7 +17,7 @@ Template.branch_list.branch_display = function(current_branch, parent_branch_len
       next_lat_code = 'a';
       while (_.contains(branch_names, current_branch + next_lat_code + '0')) {
         output += "<tr><td>";
-        output += Template.branch_list.branch_display(current_branch + next_lat_code + '0', parent_branch_length + 2);
+        output += Template.branch_list.branch_display(current_branch + next_lat_code + '0', parent_branch_length + next_lat_code.length + 1);
         output += "</td></tr>";
         next_lat_code = Branches.next_lateral_code(next_lat_code);
       }
