@@ -29,6 +29,6 @@ Template.prose_subedit.events({
 Template.prose_subedit.rendered = function() {
   $(document).ready(function() {
     $("textarea").autosize();
-    setTimeout(function(){$("textarea").trigger('autosize.resize')}, 500);
+    setTimeout(function(){$("textarea").trigger('autosize.resize')}, 1000);
   });
 }
