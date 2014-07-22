@@ -4,7 +4,13 @@
 
   <div id="text-height-helper"><span></span></div>
 
-  <span  style="float:right">
+  <hr>
+  Revisions:
+  {{> branch_list}}
+</template>
+
+<template name="helpersHelp">
+  <span style="float:right">
     <a href="#" class="edit_toggle mousetrap">view</a> / <a href="#" class="save">save</a>
   </span>
 
@@ -17,10 +23,6 @@
   {{#if displayFormatting}}
     {{> formattingHelp}}
   {{/if}}
-  
-  <hr>
-  Revisions:
-  {{> branch_list}}
 </template>
 
 <template name="shortcutsHelp">
