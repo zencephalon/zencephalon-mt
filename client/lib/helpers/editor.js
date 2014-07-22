@@ -152,7 +152,7 @@ Editor = {
   },
 
   bindKeys : function() {
-    Mousetrap.bind('mod+shift+s', function(e) { Editor.saveProse(true, true); return false; });
+    Mousetrap.bind('mod+shift+s', function(e) { Editor.saveProse(e.target, true, true); return false; });
     Mousetrap.bind('ctrl+d', function(e) {
       Editor.insertTimestamp(e.target);
       return false;

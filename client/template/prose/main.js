@@ -6,7 +6,7 @@ Template.prose.rendered = function() {
   $(document).ready(function() {
     Mousetrap.bind('mod+s', function(e) { 
       if (View.editMode()) { 
-        Editor.saveProse(false, true);
+        Editor.saveProse(e.target, false, true);
       } else { 
         Session.set("view_mode", false);
       }
