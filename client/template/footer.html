@@ -2,7 +2,6 @@
   <footer>
     <hr>
     {{#markdown}}{{content}}{{/markdown}}
-    <br>
-    <span class="standout">{{word_count}}</span> words in <span class="standout">{{prose_count}}</span> <a href="{{pathFor 'prose_list'}}">pages</a>.
+    <a href="{{pathFor 'prose_list'}}">{{word_count}} words in {{prose_count}} proses</a>.
   </footer>
 </template>
