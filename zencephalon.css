@@ -112,9 +112,14 @@ textarea:focus {
   border-color: #36AECC;
 }
 
+#revision_display {
+  font-size: .77em;
+}
+
 #revision_display table {
   margin: 0 0 0 0;
   border-spacing: 1;
+  font-size: .8em;
 }
 
 #revision_display td a {
@@ -129,6 +134,7 @@ textarea:focus {
   border-right: none;
   border-bottom: none;
   border-left: none;
+  line-height: 1em;
 }
 
 .hints {
