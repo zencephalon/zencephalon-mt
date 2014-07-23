@@ -1,11 +1,11 @@
-Template.branch_list.branch_display = function(current_branch, parent_branch_length) {
-  prose = Session.get("selected_prose");
+Template.branch_list.branch_display = function(current_branch, parent_branch_length, prose) {
   branch_names = _.pluck(_Branches.find({prose: prose._id}).fetch(), 'name');
   output = "<table><tr>";
   function branch_url(branch, parent_branch_length) {
     // FIXME: this is bad coupling.
     return "<a href='/" + prose.url + "/b/" + branch + "'>" + branch.substr(parent_branch_length) + "</a>";
   }
+
   while (_.contains(branch_names, current_branch)) {
     output += "<td>";
 
@@ -16,11 +16,10 @@ Template.branch_list.branch_display = function(current_branch, parent_branch_len
 
       next_lat_code = 'a';
       while (_.contains(branch_names, current_branch + next_lat_code + '0')) {
-        n_lat_code = Branches.next_lateral_code(next_lat_code);
         output += "<tr><td>";
-        output += Template.branch_list.branch_display(current_branch + next_lat_code + '0', current_branch.length + next_lat_code.length);
+        output += Template.branch_list.branch_display(current_branch + next_lat_code + '0', current_branch.length + next_lat_code.length, prose);
         output += "</td></tr>";
-        next_lat_code = n_lat_code;
+        next_lat_code = Branches.next_lateral_code(next_lat_code);
       }
       output += "</table>";
     } else {
