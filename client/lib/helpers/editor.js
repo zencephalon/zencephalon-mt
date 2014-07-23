@@ -147,7 +147,11 @@ Editor = {
     var sub_prose = Proses.get(selection.text);
     if (sub_prose !== undefined) {
       Meteor.subscribe("branch_by_url", selection.text);
-      UI.insert(UI.renderWithData(Template.prose_subedit, {branch: sub_prose.getBranch(), prose: sub_prose}), e.target.parentNode, e.target.nextSibling);
+      console.log(e.target);
+      console.log(e.target.parentNode);
+      console.log(e.target.parentNode.parentNode);
+      console.log(e.target.parentNode.nextSibling);
+      UI.insert(UI.renderWithData(Template.prose_subedit, {branch: sub_prose.getBranch(), prose: sub_prose}), e.target.parentNode.parentNode, e.target.parentNode.nextSibling);
     }
   },
 
