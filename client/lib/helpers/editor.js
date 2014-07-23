@@ -9,6 +9,7 @@ Editor = {
 
   saveProse : function(target, new_revision, view_mode) {
     live_prose = this.liveProse(target);
+    console.log(live_prose);
     prose = State.prose();
     branch = Session.get("selected_branch");
 
