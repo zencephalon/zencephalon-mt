@@ -23,7 +23,6 @@ Editor = {
   insertText : function(str, target) {
     Editor.editorFunc(target, function(caret_pos, content) {
       target = $(target);
-      console.log(caret_pos);
       target.val(content.substr(0, caret_pos) + str + content.substr(caret_pos));
       View.setCaret(caret_pos + str.length, target[0]);
     });
@@ -130,10 +129,6 @@ Editor = {
     var sub_prose = Proses.get(selection.text);
     if (sub_prose !== undefined) {
       Meteor.subscribe("branch_by_url", selection.text);
-      console.log(e.target);
-      console.log(e.target.parentNode);
-      console.log(e.target.parentNode.parentNode);
-      console.log(e.target.parentNode.nextSibling);
       UI.insert(UI.renderWithData(Template.prose_subedit, {branch: sub_prose.getBranch(), prose: sub_prose}), e.target.parentNode.parentNode, e.target.parentNode.nextSibling);
     }
   },
