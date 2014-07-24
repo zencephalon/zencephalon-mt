@@ -2,15 +2,36 @@ Editor = {
   liveProse : function(target) {
     var o = {};
     ["title", "text", "url"].forEach(function(ele) {
-      o[ele] = $("#prose_" + ele).val();
+      o[ele] = target.find("#prose_" + ele).val();
     });
     return o;
+  },
+
+  saveProse : function(target) {
+    var target = $(target);
+    var parent = Editor.container(target);
+
+    var prose = Proses.get(parent.attr("data-url"));
+    var branch = prose.getBranch(parent.attr("data-branch"));
+
+    var liveProse = Editor.liveProse(parent);
+
+    new_revision = false;
+    if (branch !== undefined && branch.updated.getTime() + 60 * 1000 * 10 < new Date().getTime()) {
+      new_revision = true;
+    }
+
+    prose.save(liveProse, branch, new_revision);
   },
 
   togglePrivate : function(target) {
     prose = Proses.get($(target.parentNode).attr("data-url"));
     prose.togglePrivate();
   },
+
+  container : function(target) {
+    return target.parents('.subedit');
+  }, 
 
   editorFunc : function(target, func) {
     View.save(target);
@@ -189,10 +210,15 @@ Editor = {
 
   unbindKeys : function() {
     Mousetrap.unbind('ctrl+shift+s');
+    ['w', 's', 'q'].forEach(function (letter) {
+      Mousetrap.unbind('ctrl+' + letter);
+      Mousetrap.unbind('ctrl+shift+' + letter);
+    });
     Mousetrap.unbind('ctrl+d');
     Mousetrap.unbind('ctrl+z');
     Mousetrap.unbind('ctrl+n');
     Mousetrap.unbind('ctrl+b');
+    Mousetrap.unbind('ctrl+p');
   },
 
   initView : function() {
