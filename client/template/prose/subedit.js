@@ -5,13 +5,14 @@ Template.prose_subedit.events({
     var prose = this.prose;
 
     var timer = Session.get("autosave_timer");
+    target.removeClass("saved");
 
     if (timer !== undefined) {
       clearTimeout(timer);
     }
 
     Session.set("autosave_timer", setTimeout(function() {
-      console.log("Saved");
+      target.addClass("saved");
       new_revision = false;
       if (branch !== undefined && branch.updated.getTime() + 60 * 1000 * 10 < new Date().getTime()) {
         new_revision = true;

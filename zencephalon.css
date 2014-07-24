@@ -94,6 +94,10 @@ textarea:focus {
   outline: 1px solid #36AECC;
 }
 
+textarea.saved:focus {
+  outline: 1px solid #000;
+}
+
 #login-buttons {
   vertical-align: top;
   float: right;
