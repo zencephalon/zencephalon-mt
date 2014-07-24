@@ -10,13 +10,11 @@ Editor = {
   saveProse : function(target) {
     var target = $(target);
     var parent = Editor.container(target);
-    console.log(parent);
-    console.log(parent.find("#prose_title").val());
+
     var prose = Proses.get(parent.attr("data-url"));
     var branch = prose.getBranch(parent.attr("data-branch"));
 
     var liveProse = Editor.liveProse(parent);
-    console.log(liveProse)
 
     new_revision = false;
     if (branch !== undefined && branch.updated.getTime() + 60 * 1000 * 10 < new Date().getTime()) {
