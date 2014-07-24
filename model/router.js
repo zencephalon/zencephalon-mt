@@ -5,7 +5,7 @@ Router.configure({
 getRouteData = function(url, branch_name) {
   var prose = Proses.get(url);
   var branch = Branches.getByUrl(url, branch_name);
-  if (!prose.journal || Meteor.user()) {
+  if (!(prose.journal || prose.private) || Meteor.user()) {
     Session.set("selected_prose", prose);
     Session.set("selected_branch", branch);
     Session.set("just_loaded", true);
@@ -23,7 +23,11 @@ Router.onBeforeAction(function() {
   Meteor.subscribe("branch_by_url", "__journal_template__");
   Meteor.subscribe("branch_by_url", "__footer_template__");
   Meteor.subscribe('counts');
-  Meteor.subscribe("proses");
+  if (Meteor.user()) {
+    Meteor.subscribe("proses");
+  } else {
+    Meteor.subscribe("proses_public");
+  }
 });
 
 Router.map(function() {

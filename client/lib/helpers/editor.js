@@ -7,27 +7,9 @@ Editor = {
     return o;
   },
 
-  saveProse : function(target, new_revision, view_mode) {
-    live_prose = this.liveProse(target);
-    console.log(live_prose);
-    prose = State.prose();
-    branch = Session.get("selected_branch");
-
-    // always save a new revision if it has been over ten minutes
-    if (branch !== undefined && branch.updated.getTime() + 60 * 1000 * 10 < new Date().getTime()) {
-      new_revision = true;
-    }
-
-    // Save the viewport
-    View.save(target);
-
-    prose.save(live_prose, branch, new_revision);
-
-    Session.set("view_mode", view_mode);
-    // If we saved a new revision refresh because the url could have changed.
-    if (new_revision) {
-      Router.go('prose', {url: live_prose["url"]});
-    }
+  togglePrivate : function(target) {
+    prose = Proses.get($(target.parentNode).attr("data-url"));
+    prose.togglePrivate();
   },
 
   editorFunc : function(target, func) {
@@ -157,7 +139,6 @@ Editor = {
   },
 
   bindKeys : function() {
-    Mousetrap.bind('mod+shift+s', function(e) { Editor.saveProse(e.target, true, true); return false; });
     Mousetrap.bind('ctrl+d', function(e) {
       Editor.insertTimestamp(e.target);
       return false;
@@ -180,7 +161,6 @@ Editor = {
     });
     Mousetrap.bind('ctrl+enter', function(e) {Editor.loadSubedit(e)});
     // Create new DeftDraft object.
-    var dd = new DeftDraft($('#prose_text'));
     Mousetrap.bind('ctrl+z', function(e) {
       target = $(e.target);
       dd = new DeftDraft(target);
@@ -190,6 +170,12 @@ Editor = {
       Editor.insertTodo(old, target); 
       return false;
     });
+
+    Mousetrap.bind('ctrl+p', function(e) {
+      Editor.togglePrivate(e.target);
+      return false;
+    });
+
     // Set the key bindings.
     ['w', 's', 'q'].forEach(function (letter) {
       Mousetrap.bind('ctrl+' + letter, function(e) {

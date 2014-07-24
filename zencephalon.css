@@ -68,6 +68,10 @@ code {
   margin-right: 0;
 }
 
+#prose_title.private-true {
+  color: #000;
+}
+
 input {
   border: none
 }
