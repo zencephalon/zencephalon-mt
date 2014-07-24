@@ -5,7 +5,7 @@ Router.configure({
 getRouteData = function(url, branch_name) {
   var prose = Proses.get(url);
   var branch = Branches.getByUrl(url, branch_name);
-  if (!prose.journal || Meteor.user()) {
+  if (!(prose.journal || prose.private) || Meteor.user()) {
     Session.set("selected_prose", prose);
     Session.set("selected_branch", branch);
     Session.set("just_loaded", true);
