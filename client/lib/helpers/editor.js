@@ -189,10 +189,15 @@ Editor = {
 
   unbindKeys : function() {
     Mousetrap.unbind('ctrl+shift+s');
+    ['w', 's', 'q'].forEach(function (letter) {
+      Mousetrap.unbind('ctrl+' + letter);
+      Mousetrap.unbind('ctrl+shift+' + letter);
+    });
     Mousetrap.unbind('ctrl+d');
     Mousetrap.unbind('ctrl+z');
     Mousetrap.unbind('ctrl+n');
     Mousetrap.unbind('ctrl+b');
+    Mousetrap.unbind('ctrl+p');
   },
 
   initView : function() {
