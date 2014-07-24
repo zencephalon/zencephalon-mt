@@ -30,6 +30,10 @@ Editor = {
     }
   },
 
+  togglePrivate : function(target) {
+
+  },
+
   editorFunc : function(target, func) {
     View.save(target);
     caret_pos = View.getCaret(target);
@@ -180,7 +184,6 @@ Editor = {
     });
     Mousetrap.bind('ctrl+enter', function(e) {Editor.loadSubedit(e)});
     // Create new DeftDraft object.
-    var dd = new DeftDraft($('#prose_text'));
     Mousetrap.bind('ctrl+z', function(e) {
       target = $(e.target);
       dd = new DeftDraft(target);
@@ -190,6 +193,12 @@ Editor = {
       Editor.insertTodo(old, target); 
       return false;
     });
+
+    Mousetrap.bind('ctrl+p', function(e) {
+      Editor.togglePrivate(e.target);
+      return false;
+    });
+
     // Set the key bindings.
     ['w', 's', 'q'].forEach(function (letter) {
       Mousetrap.bind('ctrl+' + letter, function(e) {

@@ -54,6 +54,10 @@ Prose.prototype.getBranch = function(branch_name) {
   }
 }
 
+Prose.prototype.togglePrivate = function() {
+  _Proses.update(this._id, {"$set": {private: !this.private}});
+}
+
 Proses = {
   get : function(url) {
     var prose = _Proses.findOne({url: url});
