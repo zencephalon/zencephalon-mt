@@ -1,5 +1,5 @@
 Template.prose_subedit.events({
-  'keyup': function(e) {
+  'keypress': function(e) {
     var target = $(e.target);
 
     var timer = Session.get("autosave_timer");
