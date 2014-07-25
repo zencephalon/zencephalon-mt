@@ -10,6 +10,7 @@ Template.prose.rendered = function() {
         Session.set("view_mode", true);
       } else { 
         Session.set("view_mode", false);
+        View.restore();
       }
       return false; 
     });
