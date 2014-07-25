@@ -154,6 +154,12 @@ Editor = {
     }
   },
 
+  ddFunction : function(target, func) {
+    dd = new DeftDraft($(target));
+    func(dd, target);
+    return false;
+  },
+
   bindKeys : function() {
     Mousetrap.bind('ctrl+d', function(e) {
       Editor.insertTimestamp(e.target);
@@ -178,13 +184,12 @@ Editor = {
     Mousetrap.bind('ctrl+enter', function(e) {Editor.loadSubedit(e)});
     // Create new DeftDraft object.
     Mousetrap.bind('ctrl+z', function(e) {
-      target = $(e.target);
-      dd = new DeftDraft(target);
-      old = target.getSelection().start;
-      View.setCaret(old, e.target); 
-      dd.command('n', 'l'); 
-      Editor.insertTodo(old, target); 
-      return false;
+      return Editor.ddFunction(e.target, function(dd, target) {
+        old = $(target).getSelection().start;
+        View.setCaret(old, target); 
+        dd.command('n', 'l'); 
+        Editor.insertTodo(old, $(target)); 
+      });
     });
 
     Mousetrap.bind('ctrl+p', function(e) {
@@ -195,16 +200,19 @@ Editor = {
     // Set the key bindings.
     ['w', 's', 'q'].forEach(function (letter) {
       Mousetrap.bind('ctrl+' + letter, function(e) {
-        target = $(e.target);
-        dd = new DeftDraft(target);
-        dd.command('n', letter); View.cursorScroll(e.target); 
-        $(e.target).trigger('mouseup');
-        return false;
+        return Editor.ddFunction(e.target, function(dd, target) {
+          dd.command('n', letter); 
+          $(e.target).trigger('mouseup');
+          View.cursorScroll(e.target); 
+        });
       });
       Mousetrap.bind('ctrl+shift+' + letter, function(e) {
-        target = $(e.target);
-        dd = new DeftDraft(target);
-        dd.command('p', letter); View.cursorScroll(e.target); return false});
+        return Editor.ddFunction(e.target, function(dd, target) {
+          dd.command('p', letter); 
+          $(e.target).trigger('mouseup');
+          View.cursorScroll(e.target); 
+        });
+      });
     });
 },
 
