@@ -18,9 +18,11 @@ View = {
       Session.set("current_view", view_id);
     }
   },
-  restore : function() {
+  restore : function(view_id) {
     if (View.editMode()) {
-      view_id = Session.get("current_view");
+      if (view_id === undefined) {
+        view_id = Session.get("current_view");
+      }
       if (view_id !== undefined) {
         prose_area = $("[data-prose='" + view_id + "']").get(0);
         prose_area.focus();
