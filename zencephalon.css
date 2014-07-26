@@ -227,3 +227,7 @@ textarea.saved:focus {
 .open-link {
   text-decoration: underline; 
 }
+
+.active {
+  color: #000 !important;
+}
