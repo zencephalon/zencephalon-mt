@@ -18,7 +18,7 @@ Template.prose_subedit.events({
     var target = $(e.target);
     var selection = target.getSelection();
     if (selection !== undefined) {
-      Meteor.subscribe("branch_by_url", target.getSelection().text);
+      Meteor.subscribe("branches_by_url", target.getSelection().text);
     }
   }
 });
