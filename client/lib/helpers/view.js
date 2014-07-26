@@ -1,5 +1,8 @@
 View = {
   proseArea : function() { return document.getElementById("prose_text")},
+  autosize : function() {
+    setTimeout(function(){$("textarea").trigger('autosize.resize')}, 700);
+  },
   save : function(prose_area) {
     prose_area_jq = $(prose_area);
     if (View.editMode()) {
