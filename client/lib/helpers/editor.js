@@ -179,6 +179,10 @@ Editor = {
     Mousetrap.bind('tab', function(e) {
       return Editor.cycle(e.target);
     });
+    Mousetrap.bind('ctrl+shift+t', function(e) {
+      Editor.loadSubedit("todo", e.target);
+      return false;
+    });
     Mousetrap.bind('ctrl+d', function(e) {
       Editor.insertTimestamp(e.target);
       return false;
