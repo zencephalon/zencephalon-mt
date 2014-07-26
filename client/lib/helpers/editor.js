@@ -160,7 +160,30 @@ Editor = {
     return false;
   },
 
+  cycle : function(target) {
+    if ($(target).attr('id') === "prose_text") {
+      View.save(target);
+      var next = $(target).parent().next(".subedit");
+      if (next.length !== 0) {
+        //console.log(next.children("#prose_text"));
+        input = next.children("#prose_text").eq(0);
+      } else {
+        input = $("#prose_text").eq(0);
+      }
+      //console.log(input.val());
+      console.log(input.focus());
+      console.log(input.parent());
+      View.restore(input.parent().attr('data-url'));
+      return false;
+    } else {
+      return true;
+    }
+  },
+
   bindKeys : function() {
+    Mousetrap.bind('tab', function(e) {
+      return Editor.cycle(e.target);
+    });
     Mousetrap.bind('ctrl+d', function(e) {
       Editor.insertTimestamp(e.target);
       return false;
