@@ -143,15 +143,18 @@ Editor = {
     return Editor.goDir(false, target);
   },
 
-  loadSubedit : function(e) {
-    e.preventDefault();
-    var target = $(e.target);
-    var selection = target.getSelection();
-    var sub_prose = Proses.get(selection.text);
+  loadSubedit : function(url, target) {
+    var sub_prose = Proses.get(url);
     if (sub_prose !== undefined) {
-      Meteor.subscribe("branch_by_url", selection.text);
-      UI.insert(UI.renderWithData(Template.prose_subedit, {branch: sub_prose.getBranch(), prose: sub_prose}), e.target.parentNode.parentNode, e.target.parentNode.nextSibling);
+      Meteor.subscribe("branch_by_url", url);
+      UI.insert(UI.renderWithData(Template.prose_subedit, {branch: sub_prose.getBranch(), prose: sub_prose}), target.parentNode.parentNode, target.parentNode.nextSibling);
     }
+  },
+
+  loadSubeditFromTargetSelection : function(target) {
+    var $target = $(target);
+    var selection = $target.getSelection();
+    Editor.loadSubedit(selection.text, target);
   },
 
   ddFunction : function(target, func) {
@@ -196,7 +199,7 @@ Editor = {
       Editor.goRight(e.target);
       return false;
     });
-    Mousetrap.bind('ctrl+enter', function(e) {Editor.loadSubedit(e)});
+    Mousetrap.bind('ctrl+enter', function(e) {Editor.loadSubeditFromTargetSelection(e.target); return false});
     // Create new DeftDraft object.
     Mousetrap.bind('ctrl+z', function(e) {
       return Editor.ddFunction(e.target, function(dd, target) {
