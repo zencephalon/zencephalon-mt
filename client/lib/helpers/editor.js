@@ -161,23 +161,15 @@ Editor = {
   },
 
   cycle : function(target) {
-    if ($(target).attr('id') === "prose_text") {
+    var id = "#prose_text";
+    if ("#" + $(target).attr('id') === id) {
       View.save(target);
       var next = $(target).parent().next(".subedit");
-      if (next.length !== 0) {
-        //console.log(next.children("#prose_text"));
-        input = next.children("#prose_text").eq(0);
-      } else {
-        input = $("#prose_text").eq(0);
-      }
-      //console.log(input.val());
-      console.log(input.focus());
-      console.log(input.parent());
+      input = ((next.length !== 0) ? next.children(id) : $(id)).eq(0).focus();
       View.restore(input.parent().attr('data-url'));
       return false;
-    } else {
-      return true;
     }
+    return true;
   },
 
   bindKeys : function() {
