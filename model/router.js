@@ -25,6 +25,8 @@ Router.onBeforeAction(function() {
   Meteor.subscribe('counts');
   if (Meteor.user()) {
     Meteor.subscribe("proses");
+    Meteor.subscribe("prose_by_url", "todo");
+    Meteor.subscribe("branches_by_url", "todo");
   } else {
     Meteor.subscribe("proses_public");
   }
