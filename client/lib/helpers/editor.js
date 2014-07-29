@@ -167,9 +167,9 @@ Editor = {
     var id = "#prose_text";
     if ("#" + $(target).attr('id') === id) {
       View.save(target);
-      var next = $(target).parent().next(".subedit");
-      input = ((next.length !== 0) ? next.children(id) : $(id)).eq(0).focus();
-      View.restore(input.parent().attr('data-url'));
+      var next = $(target).parent().parent().next(".sub_container");
+      input = ((next.length !== 0) ? next.find(id) : $(id)).eq(0).focus();
+      View.restore(input.parent().parent().attr('data-url'));
       return false;
     }
     return true;
