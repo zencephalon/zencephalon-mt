@@ -147,7 +147,7 @@ Editor = {
     var sub_prose = Proses.get(url);
     if (sub_prose !== undefined) {
       Meteor.subscribe("branch_by_url", url);
-      UI.insert(UI.renderWithData(Template.prose_subedit, {branch: sub_prose.getBranch(), prose: sub_prose}), target.parentNode.parentNode, target.parentNode.nextSibling);
+      UI.insert(UI.renderWithData(Template.prose, {branch: sub_prose.getBranch(), prose: sub_prose}), target.parentNode.parentNode, target.parentNode.nextSibling);
     }
   },
 
