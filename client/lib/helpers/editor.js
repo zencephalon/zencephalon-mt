@@ -12,7 +12,7 @@ Editor = {
     var parent = Editor.container(target);
 
     var prose = Proses.get(parent.attr("data-url"));
-    var branch = prose.getBranch(parent.attr("data-branch"));
+    var branch = prose.getBranch();
 
     var liveProse = Editor.liveProse(parent);
 
