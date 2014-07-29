@@ -5,7 +5,7 @@ View = {
   },
   save : function(prose_area) {
     prose_area_jq = $(prose_area);
-    if (View.editMode()) {
+    if (true) {
       view_id = prose_area_jq.attr("data-prose");
       old_view = Session.get("saved_view");
       view = {caret_pos: Caret.get(prose_area), scroll_pos: prose_area.scrollTop, window_pos: document.body.scrollTop};
@@ -22,7 +22,7 @@ View = {
     }
   },
   restore : function(view_id) {
-    if (View.editMode()) {
+    if (true) {
       if (view_id === undefined) {
         view_id = Session.get("current_view");
       }
@@ -51,9 +51,22 @@ View = {
   setCaret : function(caret_pos, target) {
     Caret.set(target, caret_pos);
   },
-  editMode : function() {
+  setViewMode : function(url, bool) {
     view_mode = Session.get("view_mode");
-    return ((!view_mode || (view_mode === undefined)) && (Session.get("selected_branch") !== undefined) && !!Meteor.user());
+    if (view_mode !== undefined) {
+      Session.set("view_mode", {url: bool});
+    } else {
+      view_mode[url] = bool;
+      Session.set("view_mode", view_mode);
+    }
+  },
+  viewMode : function(url) {
+    view_mode = Session.get("view_mode");
+    if (view_mode !== undefined) {
+      return !!view_mode[url];
+    } else {
+      return false;
+    }
   },
   cursorScroll : function(prose_area) {
     helper = document.getElementById('text-height-helper').firstChild;

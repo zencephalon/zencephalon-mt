@@ -1,16 +1,16 @@
 Template.prose.view_mode = function() {
-  return Session.get("view_mode");
+  return View.viewMode(this.prose.url);
 }
 
 Template.prose.rendered = function() {
   $(document).ready(function() {
     Mousetrap.bind('mod+s', function(e) { 
-      if (View.editMode()) { 
+      if (View.viewMode(prose.url)) { 
         Editor.saveProse(e.target);
         View.save(e.target);
-        Session.set("view_mode", true);
+        View.setViewMode(prose.url, true);
       } else { 
-        Session.set("view_mode", false);
+        View.setViewMode(prose.url, false);
         setTimeout(View.restore, 25);
       }
       return false; 
