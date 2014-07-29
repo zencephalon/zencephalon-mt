@@ -21,6 +21,9 @@ View = {
       Session.set("current_view", view_id);
     }
   },
+  restore_delayed : function(view_id) {
+    setTimeout(function() {View.restore(view_id)}, 50);
+  },
   restore : function(view_id) {
     if (true) {
       if (view_id === undefined) {

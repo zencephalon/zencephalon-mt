@@ -193,6 +193,7 @@ Editor = {
         last_saved = Session.get("last_saved");
         if (last_saved !== undefined) {
           View.setViewMode(last_saved, false);
+          View.restore_delayed(last_saved);
         }
       }
     });
