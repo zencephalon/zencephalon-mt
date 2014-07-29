@@ -179,6 +179,19 @@ Editor = {
     Mousetrap.bind('tab', function(e) {
       return Editor.cycle(e.target);
     });
+    Mousetrap.bind('mod+s', function(e) {
+      e.preventDefault();
+      console.log(e.target.tagName);
+      if (e.target.tagName === 'TEXTAREA') {
+        prose_url = $(e.target).parent().attr('data-url');
+        console.log(prose_url);
+        Editor.saveProse(e.target);
+        View.save(e.target);
+        View.setViewMode(prose_url, true);
+      } else {
+        
+      }
+    });
     Mousetrap.bind('ctrl+shift+t', function(e) {
       Editor.loadSubedit("todo", e.target);
       return false;
