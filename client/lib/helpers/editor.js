@@ -188,8 +188,12 @@ Editor = {
         Editor.saveProse(e.target);
         View.save(e.target);
         View.setViewMode(prose_url, true);
+        Session.set("last_saved", prose_url);
       } else {
-        
+        last_saved = Session.get("last_saved");
+        if (last_saved !== undefined) {
+          View.setViewMode(last_saved, false);
+        }
       }
     });
     Mousetrap.bind('ctrl+shift+t', function(e) {
