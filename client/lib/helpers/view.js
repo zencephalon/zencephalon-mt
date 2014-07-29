@@ -31,13 +31,15 @@ View = {
       }
       if (view_id !== undefined) {
         prose_area = $("[data-prose='" + view_id + "']").get(0);
-        prose_area.focus();
-        view = Session.get("saved_view");
+        if (prose_area !== undefined) {
+          prose_area.focus();
+          view = Session.get("saved_view");
 
-        if (view !== undefined && (view = view[view_id]) !== undefined) {
-          Caret.set(prose_area, view.caret_pos);
-          prose_area.scrollTop = view.scroll_pos;
-          document.body.scrollTop = document.documentElement.scrollTop = view.window_pos;
+          if (view !== undefined && (view = view[view_id]) !== undefined) {
+            Caret.set(prose_area, view.caret_pos);
+            prose_area.scrollTop = view.scroll_pos;
+            document.body.scrollTop = document.documentElement.scrollTop = view.window_pos;
+          }
         }
       }
     } else {

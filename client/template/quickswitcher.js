@@ -38,7 +38,7 @@ Template.quickswitcher.rendered = function() {
     $('#quickswitcher').focusout(function() {
       $('#quickswitcher').hide();
       // Restore the viewport
-      View.restore();
+      View.restore_delayed();
     })
   });
 }
