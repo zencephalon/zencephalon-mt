@@ -1,0 +1,13 @@
+<template name="formattingHelp">
+  <table class="md">
+    <tr style="background-color: #36AECC; text-align: center">
+      <td><em>you type:</em></td><td><em>you see:</em></td>
+    </tr>
+    <tr><td>*love*</td><td><em>love</em></td></tr>
+    <tr><td>**peace**</td><td><b>peace</b></td></tr>
+    <tr><td>[zencephalon!](http://zencephalon.com)</td><td><a href="http://zencephalon.com">zencephalon!</a></td></tr>
+    <tr><td>* item 1<br/>* item 2<br/>* item 3</td><td><ul><li>item 1</li><li>item 2</li><li>item 3</li></ul></td></tr>
+    <tr><td>&gt; quoted text</td><td><blockquote>quoted text</blockquote></td></tr>
+    <tr><td>Lines starting with four spaces<br/>are treated like code:<br/><br/><span class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</span>if 1 * 2 &lt; 3:<br/><span class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>print "hello, world!"<br/></td><td>Lines starting with four spaces<br/>are treated like code:<br/><pre>if 1 * 2 &lt; 3:<br/>&nbsp;&nbsp;&nbsp;&nbsp;print "hello, world!"</pre></td></tr>
+  </table>
+</template>

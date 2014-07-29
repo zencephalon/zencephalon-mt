@@ -1,0 +1,15 @@
+<template name="helpersHelp">
+  <span style="float:right">
+    <a href="#" class="edit_toggle mousetrap">view</a> / <a href="#" class="save">save</a>
+  </span>
+
+  <span class="hints"><a href="#" class="shortcuts_toggle">shortcut hints</a>, <a href="#" class="formatting_toggle">formatting hints</a></span>
+
+  {{#if displayShortCuts}}
+    {{> shortcutsHelp}}
+  {{/if}}
+
+  {{#if displayFormatting}}
+    {{> formattingHelp}}
+  {{/if}}
+</template>
