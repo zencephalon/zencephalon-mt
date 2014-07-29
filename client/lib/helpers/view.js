@@ -53,8 +53,10 @@ View = {
   },
   setViewMode : function(url, bool) {
     view_mode = Session.get("view_mode");
-    if (view_mode !== undefined) {
-      Session.set("view_mode", {url: bool});
+    if (view_mode === undefined) {
+      o = {}
+      o[url] = bool;
+      Session.set("view_mode", o);
     } else {
       view_mode[url] = bool;
       Session.set("view_mode", view_mode);
