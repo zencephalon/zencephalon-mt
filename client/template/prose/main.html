@@ -1,4 +1,5 @@
 <template name="prose">
+  <div class="sub_container" data-url="{{prose.url}}">
   {{#unless currentUser}}
     {{> prose_view}}
   {{else}}
@@ -8,4 +9,5 @@
       {{> prose_edit}}
     {{/if}}
   {{/unless}}
+  </div>
 </template>

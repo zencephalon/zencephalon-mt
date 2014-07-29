@@ -2,7 +2,7 @@ Template.prose_view.prose = Template.prose_edit.prose;
 
 Template.prose_view.events({
   'click h1.title': function() {
-    Session.set("view_mode", false);
+    View.setViewMode(this.prose.url, false);
   },
   'mouseover a': function(e) {
     var target = $(e.target);
@@ -49,6 +49,5 @@ Template.prose_view.branch_text = function() {
 
 Template.prose_view.rendered = function() {
   $(document).ready(function() {
-    View.restore();
   })
 }

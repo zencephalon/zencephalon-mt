@@ -147,7 +147,7 @@ Editor = {
     var sub_prose = Proses.get(url);
     if (sub_prose !== undefined) {
       Meteor.subscribe("branch_by_url", url);
-      UI.insert(UI.renderWithData(Template.prose_subedit, {branch: sub_prose.getBranch(), prose: sub_prose}), target.parentNode.parentNode, target.parentNode.nextSibling);
+      UI.insert(UI.renderWithData(Template.prose, {branch: sub_prose.getBranch(), prose: sub_prose}), target.parentNode.parentNode.parentNode, target.parentNode.parentNode.nextSibling);
     }
   },
 
@@ -178,6 +178,23 @@ Editor = {
   bindKeys : function() {
     Mousetrap.bind('tab', function(e) {
       return Editor.cycle(e.target);
+    });
+    Mousetrap.bind('mod+s', function(e) {
+      e.preventDefault();
+      console.log(e.target.tagName);
+      if (e.target.tagName === 'TEXTAREA') {
+        prose_url = $(e.target).parent().attr('data-url');
+        console.log(prose_url);
+        Editor.saveProse(e.target);
+        View.save(e.target);
+        View.setViewMode(prose_url, true);
+        Session.set("last_saved", prose_url);
+      } else {
+        last_saved = Session.get("last_saved");
+        if (last_saved !== undefined) {
+          View.setViewMode(last_saved, false);
+        }
+      }
     });
     Mousetrap.bind('ctrl+shift+t', function(e) {
       Editor.loadSubedit("todo", e.target);

@@ -17,9 +17,6 @@ Template.quickswitcher.events({
   'submit form': function(event) { 
     event.preventDefault();
 
-    if (View.editMode()) {
-      //Editor.saveProse(false, false);
-    }
     Router.go('prose', {url: $('#switcher').val()});
     View.autosize();
   }
