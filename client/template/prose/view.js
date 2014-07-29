@@ -35,13 +35,13 @@ Template.prose_view.events({
 });
 
 Template.prose_view.branch_text = function() {
-  branch = Session.get("selected_branch");
+  branch = this.branch;
   if (branch !== undefined) {
     if (Meteor.user()) {
-      branch.text = EPrimer.showErrors(branch.text);
-      branch.text = Lover.showLove(branch.text);
+      text = EPrimer.showErrors(branch.text);
+      text = Lover.showLove(branch.text);
     }
-    return branch.text;
+    return text;
   } else {
     return "Loading...";
   }
