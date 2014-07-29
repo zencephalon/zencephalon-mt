@@ -3,7 +3,8 @@ Template.branch_list.branch_display = function(current_branch, parent_branch_len
   output = "<table><tr>";
   function branch_url(branch, parent_branch_length) {
     // FIXME: this is bad coupling.
-    return "<a href='/" + prose.url + "/b/" + branch + "'" + (branch === prose.branch ? "class='active'" : "") + ">" + branch.substr(parent_branch_length) + "</a>";
+    prose = new Prose(prose);
+    return "<a href='/" + prose.url + "/b/" + branch + "'" + (branch === prose.getBranch().name ? "class='active'" : "") + ">" + branch.substr(parent_branch_length) + "</a>";
   }
 
   while (_.contains(branch_names, current_branch)) {
