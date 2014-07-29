@@ -182,7 +182,7 @@ Editor = {
 
       View.save(target);
       View.setViewMode(prose_url, true);
-      
+
       Session.set("last_saved", prose_url);
     } else {
       last_saved = Session.get("last_saved");
@@ -226,7 +226,7 @@ Editor = {
       return false;
     });
     Mousetrap.bind('ctrl+enter', function(e) {Editor.loadSubeditFromTargetSelection(e.target); return false});
-    // Create new DeftDraft object.
+
     Mousetrap.bind('ctrl+z', function(e) {
       return Editor.ddFunction(e.target, function(dd, target) {
         old = $(target).getSelection().start;
@@ -275,12 +275,5 @@ Editor = {
 
   initView : function() {
     this.bindKeys();
-
-    if (Session.get("just_loaded")) {
-      // Restore the viewport
-      View.restore();
-
-      Session.set("just_loaded", false);
-    }
   }
 }
