@@ -1,5 +1,3 @@
-Template.prose_view.prose = Template.prose_edit.prose;
-
 Template.prose_view.events({
   'click h1.title': function() {
     View.setViewMode(this.prose.url, false);
@@ -37,8 +35,9 @@ Template.prose_view.events({
 Template.prose_view.branch_text = function() {
   branch = this.branch;
   if (branch !== undefined) {
+    text = branch.text;
     if (Meteor.user()) {
-      text = EPrimer.showErrors(branch.text);
+      text = EPrimer.showErrors(text);
       text = Lover.showLove(text);
     }
     return text;
