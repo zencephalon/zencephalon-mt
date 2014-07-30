@@ -8,7 +8,6 @@ getRouteData = function(url, branch_name) {
   if (!(prose.journal || prose.private) || Meteor.user()) {
     Session.set("selected_prose", prose);
     Session.set("selected_branch", branch);
-    Session.set("just_loaded", true);
     return {prose: prose, branch: branch};
   }
 }
