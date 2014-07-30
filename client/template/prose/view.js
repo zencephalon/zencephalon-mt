@@ -39,15 +39,10 @@ Template.prose_view.branch_text = function() {
   if (branch !== undefined) {
     if (Meteor.user()) {
       text = EPrimer.showErrors(branch.text);
-      text = Lover.showLove(branch.text);
+      text = Lover.showLove(text);
     }
     return text;
   } else {
     return "Loading...";
   }
-}
-
-Template.prose_view.rendered = function() {
-  $(document).ready(function() {
-  })
 }
