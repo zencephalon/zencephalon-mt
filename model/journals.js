@@ -45,11 +45,10 @@ Journal = {
     });
   },
   keyBindFunc : function(j) {
-    //View.save();
     View.setViewMode(j, false);
     Session.set("journal_day", j);
     Router.go('prose', {url: j}); 
-    View.autosize();
+    View.autosize_delayed();
     return false;
   },
   bindKeys : function() {

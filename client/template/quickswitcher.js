@@ -18,7 +18,7 @@ Template.quickswitcher.events({
     event.preventDefault();
 
     Router.go('prose', {url: $('#switcher').val()});
-    View.autosize();
+    View.autosize_delayed();
   }
 });
 
