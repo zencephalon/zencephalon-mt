@@ -4,7 +4,7 @@ Router.configure({
 
 getRouteData = function(url, branch_name) {
   var prose = Proses.get(url);
-  var branch = Branches.getByUrl(url, branch_name);
+  var branch = prose.getBranch(branch_name);
   if (!(prose.journal || prose.private) || Meteor.user()) {
     Session.set("selected_prose", prose);
     Session.set("selected_branch", branch);
@@ -76,10 +76,9 @@ Router.map(function() {
   this.route('prose', {
     path: '/:url',
     template: 'prose',
-    data: getRouteData,
     waitOn: waitOnFunction,
     data: function() {
-      return getRouteData(this.params.url, false);
+      return getRouteData(this.params.url, undefined);
     }
   });
 
