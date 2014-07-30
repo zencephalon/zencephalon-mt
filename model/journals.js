@@ -48,7 +48,7 @@ Journal = {
     View.setViewMode(j, false);
     Session.set("journal_day", j);
     Router.go('prose', {url: j}); 
-    View.autosize_delayed();
+    View.autosize();
     return false;
   },
   bindKeys : function() {
