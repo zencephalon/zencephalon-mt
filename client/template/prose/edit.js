@@ -22,12 +22,6 @@ Template.prose_edit.settings = function() {
 }
 
 Template.prose_edit.events({
-  'click a.save': function() {
-    Editor.saveProse(true, true)
-  },
-  'click a.edit_toggle': function() {
-    Editor.saveProse(false, true);
-  },
   'click a.formatting_toggle': function() {
     Session.set('display_formatting', !Session.get('display_formatting'));
   },
@@ -35,14 +29,6 @@ Template.prose_edit.events({
     Session.set('display_shortcuts', !Session.get('display_shortcuts'));
   }
 });
-
-
-Template.prose_edit.created = function() {
-}
-
-Template.prose_edit.destroyed = function() {
-  Editor.unbindKeys();
-}
 
 Template.prose_edit.rendered = function() {
   $(document).ready(function() {
