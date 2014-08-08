@@ -1,6 +1,6 @@
 EPrimer = {
   showErrors : function(text) {
-    _.each(["be", "being", "been", "am", "is", "isn't", "are", "aren't", "was", "wasn't", "were", "weren't", "I'm", "you're", "we're", "they're", "he's", "she's", "it's", "there's", "here's", "where's", "how's", "what's", "who's", "that's"], 
+    _.each(["be", "being", "been", "am", "is", "isn't", "are", "aren't", "was", "wasn't", "were", "weren't", "I'm", "you're", "we're", "they're", "he's", "she's", "it's", "there's", "here's", "where's", "how's", "what's", "who's", "that's", "love", "you", "your", "yourself", "you're"], 
       function(word) {
         text = EPrimer.highlighter(word, text);
     });
