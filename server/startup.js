@@ -8,6 +8,7 @@ if (Meteor.isServer) {
     if (_Proses.find().count() === 0) {
       Proses.create("My Brain on Zen", "index", "I'm Matthew Bunday and I love you.", false);
       Proses.create("I love Daria!", "i_love_daria", "Daria is seriously the best.", false);
+      _Proses._ensureIndex({url: 1}, {unique: true});
     }
 
     if (_Counts.find().count() === 0) {
