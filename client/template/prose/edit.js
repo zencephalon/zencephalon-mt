@@ -21,15 +21,6 @@ Template.prose_edit.settings = function() {
   }
 }
 
-Template.prose_edit.events({
-  'click a.formatting_toggle': function() {
-    Session.set('display_formatting', !Session.get('display_formatting'));
-  },
-  'click a.shortcuts_toggle': function() {
-    Session.set('display_shortcuts', !Session.get('display_shortcuts'));
-  }
-});
-
 Template.prose_edit.rendered = function() {
   $(document).ready(function() {
     Editor.initView();
