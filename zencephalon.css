@@ -231,3 +231,7 @@ textarea.saved:focus {
 .active {
   color: #000 !important;
 }
+
+.hidden {
+  display: none;
+}

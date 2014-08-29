@@ -195,6 +195,9 @@ Editor = {
   },
 
   bindKeys : function() {
+    Mousetrap.bind('ctrl+shift+space', function(e) {
+      $('body').toggleClass('hidden');
+    });
     Mousetrap.bind('tab', function(e) {
       return Editor.cycle(e.target);
     });
