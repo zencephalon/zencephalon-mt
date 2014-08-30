@@ -194,9 +194,28 @@ Editor = {
     return false;
   },
 
+  toggleStealth : function(target) {
+    if (target.tagName === 'TEXTAREA') {
+      prose_url = $(target).parent().attr('data-url');
+      Editor.saveProse(target);
+
+      View.save(target);
+      $('body').toggleClass('hidden');
+
+      Session.set("last_saved", prose_url);
+    } else {
+      $('body').toggleClass('hidden');
+      last_saved = Session.get("last_saved");
+      if (last_saved !== undefined) {
+        View.restore_delayed(last_saved);
+      }
+    }
+    return false;
+  },
+
   bindKeys : function() {
     Mousetrap.bind('ctrl+shift+space', function(e) {
-      $('body').toggleClass('hidden');
+      return Editor.toggleStealth(e.target);
     });
     Mousetrap.bind('tab', function(e) {
       return Editor.cycle(e.target);
