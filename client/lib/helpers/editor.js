@@ -175,16 +175,19 @@ Editor = {
     return true;
   },
 
-  toggleView : function(target) {
+  toggle : function(target, editorFunc, toggledFunc) {
     if (target.tagName === 'TEXTAREA') {
       prose_url = $(target).parent().attr('data-url');
       Editor.saveProse(target);
 
       View.save(target);
-      View.setViewMode(prose_url, true);
+
+      editorFunc();
 
       Session.set("last_saved", prose_url);
     } else {
+      toggledFunc();
+
       last_saved = Session.get("last_saved");
       if (last_saved !== undefined) {
         View.setViewMode(last_saved, false);
@@ -193,25 +196,20 @@ Editor = {
     }
     return false;
   },
+  toggleView : function(target) {
+    return Editor.toggle(target, function() {
+      View.save(target);
+      View.setViewMode(prose_url, true);
+    }, function() {});
+  },
 
   toggleStealth : function(target) {
-    if (target.tagName === 'TEXTAREA') {
-      prose_url = $(target).parent().attr('data-url');
-      Editor.saveProse(target);
-
-      View.save(target);
+    hidden_tog = function() {
       $('body').toggleClass('hidden');
-
-      Session.set("last_saved", prose_url);
-    } else {
-      $('body').toggleClass('hidden');
-      last_saved = Session.get("last_saved");
-      if (last_saved !== undefined) {
-        View.restore_delayed(last_saved);
-      }
     }
-    return false;
+    return Editor.toggle(target, hidden_tog, hidden_tog);
   },
+
 
   bindKeys : function() {
     Mousetrap.bind('ctrl+shift+space', function(e) {
