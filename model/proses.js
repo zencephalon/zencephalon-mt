@@ -25,6 +25,7 @@ Prose.prototype.change_url = function(url) {
     }
 }
 
+// TODO: Fix argument order dependency here.
 Prose.prototype.update = function(title, url, text, branch, new_branch) {
     url = Util.cleanURL(url);
     if (new_branch) {
