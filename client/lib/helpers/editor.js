@@ -196,6 +196,7 @@ Editor = {
     }
     return false;
   },
+
   toggleView : function(target) {
     return Editor.toggle(target, function() {
       View.save(target);
@@ -209,7 +210,6 @@ Editor = {
     }
     return Editor.toggle(target, hidden_tog, hidden_tog);
   },
-
 
   bindKeys : function() {
     Mousetrap.bind('ctrl+shift+space', function(e) {
