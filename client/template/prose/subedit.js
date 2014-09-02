@@ -14,11 +14,11 @@ Template.prose_subedit.events({
       Editor.saveProse(e.target);
     }, 700));
   },
-  'select, mouseup': function(e) {
+  'select, mouseup, keyup': function(e) {
     var target = $(e.target);
     var selection = target.getSelection();
     if (selection !== undefined) {
-      Meteor.subscribe("branches_by_url", target.getSelection().text);
+      Meteor.subscribe("branches_by_url", selection.text);
     }
   }
 });
