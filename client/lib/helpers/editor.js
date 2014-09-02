@@ -261,21 +261,21 @@ Editor = {
       return false;
     });
 
+    function ddKeyFunc(direction, letter) {
+      return function(dd, target) {
+        dd.command(direction, letter); 
+        $(e.target).trigger('mouseup');
+        View.cursorScroll(e.target); 
+      }
+    }
+
     // Set the key bindings.
     ['w', 's', 'q'].forEach(function (letter) {
       Mousetrap.bind('ctrl+' + letter, function(e) {
-        return Editor.ddFunction(e.target, function(dd, target) {
-          dd.command('n', letter); 
-          $(e.target).trigger('mouseup');
-          View.cursorScroll(e.target); 
-        });
+        return Editor.ddFunction(e.target, ddKeyFunc('n', letter));
       });
       Mousetrap.bind('ctrl+shift+' + letter, function(e) {
-        return Editor.ddFunction(e.target, function(dd, target) {
-          dd.command('p', letter); 
-          $(e.target).trigger('mouseup');
-          View.cursorScroll(e.target); 
-        });
+        return Editor.ddFunction(e.target, ddKeyFunc('p', letter));
       });
     });
 },
