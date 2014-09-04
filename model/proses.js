@@ -43,7 +43,7 @@ Prose.prototype.save = function(live_prose, branch, new_branch) {
   if (this._id !== undefined) {
     this.update(live_prose["title"], live_prose["url"], live_prose["text"], branch, new_branch);
   } else {
-    Proses.create(live_prose.title, live_prose.url, live_prose.text, false)
+    Prose.create(live_prose.title, live_prose.url, live_prose.text, false)
   }   
 }
 
@@ -59,21 +59,20 @@ Prose.prototype.togglePrivate = function() {
   _Proses.update(this._id, {"$set": {private: !this.private}});
 }
 
-Proses = {
-  get : function(url) {
-    var prose = _Proses.findOne({url: url});
-    if (prose === undefined) {
-      return new Prose({title: url, url: url});
-    } else {
-      return new Prose(prose);
-    }
-  },
-  create : function(title, url, text, journal) {
-    branch = '0';
-    tree = ['0'];
-    url = Util.cleanURL(url);
-    prose = _Proses.insert({title: title, url: url, branch: branch, tree: tree, journal: journal, updated: new Date()})
-    Branches.create(prose, url, text, '0', true);
+Prose.get = function(url) {
+  var prose = _Proses.findOne({url: url});
+  if (prose === undefined) {
+    return new Prose({title: url, url: url});
+  } else {
+    return new Prose(prose);
   }
-
 }
+
+Prose.create = function(title, url, text, journal) {
+  branch = '0';
+  tree = ['0'];
+  url = Util.cleanURL(url);
+  prose = _Proses.insert({title: title, url: url, branch: branch, tree: tree, journal: journal, updated: new Date()})
+  Branches.create(prose, url, text, '0', true);
+}
+

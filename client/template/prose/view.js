@@ -18,7 +18,7 @@ Template.prose_view.events({
     if (href.substr(0, 4) !== 'http') {
       e.preventDefault();
 
-      var branch = Proses.get(href).getBranch();
+      var branch = Prose.get(href).getBranch();
       var subview_node = $("[data-url='" + branch.url + "']");
 
       if (subview_node.length === 0) {

@@ -13,7 +13,7 @@ Template.footer.prose_count = function() {
 }
 
 Template.footer.content = function() {
-  template = Proses.get("__footer_template__");
+  template = Prose.get("__footer_template__");
   if (template._id !== undefined) {
     return template.getBranch().text;
   }

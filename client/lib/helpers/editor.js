@@ -11,7 +11,7 @@ Editor = {
     var target = $(target);
     var parent = Editor.container(target);
 
-    var prose = Proses.get(parent.attr("data-url"));
+    var prose = Prose.get(parent.attr("data-url"));
     var branch = prose.getBranch();
 
     var liveProse = Editor.liveProse(parent);
@@ -25,7 +25,7 @@ Editor = {
   },
 
   togglePrivate : function(target) {
-    prose = Proses.get($(target.parentNode).attr("data-url"));
+    prose = Prose.get($(target.parentNode).attr("data-url"));
     prose.togglePrivate();
   },
 
@@ -144,7 +144,7 @@ Editor = {
   },
 
   loadSubedit : function(url, target) {
-    var sub_prose = Proses.get(url);
+    var sub_prose = Prose.get(url);
     if (sub_prose !== undefined) {
       Meteor.subscribe("branch_by_url", url);
       UI.insert(UI.renderWithData(Template.prose, {branch: sub_prose.getBranch(), prose: sub_prose}), target.parentNode.parentNode.parentNode, target.parentNode.parentNode.nextSibling);

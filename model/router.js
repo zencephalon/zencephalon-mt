@@ -3,7 +3,7 @@ Router.configure({
 });
 
 getRouteData = function(url, branch_name) {
-  var prose = Proses.get(url);
+  var prose = Prose.get(url);
   var branch = prose.getBranch(branch_name);
   if (!(prose.journal || prose.private) || Meteor.user()) {
     Session.set("selected_prose", prose);
@@ -96,7 +96,7 @@ Router.map(function() {
     template: 'diff',
     waitOn: waitOnFunction,
     data: function() {
-      prose = Proses.get(this.params.url);
+      prose = Prose.get(this.params.url);
       branch_name = this.params.branch_name;
       diff_branch_name = this.params.diff_branch_name;
       return {prose: prose, diff: Differ.diff(prose, branch_name, diff_branch_name)};
