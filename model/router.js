@@ -43,7 +43,7 @@ Router.map(function() {
     path: '/z/prose',
     template: 'list_proses',
     data: function() {
-      return {proses: _Proses.find({journal: {"$ne": true}}, {sort: {updated: -1}})};
+      return {proses: Proses.find({journal: {"$ne": true}}, {sort: {updated: -1}})};
     }
   });
 
@@ -51,7 +51,7 @@ Router.map(function() {
     path: '/z/journal',
     template: 'list_proses',
     data: function() {
-      return {proses: _Proses.find({journal: true}, {sort: {updated: -1}})};
+      return {proses: Proses.find({journal: true}, {sort: {updated: -1}})};
     }
   });
 

@@ -14,7 +14,7 @@ Template.prose_edit.settings = function() {
       token: '\\]\\(',
       replacement: '](',
       end_token: ')',
-      collection: _Proses,
+      collection: Proses,
       field: "url",
       template: Template.prose_url_title
     }]

@@ -1,6 +1,6 @@
-_Proses = new Meteor.Collection("proses");
+Proses = new Meteor.Collection("proses");
 
-_Proses.allow({
+Proses.allow({
   update: function() {
     return Permission.allow();
   },
@@ -20,7 +20,7 @@ Prose = function (o) {
 
 Prose.prototype.change_url = function(url) {
   if (this.url != url) {
-    _Proses.update(this._id, {"$set": {url: url}});
+    Proses.update(this._id, {"$set": {url: url}});
       Util.bulkUpdate(_Branches, {prose: this._id}, {"$set": {url: url}});
     }
 }
@@ -31,10 +31,10 @@ Prose.prototype.update = function(title, url, text, branch, new_branch) {
     if (new_branch) {
       new_branch_name = Branches.save(branch.name, this._id, this.tree, text, url, true);
       this.tree.push(new_branch_name);
-      _Proses.update(this._id, {"$set": {title: title, branch: new_branch_name, tree: this.tree, url: url, updated: new Date()}});
+      Proses.update(this._id, {"$set": {title: title, branch: new_branch_name, tree: this.tree, url: url, updated: new Date()}});
     } else {
       Branches.update(branch._id, this._id, text);
-      _Proses.update(this._id, {"$set": {title: title, url: url, updated: new Date()}});
+      Proses.update(this._id, {"$set": {title: title, url: url, updated: new Date()}});
     }
     this.change_url(url);
 }
@@ -56,11 +56,11 @@ Prose.prototype.getBranch = function(branch_name) {
 }
 
 Prose.prototype.togglePrivate = function() {
-  _Proses.update(this._id, {"$set": {private: !this.private}});
+  Proses.update(this._id, {"$set": {private: !this.private}});
 }
 
 Prose.get = function(url) {
-  var prose = _Proses.findOne({url: url});
+  var prose = Proses.findOne({url: url});
   if (prose === undefined) {
     return new Prose({title: url, url: url});
   } else {
@@ -72,7 +72,7 @@ Prose.create = function(title, url, text, journal) {
   branch = '0';
   tree = ['0'];
   url = Util.cleanURL(url);
-  prose = _Proses.insert({title: title, url: url, branch: branch, tree: tree, journal: journal, updated: new Date()})
+  prose = Proses.insert({title: title, url: url, branch: branch, tree: tree, journal: journal, updated: new Date()})
   Branches.create(prose, url, text, '0', true);
 }
 
