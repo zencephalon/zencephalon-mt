@@ -264,8 +264,8 @@ Editor = {
     function ddKeyFunc(direction, letter) {
       return function(dd, target) {
         dd.command(direction, letter); 
-        $(e.target).trigger('mouseup');
-        View.cursorScroll(e.target); 
+        $(target).trigger('mouseup');
+        View.cursorScroll(target); 
       }
     }
 
