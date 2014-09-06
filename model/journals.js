@@ -36,14 +36,15 @@ Journal = {
   },
   getPreviousDay : function() {
     return Journal.getDayFunc(function(d) {
-      return new Date(d - 60*60*24*1000);
+      return new Date(d - Journal.day_seconds);
     });
   },
   getNextDay : function() {
     return Journal.getDayFunc(function(d) {
-      return new Date(d + 60*60*24*1000);
+      return new Date(d + Journal.day_seconds);
     });
   },
+  day_seconds : 60*60*24*1000,
   keyBindFunc : function(j) {
     View.setViewMode(j, false);
     Session.set("journal_day", j);
