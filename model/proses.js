@@ -25,23 +25,22 @@ Prose.prototype.change_url = function(url) {
     }
 }
 
-// TODO: Fix argument order dependency here.
-Prose.prototype.update = function(title, url, text, branch, new_branch) {
-    url = Util.cleanURL(url);
+Prose.prototype.update = function(prose, branch, new_branch) {
+    url = Util.cleanURL(prose['url']);
     if (new_branch) {
-      new_branch_name = Branches.save(branch.name, this._id, this.tree, text, url, true);
+      new_branch_name = Branches.save(branch.name, this._id, this.tree, prose['text'], url, true);
       this.tree.push(new_branch_name);
-      Proses.update(this._id, {"$set": {title: title, branch: new_branch_name, tree: this.tree, url: url, updated: new Date()}});
+      Proses.update(this._id, {"$set": {title: prose['title'], branch: new_branch_name, tree: this.tree, url: url, updated: new Date()}});
     } else {
-      Branches.update(branch._id, this._id, text);
-      Proses.update(this._id, {"$set": {title: title, url: url, updated: new Date()}});
+      Branches.update(branch._id, this._id, prose['text']);
+      Proses.update(this._id, {"$set": {title: prose['title'], url: url, updated: new Date()}});
     }
     this.change_url(url);
 }
   
 Prose.prototype.save = function(live_prose, branch, new_branch) {
   if (this._id !== undefined) {
-    this.update(live_prose["title"], live_prose["url"], live_prose["text"], branch, new_branch);
+    this.update(live_prose, branch, new_branch);
   } else {
     Prose.create(live_prose.title, live_prose.url, live_prose.text, false)
   }   
