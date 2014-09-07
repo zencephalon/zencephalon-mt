@@ -46,3 +46,13 @@ Template.prose_view.branch_text = function() {
     return text;
   }
 }
+
+Template.prose_view.rendered = function() {
+  $(document).ready(function(){
+    setTimeout(function() {
+      $('pre code').each(function(i, block) {
+        hljs.highlightBlock(block);
+      })
+    }, 400);
+  })
+}
