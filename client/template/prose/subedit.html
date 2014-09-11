@@ -3,7 +3,7 @@
   <div class="edit_topbar">
     <input type="text" id="prose_title" value="{{prose.title}}" class="mousetrap private-{{prose.private}}"/>
   </div>
-  <textarea id="prose_text" class="mousetrap" data-prose="{{prose.url}}">{{{branch.text}}}</textarea>
+  {{#textareaAutocomplete settings=settings id="prose_text" class="mousetrap" data-prose="{{prose.url}}"}}{{{branch.text}}}{{/textareaAutocomplete}}
   <input type="text" id="prose_url" value="{{prose.url}}" style="display:none" />
   {{> branch_list}}
 </div>

@@ -23,6 +23,21 @@ Template.prose_subedit.events({
   }
 });
 
+Template.prose_subedit.settings = function() {
+  return {
+    position: "bottom",
+    limit: 5,
+    rules: [{
+      token: '\\]\\(',
+      replacement: '](',
+      end_token: ')',
+      collection: Proses,
+      field: "url",
+      template: Template.prose_url_title
+    }]
+  }
+}
+
 Template.prose_subedit.rendered = function() {
   $(document).ready(function() {
     $("textarea").autosize();
