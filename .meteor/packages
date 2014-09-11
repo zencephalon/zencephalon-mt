@@ -10,4 +10,5 @@ iron:router@0.9.1
 jquery
 showdown
 spiderable
-mizzao:autocomplete@0.4.5
+mizzao:autocomplete
+
