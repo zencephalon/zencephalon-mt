@@ -9,8 +9,6 @@ accounts-password
 iron:router@0.9.1
 jquery
 showdown
-spiderable
 zencephalon:autocomplete
-gadicohen:spiderable-remote
-gadicohen:phantomjs
+spiderable
 
