@@ -6,8 +6,8 @@
 standard-app-packages
 accounts-ui
 accounts-password
-iron-router
+cmather:iron-router@0.7.1
 jquery
 showdown
 spiderable
-autocomplete
+mizzao:autocomplete@0.4.5
