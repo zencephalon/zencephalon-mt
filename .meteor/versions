@@ -36,7 +36,6 @@ meteor-platform@1.0.2
 meteor@1.0.3
 minifiers@1.0.2
 minimongo@1.0.2
-mizzao:autocomplete@0.4.8
 mongo@1.0.4
 npm-bcrypt@0.7.7
 observe-sequence@1.0.2
@@ -61,3 +60,4 @@ tracker@1.0.2
 ui@1.0.2
 underscore@1.0.0
 webapp@1.0.3
+zencephalon:autocomplete@0.4.8
