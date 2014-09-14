@@ -237,3 +237,8 @@ textarea.saved:focus {
 .hidden {
   display: none;
 }
+
+.autosizejs {
+  font-size: 100% !important;
+  line-height: 130% !important;
+}
