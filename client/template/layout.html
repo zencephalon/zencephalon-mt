@@ -7,20 +7,15 @@
 </head>
 
 <template name="layout">
-  <head>
-    <title>zencephalon: {{prose.title}}</title>
-  </head>
-  <body>
-    <div id="content">
-      <header>
-        <a href="/index"><img src="/zenchinese.png" class="logo"/></a>
-        {{> loginButtons}}
-        {{> quickswitcher}}
-      </header>
-      {{> yield}}
-      {{> footer}}
-    </div>
-  </body>
+  <div id="content">
+    <header>
+      <a href="/index"><img src="/zenchinese.png" class="logo"/></a>
+      {{> loginButtons}}
+      {{> quickswitcher}}
+    </header>
+    {{> yield}}
+    {{> footer}}
+  </div>
 </template>
 
 <template name="prose_url_title">
