@@ -58,6 +58,8 @@ code {
     background-color: #E8F2F5;
     font-size: 40%;
     line-height: 1.4em;
+    margin-left: -1em;
+    overflow: auto;
 }
 
 #prose_title {
