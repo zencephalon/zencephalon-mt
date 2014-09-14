@@ -79,6 +79,9 @@ Router.map(function() {
     waitOn: waitOnFunction,
     data: function() {
       return getRouteData(this.params.url, undefined);
+    },
+    onAfterAction: function() {
+      document.title = this.data()['prose']['title'];
     }
   });
 
