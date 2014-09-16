@@ -19,7 +19,6 @@ ejson@1.0.1
 email@1.0.2
 follower-livedata@1.0.1
 gadicohen:phantomjs@0.0.2
-gadicohen:spiderable-remote@0.0.7
 geojson-utils@1.0.0
 html-tools@1.0.0
 htmljs@1.0.0
@@ -54,6 +53,7 @@ sha@1.0.0
 showdown@1.0.1
 spacebars-compiler@1.0.2
 spacebars@1.0.1
+spiderable@1.0.3
 srp@1.0.0
 standard-app-packages@1.0.1
 templating@1.0.5
