@@ -10,5 +10,5 @@ iron:router@0.9.1
 jquery
 showdown
 zencephalon:autocomplete
-spiderable
-
+gadicohen:spiderable-remote
+gadicohen:phantomjs
