@@ -8,19 +8,16 @@ Template.quickswitcher.settings = function() {
       end_token: '',
       collection: Proses,
       field: "url",
-      template: Template.prose_url_title
+      template: Template.prose_url_title,
+      callback: function(doc, element) {
+        Router.go('prose', {url: $('#switcher').val()});
+        $('#quickswitcher').hide();
+        View.autosize();
+        View.restore_delayed($('#switcher').val());
+      }
     }]
   }
 }
-
-Template.quickswitcher.events({
-  'submit form': function(event) { 
-    event.preventDefault();
-
-    Router.go('prose', {url: $('#switcher').val()});
-    View.autosize();
-  }
-});
 
 Template.quickswitcher.rendered = function() {
   Mousetrap.bind('ctrl+space', function(e) { 
