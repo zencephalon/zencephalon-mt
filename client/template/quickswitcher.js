@@ -19,6 +19,15 @@ Template.quickswitcher.settings = function() {
   }
 }
 
+Template.quickswitcher.events({    
+  'submit form': function(event) {     
+    event.preventDefault();    
+   
+    Router.go('prose', {url: $('#switcher').val()});   
+    View.autosize();   
+  }    
+});
+
 Template.quickswitcher.rendered = function() {
   Mousetrap.bind('ctrl+space', function(e) { 
     e.preventDefault();
