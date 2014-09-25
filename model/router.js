@@ -78,6 +78,9 @@ Router.map(function() {
     template: 'prose',
     waitOn: waitOnFunction,
     data: function() {
+      if (this.params.url.slice(-1) === "!") {
+        this.params.url = this.params.url.slice(0, -1);
+      }
       return getRouteData(this.params.url, undefined);
     },
     onAfterAction: function() {
