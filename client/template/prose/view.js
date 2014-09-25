@@ -7,6 +7,9 @@ Template.prose_view.events({
     var href = target.attr('href');
     
     if (href.substr(0, 4) !== 'http') {
+      if (href.slice(-1) === "!") {
+        href = href.slice(0, -1);
+      }
       Meteor.subscribe("prose_by_url", href);
       Meteor.subscribe("branch_by_url", href);
     }
