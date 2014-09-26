@@ -14,10 +14,8 @@ if (Meteor.isServer) {
       Counts.doCount();
     }, 1000*60*60*8); // every eight hours
 
-    Meteor.publish("proses", function() { return Proses.find(); });
-    Meteor.publish("proses_public", function() { return Proses.find({journal: {'$ne': true}, private: {'$ne': true}})});
+    Prose.subscriptions();
     Meteor.publish("counts", Counts._publication_single);
-    Meteor.publish("prose_by_url", function(url) {return Proses.find({url: url})});
     Meteor.publish("branch_by_url", function(url) {return _Branches.find({url: url, active: true})});
     Meteor.publish("branches_by_url", function(url) {return _Branches.find({url: url})});
     Meteor.publish("users", function() {

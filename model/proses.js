@@ -18,6 +18,13 @@ Prose = function (o) {
   }
 }
 
+Prose.subscriptions = function() {
+  Meteor.publish("proses", function() { return Proses.find(); });
+  Meteor.publish("proses_public", function() { return Proses.find({journal: {'$ne': true}, private: {'$ne': true}})});
+  Meteor.publish("prose_by_url", function(url) {return Proses.find({url: url})});
+}
+
+
 Prose.prototype.change_url = function(url) {
   if (this.url != url) {
     Proses.update(this._id, {"$set": {url: url}});
