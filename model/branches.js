@@ -13,6 +13,10 @@ _Branches.allow({
 });
 
 Branches = {
+  subscriptions : function() {
+    Meteor.publish("branch_by_url", function(url) {return _Branches.find({url: url, active: true})});
+    Meteor.publish("branches_by_url", function(url) {return _Branches.find({url: url})});
+  },
   get : function(prose_id, name) {
     return _Branches.findOne({prose: prose_id, name: name});
   },
@@ -44,7 +48,7 @@ Branches = {
   },
   digits : function(branch) {
     return /\d+$/.exec(branch)[0];
-  }, 
+  },
   next_sequential_branch : function(branch) {
     dig = this.digits(branch);
     next = parseInt(dig) + 1;
@@ -88,6 +92,6 @@ Branches = {
         new_branch_name = current_branch + next_lat_code + '0';
         return new_branch_name;
       }
-    } 
+    }
   }
 }

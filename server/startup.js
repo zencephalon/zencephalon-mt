@@ -15,9 +15,8 @@ if (Meteor.isServer) {
     }, 1000*60*60*8); // every eight hours
 
     Prose.subscriptions();
+    Branches.subscriptions();
     Meteor.publish("counts", Counts._publication_single);
-    Meteor.publish("branch_by_url", function(url) {return _Branches.find({url: url, active: true})});
-    Meteor.publish("branches_by_url", function(url) {return _Branches.find({url: url})});
     Meteor.publish("users", function() {
       return Meteor.users.find({}, {fields: {emails: 1, profile: 1}});
     })

@@ -24,7 +24,6 @@ Prose.subscriptions = function() {
   Meteor.publish("prose_by_url", function(url) {return Proses.find({url: url})});
 }
 
-
 Prose.prototype.change_url = function(url) {
   if (this.url != url) {
     Proses.update(this._id, {"$set": {url: url}});
