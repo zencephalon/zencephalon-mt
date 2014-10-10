@@ -12,7 +12,7 @@ Template.prose_subedit.events({
     Session.set("autosave_timer", setTimeout(function() {
       target.addClass("saved");
       Editor.saveProse(e.target);
-    }, 700));
+    }, 1500));
   },
   'select, mouseup, keyup': function(e) {
     var target = $(e.target);
@@ -26,7 +26,7 @@ Template.prose_subedit.events({
 
 Template.prose_subedit.rendered = function() {
   $(".placeholder").replaceWith(Blaze.toHTML(Blaze.With(this.data, function() { return Template.textarea; })))
-  
+
   $(document).ready(function() {
     $("textarea").autosize();
     View.autosize();
