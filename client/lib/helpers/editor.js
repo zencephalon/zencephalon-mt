@@ -11,7 +11,7 @@ Editor = {
     var target = $(target);
     var parent = Editor.container(target);
 
-    var prose = Prose.get(parent.attr("data-url"));
+    var prose = Prose.get(parent.data("url"));
     var branch = prose.getBranch();
 
     var liveProse = Editor.liveProse(parent);
@@ -23,7 +23,7 @@ Editor = {
   },
 
   togglePrivate : function(target) {
-    prose = Prose.get($(target.parentNode).attr("data-url"));
+    prose = Prose.get($(target.parentNode).data("url"));
     prose.togglePrivate();
   },
 
@@ -167,7 +167,7 @@ Editor = {
       View.save(target);
       var next = $(target).parent().parent().next(".sub_container");
       input = ((next.length !== 0) ? next.find(id) : $(id)).eq(0).focus();
-      View.restore(input.parent().parent().attr('data-url'));
+      View.restore(input.parent().parent().data('url'));
       return false;
     }
     return true;
@@ -175,7 +175,7 @@ Editor = {
 
   toggle : function(target, editorFunc, toggledFunc) {
     if (target.tagName === 'TEXTAREA') {
-      prose_url = $(target).parent().attr('data-url');
+      prose_url = $(target).parent().data('url');
       Editor.saveProse(target);
 
       View.save(target);
