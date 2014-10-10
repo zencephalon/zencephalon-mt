@@ -8,8 +8,7 @@ Editor = {
   },
 
   saveProse : function(target) {
-    var target = $(target);
-    var parent = Editor.container(target);
+    var parent = Editor.container($(target));
 
     var prose = Prose.get(parent.data("url"));
     var branch = prose.getBranch();
