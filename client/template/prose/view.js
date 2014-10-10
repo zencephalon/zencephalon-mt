@@ -7,9 +7,9 @@ Template.prose_view.events({
     var href = target.attr('href');
     
     if (href.substr(0, 4) !== 'http') {
-      // if (href.slice(-1) === "!") {
-      //   href = href.slice(0, -1);
-      // }
+      if (href.slice(-1) === "!") {
+        href = href.slice(0, -1);
+      }
       Meteor.subscribe("prose_by_url", href);
       Meteor.subscribe("branch_by_url", href);
     }
@@ -20,21 +20,22 @@ Template.prose_view.events({
 
     if (href.substr(0, 4) !== 'http') {
       e.preventDefault();
+      console.log(href);
+      if (href.slice(-1) === "!") {
+        console.log("hello");
+        var branch = Prose.get(href.slice(0, -1)).getBranch();
+        var subview_node = $("[data-url='" + branch.url + "']");
 
-      // if (href.slice(-1) === "!") {
-      //   var branch = Prose.get(href.slice(0, -1)).getBranch();
-      //   var subview_node = $("[data-url='" + branch.url + "']");
-
-      //   if (subview_node.length === 0) {
-      //     target.attr('class', 'open-link');
-      //     UI.insert(UI.renderWithData(Template.prose_subview, {branch: branch}), e.target.parentNode, e.target.nextSibling);
-      //   } else {
-      //     target.attr('class', '');
-      //     subview_node.remove();
-      //   }
-      // } else {
+        if (subview_node.length === 0) {
+          target.attr('class', 'open-link');
+          UI.insert(UI.renderWithData(Template.prose_subview, {branch: branch}), e.target.parentNode, e.target.nextSibling);
+        } else {
+          target.attr('class', '');
+          subview_node.remove();
+        }
+      } else {
         Router.go('prose', {url: href});
-      // }
+      }
     }
   }
 });
