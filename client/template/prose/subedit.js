@@ -23,22 +23,16 @@ Template.prose_subedit.events({
   }
 });
 
-Template.prose_subedit.settings = function() {
-  return {
-    position: "bottom",
-    limit: 5,
-    rules: [{
-      token: '\\]\\(',
-      replacement: '](',
-      end_token: ')',
-      collection: Proses,
-      field: "url",
-      template: Template.prose_url_title
-    }]
-  }
-}
+// Template.prose_subedit.nonreactive_textarea = function(data) {
+//   return Blaze.toHTML(Blaze.With(data, function() { return Template.textarea; }));
+// }
 
 Template.prose_subedit.rendered = function() {
+  console.log(this.data);
+  // while (this.data.branch === undefined) {
+  //   console.log("yolo");
+  // }
+  $(".placeholder").append(Blaze.toHTML(Blaze.With(this.data.branch, function() { return Template.textarea; })))
   $(document).ready(function() {
     $("textarea").autosize();
     View.autosize();
