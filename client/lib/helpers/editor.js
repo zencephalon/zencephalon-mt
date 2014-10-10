@@ -16,10 +16,8 @@ Editor = {
 
     var liveProse = Editor.liveProse(parent);
 
-    new_revision = false;
-    if (branch !== undefined && branch.updated.getTime() + 60 * 1000 * 10 < new Date().getTime()) {
-      new_revision = true;
-    }
+    new_revision = (branch !== undefined && 
+      (branch.updated.getTime() + 60 * 1000 * 10) < new Date().getTime());
 
     prose.save(liveProse, branch, new_revision);
   },
