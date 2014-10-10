@@ -13,9 +13,7 @@ getRouteData = function(url, branch_name) {
 }
 
 waitOnFunction = function() {
-  Meteor.subscribe("prose_by_url", this.params.url);
-  Meteor.subscribe("branch_by_url", this.params.url);
-  Meteor.subscribe('branches_by_url', this.params.url);
+  return [Meteor.subscribe("prose_by_url", this.params.url), Meteor.subscribe("branch_by_url", this.params.url), Meteor.subscribe('branches_by_url', this.params.url)];
 }
 
 Router.onBeforeAction(function() {
@@ -75,7 +73,7 @@ Router.map(function() {
 
   this.route('prose', {
     path: '/:url',
-    template: 'prose',
+    //template: 'prose',
     waitOn: waitOnFunction,
     data: function() {
       // if (this.params.url.slice(-1) === "!") {
@@ -83,6 +81,13 @@ Router.map(function() {
       // }
       // console.log(this.params.url);
       return getRouteData(this.params.url, undefined);
+    },
+    action: function() {
+      if (this.ready()) {
+        this.render('prose');
+      } else {
+        this.render('loading');
+      }
     },
     onAfterAction: function() {
       document.title = this.data()['prose']['title'];
