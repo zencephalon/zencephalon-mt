@@ -32,9 +32,10 @@ Template.prose_subedit.rendered = function() {
   // while (this.data.branch === undefined) {
   //   console.log("yolo");
   // }
-  $(".placeholder").append(Blaze.toHTML(Blaze.With(this.data.branch, function() { return Template.textarea; })))
+  $(".placeholder").replaceWith(Blaze.toHTML(Blaze.With(this.data, function() { return Template.textarea; })))
   $(document).ready(function() {
     $("textarea").autosize();
     View.autosize();
+    //View.restore($(".subedit").data("url"));
   });
 }

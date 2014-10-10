@@ -12,8 +12,3 @@ Template.textarea.settings = function() {
     }]
   }
 }
-
-// Template.textarea.rendered = function() {
-//   setTimeout(function(){$('textarea').val(this.data.text)}, 500);
-  
-// }
