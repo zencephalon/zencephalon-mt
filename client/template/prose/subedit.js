@@ -23,19 +23,12 @@ Template.prose_subedit.events({
   }
 });
 
-// Template.prose_subedit.nonreactive_textarea = function(data) {
-//   return Blaze.toHTML(Blaze.With(data, function() { return Template.textarea; }));
-// }
 
 Template.prose_subedit.rendered = function() {
-  console.log(this.data);
-  // while (this.data.branch === undefined) {
-  //   console.log("yolo");
-  // }
   $(".placeholder").replaceWith(Blaze.toHTML(Blaze.With(this.data, function() { return Template.textarea; })))
+  
   $(document).ready(function() {
     $("textarea").autosize();
     View.autosize();
-    //View.restore($(".subedit").data("url"));
   });
 }
