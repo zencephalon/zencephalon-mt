@@ -284,11 +284,9 @@ Editor = {
       Mousetrap.unbind('ctrl+' + letter);
       Mousetrap.unbind('ctrl+shift+' + letter);
     });
-    Mousetrap.unbind('ctrl+d');
-    Mousetrap.unbind('ctrl+z');
-    Mousetrap.unbind('ctrl+n');
-    Mousetrap.unbind('ctrl+b');
-    Mousetrap.unbind('ctrl+p');
+    ['d', 'z', 'n', 'b', 'p'].forEach(function(letter) {
+      Mousetrap.unbind('ctrl' + letter);
+    });
   },
 
   initView : function() {
