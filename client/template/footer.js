@@ -15,6 +15,8 @@ Template.footer.prose_count = function() {
 Template.footer.content = function() {
   template = Prose.get("__footer_template__");
   if (template._id !== undefined) {
-    return template.getBranch().text;
+    if (template.getBranch() !== undefined) {
+      return template.getBranch().text;
+    }
   }
 }
