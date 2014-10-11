@@ -23,7 +23,7 @@ View = {
     }
   },
   restore_delayed : function(view_id) {
-    setTimeout(function() {View.restore(view_id)}, 50);
+    setTimeout(function() {View.restore(view_id)}, 150);
   },
   restore : function(view_id) {
     if (view_id === undefined) {
