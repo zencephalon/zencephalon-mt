@@ -50,6 +50,7 @@ Journal = {
     Session.set("journal_day", j);
     Router.go('prose', {url: j}); 
     View.autosize();
+    View.restore_delayed(j);
     return false;
   },
   bindKeys : function() {
