@@ -4,8 +4,7 @@
     <input type="text" id="prose_title" value="{{prose.title}}" class="mousetrap private-{{prose.private}}"/>
   </div>
   <div id="text-height-helper"><span></span></div>
-  <div class="placeholder">
-  </div>
+  {{> textarea branch}}
   <input type="text" id="prose_url" value="{{prose.url}}" style="display:none" />
   {{> branch_list}}
 </div>

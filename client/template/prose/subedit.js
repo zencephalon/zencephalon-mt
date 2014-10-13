@@ -25,7 +25,7 @@ Template.prose_subedit.events({
 
 
 Template.prose_subedit.rendered = function() {
-  $(".placeholder").replaceWith(Blaze.toHTML(Blaze.With(this.data, function() { return Template.textarea; })))
+  //$(".placeholder").replaceWith(Blaze.toHTML(Blaze.With(this.data, function() { return Template.textarea; })))
 
   $(document).ready(function() {
     $("textarea").autosize();
