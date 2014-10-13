@@ -45,7 +45,7 @@ Prose.prototype.update = function(prose, branch, new_branch) {
 }
   
 Prose.prototype.save = function(live_prose, branch, new_branch) {
-  if (this._id !== undefined) {
+  if (this._id) {
     this.update(live_prose, branch, new_branch);
   } else {
     Prose.create(live_prose.title, live_prose.url, live_prose.text, false)
@@ -53,7 +53,7 @@ Prose.prototype.save = function(live_prose, branch, new_branch) {
 }
 
 Prose.prototype.getBranch = function(branch_name) {
-  if (branch_name !== undefined) {
+  if (branch_name) {
     return Branches.get(this._id, branch_name);
   } else {
     return Branches.get(this._id, this.branch);
