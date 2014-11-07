@@ -1,23 +1,25 @@
-Template.quickswitcher.settings = function() {
-  return {
-    position: "bottom",
-    limit: 5,
-    rules: [{
-      token: ':',
-      replacement: '',
-      end_token: '',
-      collection: Proses,
-      field: "url",
-      template: Template.prose_url_title,
-      callback: function(doc, element) {
-        Router.go('prose', {url: $('#switcher').val()});
-        $('#quickswitcher').hide();
-        View.autosize();
-        View.restore_delayed($('#switcher').val());
-      }
-    }]
+Template.quickswitcher.helpers({
+  settings: function() {
+    return {
+      position: "bottom",
+      limit: 5,
+      rules: [{
+        token: ':',
+        replacement: '',
+        end_token: '',
+        collection: Proses,
+        field: "url",
+        template: Template.prose_url_title,
+        callback: function(doc, element) {
+          Router.go('prose', {url: $('#switcher').val()});
+          $('#quickswitcher').hide();
+          View.autosize();
+          View.restore_delayed($('#switcher').val());
+        }
+      }]
+    }
   }
-}
+});
 
 Template.quickswitcher.events({    
   'submit form': function(event) {     
