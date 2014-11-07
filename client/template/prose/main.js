@@ -1,3 +1,5 @@
-Template.prose.view_mode = function() {
-  return View.viewMode(this.prose.url);
-}
+Template.prose.helpers({
+  view_mode: function() {
+    return View.viewMode(this.prose.url);
+  }
+});
