@@ -1,5 +1,4 @@
-Template.branch_list.helpers({
-  branch_display: function(current_branch, parent_branch_length, prose) {
+Template.branch_list.branch_display = function(current_branch, parent_branch_length, prose) {
     branch_names = _.pluck(_Branches.find({prose: prose._id}).fetch(), 'name');
     output = "<table><tr>";
     function branch_url(branch, parent_branch_length) {
@@ -34,4 +33,3 @@ Template.branch_list.helpers({
     output += "</tr></table>";
     return output;
   }
-});
