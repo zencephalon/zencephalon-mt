@@ -174,14 +174,14 @@ Editor = {
 
   toggle : function(target, editorFunc, toggledFunc) {
     if (target.tagName === 'TEXTAREA') {
-      prose_url = $(target).parent().data('url');
+      prose_id = $(target).data('prose');
       Editor.saveProse(target);
 
       View.save(target);
 
       editorFunc();
 
-      Session.set("last_saved", prose_url);
+      Session.set("last_saved", prose_id);
     } else {
       toggledFunc();
 
@@ -197,7 +197,7 @@ Editor = {
   toggleView : function(target) {
     return Editor.toggle(target, function() {
       View.save(target);
-      View.setViewMode(prose_url, true);
+      View.setViewMode(prose_id, true);
     }, function() {});
   },
 
