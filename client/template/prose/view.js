@@ -17,23 +17,20 @@ Template.prose_view.events({
   'click a': function(e) {
     var target = $(e.target);
     var href = target.attr('href');
+    console.log("Got click!")
 
     if (href.substr(0, 4) !== 'http') {
       e.preventDefault();
-      
-      if (href.slice(-1) === "!") {
-        var branch = Prose.get(href.slice(0, -1)).getBranch();
-        var subview_node = $("[data-url='" + branch.url + "']");
+      console.log("Default prevented!")
+      var branch = Prose.get(href).getBranch();
+      var subview_node = $("[data-url='" + branch.url + "']");
 
-        if (subview_node.length === 0) {
-          target.attr('class', 'open-link');
-          UI.renderWithData(Template.prose_subview, {branch: branch}, e.target.parentNode, e.target.nextSibling);
-        } else {
-          target.attr('class', '');
-          subview_node.remove();
-        }
+      if (subview_node.length === 0) {
+        target.attr('class', 'open-link');
+        UI.renderWithData(Template.prose_subview, {branch: branch}, e.target.parentNode, e.target.nextSibling);
       } else {
-        Router.go('prose', {url: href});
+        target.attr('class', '');
+        subview_node.remove();
       }
     }
   }
