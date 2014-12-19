@@ -73,6 +73,15 @@ Prose.get = function(url) {
   }
 }
 
+Prose.id = function(id) {
+  var prose = Proses.findOne(id);
+  if (prose === undefined) {
+    return undefined;
+  } else {
+    return new Prose(prose);
+  }
+}
+
 Prose.create = function(title, url, text, journal) {
   branch = '0';
   tree = ['0'];
