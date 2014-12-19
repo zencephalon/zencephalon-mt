@@ -39,12 +39,13 @@ Template.prose_view.events({
     if (href.substr(0, 4) !== 'http') {
       e.preventDefault();
       console.log("Default prevented!")
-      var branch = Prose.get(href).getBranch();
+      var prose = Prose.get(href);
+      var branch = prose.getBranch();
       var subview_node = $("[data-url='" + branch.url + "']");
 
       if (subview_node.length === 0) {
         target.attr('class', 'open-link');
-        UI.renderWithData(Template.prose_subview, {branch: branch}, e.target.parentNode, e.target.nextSibling);
+        UI.renderWithData(Template.prose_view, {branch: branch, prose: prose}, e.target.parentNode, e.target.nextSibling);
       } else {
         target.attr('class', '');
         subview_node.remove();
@@ -71,11 +72,8 @@ Template.prose_view.helpers({
 });
 
 Template.prose_view.rendered = function() {
-  $(document).ready(function(){
-    setTimeout(function() {
-      $('pre code').each(function(i, block) {
-        hljs.highlightBlock(block);
-      })
-    }, 400);
-  })
+  console.log(this);
+  $('div[data-id=' + this.data.prose._id + ']').html(this.data.branch.text);
+  console.log(this.data.branch.text);
+  console.log($('div[data-id=' + this.data.prose._id + ']'));
 }
