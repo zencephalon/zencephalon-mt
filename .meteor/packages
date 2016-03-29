@@ -13,4 +13,5 @@ zencephalon:autocomplete
 gadicohen:phantomjs
 spiderable
 
-standard-minifiers
+standard-minifier-css
+standard-minifier-js
